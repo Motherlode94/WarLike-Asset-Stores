@@ -25,6 +25,17 @@
       "version": "1.0"
     },
     {
+      "id": "engine-animation-map",
+      "name": "Engine Animation Mapper Preset",
+      "app": "Engine",
+      "category": "Animation",
+      "description": "Associe les variantes de noms Idle/Walk/Run/Attack aux clips réellement présents du GLB lors de l'import.",
+      "status": "preset",
+      "file": "./extensions/engine-animation-map.json",
+      "format": "JSON",
+      "version": "1.0"
+    },
+    {
       "id": "studio-mix-presets",
       "name": "Studio Mix Presets",
       "app": "Studio",
