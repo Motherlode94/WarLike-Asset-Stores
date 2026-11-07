@@ -1,0 +1,44 @@
+{
+  "schema": "warlike.engine.animation-map.v1",
+  "version": 1,
+  "aliases": {
+    "idle": [
+      "idle",
+      "stand",
+      "rest",
+      "breathe"
+    ],
+    "walk": [
+      "walk",
+      "walking",
+      "march"
+    ],
+    "run": [
+      "run",
+      "running",
+      "sprint",
+      "jog"
+    ],
+    "attack": [
+      "attack",
+      "shoot",
+      "fire",
+      "punch",
+      "strike"
+    ],
+    "jump": [
+      "jump",
+      "leap"
+    ],
+    "hurt": [
+      "hurt",
+      "hit",
+      "damage"
+    ],
+    "death": [
+      "death",
+      "die",
+      "dead"
+    ]
+  }
+}
