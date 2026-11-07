@@ -1,0 +1,79 @@
+{
+  "schema": "warlike.studio.mix-presets.v1",
+  "compatibility": "reference-only",
+  "presets": [
+    {
+      "id": "vocal-clean",
+      "name": "Voix claire",
+      "chain": [
+        {
+          "type": "highpass",
+          "frequencyHz": 80
+        },
+        {
+          "type": "compressor",
+          "ratio": 3,
+          "thresholdDb": -18,
+          "attackMs": 15,
+          "releaseMs": 100
+        },
+        {
+          "type": "deesser",
+          "frequencyHz": 6500
+        },
+        {
+          "type": "limiter",
+          "ceilingDb": -1
+        }
+      ]
+    },
+    {
+      "id": "vocal-trap",
+      "name": "Trap Lead",
+      "chain": [
+        {
+          "type": "highpass",
+          "frequencyHz": 90
+        },
+        {
+          "type": "equalizer",
+          "presenceHz": 3500,
+          "presenceDb": 2
+        },
+        {
+          "type": "compressor",
+          "ratio": 4,
+          "thresholdDb": -20
+        },
+        {
+          "type": "delay",
+          "mix": 0.12
+        },
+        {
+          "type": "reverb",
+          "mix": 0.1
+        }
+      ]
+    },
+    {
+      "id": "master-balanced",
+      "name": "Master équilibré",
+      "chain": [
+        {
+          "type": "equalizer",
+          "lowShelfHz": 110,
+          "lowShelfDb": 0
+        },
+        {
+          "type": "compressor",
+          "ratio": 1.5,
+          "thresholdDb": -12
+        },
+        {
+          "type": "limiter",
+          "ceilingDb": -1
+        }
+      ]
+    }
+  ]
+}
