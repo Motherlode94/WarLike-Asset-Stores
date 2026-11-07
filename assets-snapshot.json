@@ -1,0 +1,6 @@
+{
+  "repository": "Motherlode94/WarLike-Engine",
+  "commit": "7b2b4c2bcbf3a703a6575eb39b6150510081c4ff",
+  "directory": "assets/free",
+  "purpose": "One-time migration of the existing licensed asset catalog. Runtime files are served by this store, independently of Engine."
+}

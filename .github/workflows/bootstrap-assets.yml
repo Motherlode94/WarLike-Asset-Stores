@@ -1,0 +1,45 @@
+name: Migrate the existing licensed asset catalog
+on:
+  push:
+    branches: [main]
+    paths: ['assets-snapshot.json', '.github/workflows/bootstrap-assets.yml']
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: store-asset-migration
+  cancel-in-progress: false
+jobs:
+  migrate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Read the pinned source snapshot
+        id: source
+        run: |
+          node -e "const s=require('./assets-snapshot.json');if(s.repository!=='Motherlode94/WarLike-Engine'||!/^[a-f0-9]{40}$/.test(s.commit))throw Error('Invalid snapshot');require('fs').appendFileSync(process.env.GITHUB_OUTPUT,'commit='+s.commit+'\n');"
+      - uses: actions/checkout@v4
+        with:
+          repository: Motherlode94/WarLike-Engine
+          ref: ${{ steps.source.outputs.commit }}
+          path: _source
+          sparse-checkout: assets/free
+          persist-credentials: false
+      - name: Copy the source data and keep its licenses
+        run: |
+          mkdir -p assets
+          cp -a _source/assets/free assets/
+          node -e "const fs=require('fs');const counts={};for(const p of ['kenney','quaternius','kaykit'])counts[p]=JSON.parse(fs.readFileSync('assets/free/'+p+'/models.json')).length;fs.writeFileSync('assets/migration-receipt.json',JSON.stringify({source:require('./assets-snapshot.json'),counts},null,2)+'\n');"
+      - name: Commit the independent asset copy
+        run: |
+          git config user.name 'WarLike Asset Migration'
+          git config user.email 'warlike-assets@users.noreply.github.com'
+          git add assets/free assets/migration-receipt.json
+          if git diff --cached --quiet; then exit 0; fi
+          git commit -m 'Migrate licensed catalog into the independent asset store'
+          git fetch origin main
+          git rebase origin/main
+          git push origin HEAD:main
