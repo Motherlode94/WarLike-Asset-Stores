@@ -1,0 +1,22 @@
+name: WarLike Asset Store checks
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - name: Verify JavaScript syntax
+        run: |
+          node --check asset-variants.js
+          node --check catalog-bundled.js
+      - name: Run Store tests
+        run: npm test
