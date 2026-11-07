@@ -1,79 +1,90 @@
 {
   "schema": "warlike.studio.mix-presets.v1",
-  "compatibility": "reference-only",
+  "compatibility": "warlike-studio-mastering-v0.14",
   "presets": [
     {
-      "id": "vocal-clean",
-      "name": "Voix claire",
-      "chain": [
-        {
-          "type": "highpass",
-          "frequencyHz": 80
+      "id": "clear-master",
+      "name": "Voix claire · Master",
+      "description": "EQ doux, compression de bus et limiteur.",
+      "settings": {
+        "balance": {
+          "enabled": true,
+          "cut": 35,
+          "low": 0,
+          "mid": 0.75,
+          "high": 1
         },
-        {
-          "type": "compressor",
-          "ratio": 3,
-          "thresholdDb": -18,
-          "attackMs": 15,
-          "releaseMs": 100
+        "press": {
+          "enabled": true,
+          "threshold": -17,
+          "ratio": 1.8,
+          "attack": 25,
+          "release": 220,
+          "makeup": 0.5
         },
-        {
-          "type": "deesser",
-          "frequencyHz": 6500
-        },
-        {
-          "type": "limiter",
-          "ceilingDb": -1
+        "peak": {
+          "enabled": true,
+          "drive": 1,
+          "ceiling": -1,
+          "release": 130
         }
-      ]
+      }
     },
     {
-      "id": "vocal-trap",
-      "name": "Trap Lead",
-      "chain": [
-        {
-          "type": "highpass",
-          "frequencyHz": 90
+      "id": "trap-master",
+      "name": "Trap · Master",
+      "description": "Master trap énergique avec contrôle des crêtes.",
+      "settings": {
+        "balance": {
+          "enabled": true,
+          "cut": 27,
+          "low": 1,
+          "mid": 0.5,
+          "high": 0.75
         },
-        {
-          "type": "equalizer",
-          "presenceHz": 3500,
-          "presenceDb": 2
+        "press": {
+          "enabled": true,
+          "threshold": -18,
+          "ratio": 2.5,
+          "attack": 20,
+          "release": 150,
+          "makeup": 1
         },
-        {
-          "type": "compressor",
-          "ratio": 4,
-          "thresholdDb": -20
-        },
-        {
-          "type": "delay",
-          "mix": 0.12
-        },
-        {
-          "type": "reverb",
-          "mix": 0.1
+        "peak": {
+          "enabled": true,
+          "drive": 2,
+          "ceiling": -1,
+          "release": 120
         }
-      ]
+      }
     },
     {
-      "id": "master-balanced",
-      "name": "Master équilibré",
-      "chain": [
-        {
-          "type": "equalizer",
-          "lowShelfHz": 110,
-          "lowShelfDb": 0
+      "id": "soft-rnb",
+      "name": "R&B · Master",
+      "description": "Courbe douce avec transitoires préservées.",
+      "settings": {
+        "balance": {
+          "enabled": true,
+          "cut": 25,
+          "low": 0,
+          "mid": -0.5,
+          "high": 0.75
         },
-        {
-          "type": "compressor",
+        "press": {
+          "enabled": true,
+          "threshold": -16,
           "ratio": 1.5,
-          "thresholdDb": -12
+          "attack": 40,
+          "release": 300,
+          "makeup": 0.5
         },
-        {
-          "type": "limiter",
-          "ceilingDb": -1
+        "peak": {
+          "enabled": true,
+          "drive": 0.75,
+          "ceiling": -1.5,
+          "release": 180
         }
-      ]
+      }
     }
   ]
 }
