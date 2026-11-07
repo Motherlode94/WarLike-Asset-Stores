@@ -22,10 +22,10 @@ export function relatedAssetVariants(asset,all,limit=14){
 // Keep every original asset addressable and exportable from the detail variants.
 export function preferTexturedVariants(items,all=items){
  const textured=new Set(all.filter(a=>assetVariantInfo(a)?.textured).map(a=>{
-  const info=assetVariantInfo(a);return [a.author,a.pack,info.key].join('|');
+  const info=assetVariantInfo(a);return [a.author,a.pack,info.key,info.shape].join('|');
  }));
  return items.filter(a=>{
   const info=assetVariantInfo(a);
-  return !info||info.textured||!textured.has([a.author,a.pack,info.key].join('|'));
+  return !info||info.textured||!textured.has([a.author,a.pack,info.key,info.shape].join('|'));
  });
 }
