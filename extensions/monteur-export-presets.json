@@ -1,0 +1,38 @@
+{
+  "schema": "warlike.monteur.export-presets.v1",
+  "compatibility": "reference-only",
+  "profiles": [
+    {
+      "id": "hd",
+      "width": 1280,
+      "height": 720,
+      "fps": 30,
+      "videoCodec": "h264",
+      "audioCodec": "aac"
+    },
+    {
+      "id": "full-hd",
+      "width": 1920,
+      "height": 1080,
+      "fps": 30,
+      "videoCodec": "h264",
+      "audioCodec": "aac"
+    },
+    {
+      "id": "4k",
+      "width": 3840,
+      "height": 2160,
+      "fps": 30,
+      "videoCodec": "h264",
+      "audioCodec": "aac"
+    },
+    {
+      "id": "vertical",
+      "width": 1080,
+      "height": 1920,
+      "fps": 30,
+      "videoCodec": "h264",
+      "audioCodec": "aac"
+    }
+  ]
+}
