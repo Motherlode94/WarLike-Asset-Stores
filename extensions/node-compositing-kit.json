@@ -1,0 +1,78 @@
+{
+  "schema": "warlike.node.presets.v1",
+  "compatibility": "reference-only",
+  "presets": [
+    {
+      "id": "green-screen",
+      "name": "Fond vert",
+      "nodes": [
+        {
+          "id": "source",
+          "type": "VideoInput"
+        },
+        {
+          "id": "key",
+          "type": "ChromaKey",
+          "settings": {
+            "color": "#00ff00",
+            "threshold": 0.2,
+            "softness": 0.1
+          }
+        },
+        {
+          "id": "out",
+          "type": "CompositeOutput"
+        }
+      ],
+      "links": [
+        [
+          "source",
+          "key"
+        ],
+        [
+          "key",
+          "out"
+        ]
+      ]
+    },
+    {
+      "id": "cinema-grade",
+      "name": "Étalonnage cinéma",
+      "nodes": [
+        {
+          "id": "source",
+          "type": "VideoInput"
+        },
+        {
+          "id": "curves",
+          "type": "ColorCurves"
+        },
+        {
+          "id": "grain",
+          "type": "FilmGrain",
+          "settings": {
+            "strength": 0.08
+          }
+        },
+        {
+          "id": "out",
+          "type": "Output"
+        }
+      ],
+      "links": [
+        [
+          "source",
+          "curves"
+        ],
+        [
+          "curves",
+          "grain"
+        ],
+        [
+          "grain",
+          "out"
+        ]
+      ]
+    }
+  ]
+}
