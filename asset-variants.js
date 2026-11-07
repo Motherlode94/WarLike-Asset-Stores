@@ -17,3 +17,15 @@ export function relatedAssetVariants(asset,all,limit=14){
  const info=assetVariantInfo(asset);if(!info)return [];
  return all.filter(item=>item.id!==asset.id&&item.author===asset.author&&item.pack===asset.pack&&assetVariantInfo(item)?.key===info.key).slice(0,limit);
 }
+
+// In the browsing grid, show the authored textured variant when available.
+// Keep every original asset addressable and exportable from the detail variants.
+export function preferTexturedVariants(items,all=items){
+ const textured=new Set(all.filter(a=>assetVariantInfo(a)?.textured).map(a=>{
+  const info=assetVariantInfo(a);return [a.author,a.pack,info.key].join('|');
+ }));
+ return items.filter(a=>{
+  const info=assetVariantInfo(a);
+  return !info||info.textured||!textured.has([a.author,a.pack,info.key].join('|'));
+ });
+}
