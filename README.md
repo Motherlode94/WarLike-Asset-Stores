@@ -17,6 +17,6 @@ The `assets/free/warlike-originals/` package contains eight original low-poly mo
 
 ## Extension shelf
 
-`extensions.html` reads `extensions/catalog.json`, exposing downloadable ES modules and JSON resource templates for WarLike Engine, Studio, Node, Monteur and MISC. They are **manual integration resources**, not installed or executed automatically. JSON preset schemas are references until a target app implements an importer. ES modules must be explicitly imported by compatible code.
+`extensions.html` reads `extensions/catalog.json`, exposing downloadable ES modules and JSON resource templates for WarLike Engine, Studio, Node, Monteur and MISC. JSON presets can now be sent to their matching application using an origin-checked postMessage handshake and are installed in that application's browser localStorage. Installed presets can be enabled, disabled or removed in its `extensions.html` manager. Engine uses the animation-map preset for GLB clip matching, Studio uses mastering presets, Node loads validated graph-v2 templates, Monteur applies 720/1080p export profiles and MISC displays practice plans. These flows require a separate browser integration test after deployment. JavaScript extension modules remain **download-only** and are never remotely evaluated. Unsupported formats (for example Monteur 4K/H.264) do not become supported just by installing a JSON preset.
 
 `npm test` includes tests that check GLB signatures, their embedded mesh/material definitions, thumbnails and extension files.
