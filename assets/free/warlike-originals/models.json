@@ -1,0 +1,98 @@
+[
+  {
+    "id": "warlike-originals-tactical-checkpoint",
+    "name": "Checkpoint tactique",
+    "category": "Buildings",
+    "pack": "warlike-modular-starter",
+    "packName": "WarLike Modular Starter",
+    "url": "./assets/free/warlike-originals/tactical-checkpoint.glb",
+    "thumbnailUrl": "./assets/free/warlike-originals/tactical-checkpoint.svg",
+    "sourceUrl": "https://github.com/Motherlode94/WarLike-Asset-Stores",
+    "license": "CC0-1.0",
+    "animationClips": []
+  },
+  {
+    "id": "warlike-originals-guard-tower",
+    "name": "Tour de garde modulaire",
+    "category": "Buildings",
+    "pack": "warlike-modular-starter",
+    "packName": "WarLike Modular Starter",
+    "url": "./assets/free/warlike-originals/guard-tower.glb",
+    "thumbnailUrl": "./assets/free/warlike-originals/guard-tower.svg",
+    "sourceUrl": "https://github.com/Motherlode94/WarLike-Asset-Stores",
+    "license": "CC0-1.0",
+    "animationClips": []
+  },
+  {
+    "id": "warlike-originals-industrial-warehouse",
+    "name": "Entrepot industriel",
+    "category": "Buildings",
+    "pack": "warlike-modular-starter",
+    "packName": "WarLike Modular Starter",
+    "url": "./assets/free/warlike-originals/industrial-warehouse.glb",
+    "thumbnailUrl": "./assets/free/warlike-originals/industrial-warehouse.svg",
+    "sourceUrl": "https://github.com/Motherlode94/WarLike-Asset-Stores",
+    "license": "CC0-1.0",
+    "animationClips": []
+  },
+  {
+    "id": "warlike-originals-armored-supply-crate",
+    "name": "Caisse de ravitaillement blindee",
+    "category": "Props",
+    "pack": "warlike-modular-starter",
+    "packName": "WarLike Modular Starter",
+    "url": "./assets/free/warlike-originals/armored-supply-crate.glb",
+    "thumbnailUrl": "./assets/free/warlike-originals/armored-supply-crate.svg",
+    "sourceUrl": "https://github.com/Motherlode94/WarLike-Asset-Stores",
+    "license": "CC0-1.0",
+    "animationClips": []
+  },
+  {
+    "id": "warlike-originals-scifi-command-console",
+    "name": "Console de commandement",
+    "category": "Props",
+    "pack": "warlike-modular-starter",
+    "packName": "WarLike Modular Starter",
+    "url": "./assets/free/warlike-originals/scifi-command-console.glb",
+    "thumbnailUrl": "./assets/free/warlike-originals/scifi-command-console.svg",
+    "sourceUrl": "https://github.com/Motherlode94/WarLike-Asset-Stores",
+    "license": "CC0-1.0",
+    "animationClips": []
+  },
+  {
+    "id": "warlike-originals-mars-habitat",
+    "name": "Habitat de colonie martienne",
+    "category": "Buildings",
+    "pack": "warlike-modular-starter",
+    "packName": "WarLike Modular Starter",
+    "url": "./assets/free/warlike-originals/mars-habitat.glb",
+    "thumbnailUrl": "./assets/free/warlike-originals/mars-habitat.svg",
+    "sourceUrl": "https://github.com/Motherlode94/WarLike-Asset-Stores",
+    "license": "CC0-1.0",
+    "animationClips": []
+  },
+  {
+    "id": "warlike-originals-concrete-road-block",
+    "name": "Barricade routiere",
+    "category": "Props",
+    "pack": "warlike-modular-starter",
+    "packName": "WarLike Modular Starter",
+    "url": "./assets/free/warlike-originals/concrete-road-block.glb",
+    "thumbnailUrl": "./assets/free/warlike-originals/concrete-road-block.svg",
+    "sourceUrl": "https://github.com/Motherlode94/WarLike-Asset-Stores",
+    "license": "CC0-1.0",
+    "animationClips": []
+  },
+  {
+    "id": "warlike-originals-farm-tractor",
+    "name": "Tracteur agricole low-poly",
+    "category": "Vehicles",
+    "pack": "warlike-modular-starter",
+    "packName": "WarLike Modular Starter",
+    "url": "./assets/free/warlike-originals/farm-tractor.glb",
+    "thumbnailUrl": "./assets/free/warlike-originals/farm-tractor.svg",
+    "sourceUrl": "https://github.com/Motherlode94/WarLike-Asset-Stores",
+    "license": "CC0-1.0",
+    "animationClips": []
+  }
+]
