@@ -1,0 +1,72 @@
+{
+  "schema": "warlike.extensions.catalog.v1",
+  "version": 1,
+  "items": [
+    {
+      "id": "engine-animation-audit",
+      "name": "Animation QA Toolkit",
+      "app": "Engine",
+      "category": "Animation",
+      "description": "Analyse les clips, rig et keyframes des GLB avant l'import.",
+      "status": "module",
+      "file": "./extensions/engine-animation-audit.js",
+      "format": "ES module",
+      "version": "1.0"
+    },
+    {
+      "id": "engine-animation-mapper",
+      "name": "Gameplay Clip Mapper",
+      "app": "Engine",
+      "category": "Animation",
+      "description": "Associe Idle, Walk, Run, Attack et Death sans inventer d'animations.",
+      "status": "module",
+      "file": "./extensions/engine-animation-mapper.js",
+      "format": "ES module",
+      "version": "1.0"
+    },
+    {
+      "id": "studio-mix-presets",
+      "name": "Studio Mix Presets",
+      "app": "Studio",
+      "category": "Audio",
+      "description": "Préréglages de chaînes vocales, bus et mastering en JSON.",
+      "status": "preset",
+      "file": "./extensions/studio-mix-presets.json",
+      "format": "JSON",
+      "version": "1.0"
+    },
+    {
+      "id": "node-compositing-kit",
+      "name": "Node Compositing Toolkit",
+      "app": "Node",
+      "category": "Compositing",
+      "description": "Modèles de graphes chroma, correction couleur et composition.",
+      "status": "preset",
+      "file": "./extensions/node-compositing-kit.json",
+      "format": "JSON",
+      "version": "1.0"
+    },
+    {
+      "id": "monteur-export-presets",
+      "name": "Monteur Export Profiles",
+      "app": "Monteur",
+      "category": "Vidéo",
+      "description": "Profils d'export vidéo 720p, 1080p, 4K et réseaux sociaux.",
+      "status": "preset",
+      "file": "./extensions/monteur-export-presets.json",
+      "format": "JSON",
+      "version": "1.0"
+    },
+    {
+      "id": "misc-practice-plan",
+      "name": "MISC Practice Planner",
+      "app": "MISC",
+      "category": "Éducation",
+      "description": "Parcours d'exercices musicaux progressifs guitare, piano et rythme.",
+      "status": "preset",
+      "file": "./extensions/misc-practice-plan.json",
+      "format": "JSON",
+      "version": "1.0"
+    }
+  ]
+}
