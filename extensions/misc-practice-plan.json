@@ -1,0 +1,51 @@
+{
+  "schema": "warlike.misc.practice-plan.v1",
+  "compatibility": "reference-only",
+  "instruments": [
+    {
+      "name": "Guitare",
+      "sessions": [
+        {
+          "week": 1,
+          "focus": "Accords ouverts",
+          "minutes": 20
+        },
+        {
+          "week": 2,
+          "focus": "Rythme et changements d'accords",
+          "minutes": 25
+        },
+        {
+          "week": 3,
+          "focus": "Gammes pentatoniques",
+          "minutes": 30
+        }
+      ]
+    },
+    {
+      "name": "Piano",
+      "sessions": [
+        {
+          "week": 1,
+          "focus": "Position des mains et gamme de Do",
+          "minutes": 20
+        },
+        {
+          "week": 2,
+          "focus": "Triades majeures et mineures",
+          "minutes": 25
+        }
+      ]
+    },
+    {
+      "name": "Rythme",
+      "sessions": [
+        {
+          "week": 1,
+          "focus": "Tempo et subdivisions",
+          "minutes": 15
+        }
+      ]
+    }
+  ]
+}
