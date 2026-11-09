@@ -78,6 +78,50 @@
       "file": "./extensions/misc-practice-plan.json",
       "format": "JSON",
       "version": "1.0"
+    },
+    {
+      "id": "warlike-cuisine-commerce",
+      "name": "Cuisine et commerce",
+      "app": "Engine",
+      "category": "Simulation",
+      "description": "Récolte, préparation, vente et approvisionnement : 4 comportements Blueprint.",
+      "status": "blueprint",
+      "file": "./extensions/warlike-cuisine-commerce.json",
+      "format": "Blueprint JSON",
+      "version": "1.0.0"
+    },
+    {
+      "id": "warlike-quete-livraison",
+      "name": "Quête de livraison",
+      "app": "Engine",
+      "category": "Quêtes",
+      "description": "Donneur de mission, colis, livraison et panneau : 4 comportements Blueprint.",
+      "status": "blueprint",
+      "file": "./extensions/warlike-quete-livraison.json",
+      "format": "Blueprint JSON",
+      "version": "1.0.0"
+    },
+    {
+      "id": "warlike-acces-securise",
+      "name": "Accès et portes",
+      "app": "Engine",
+      "category": "Interactions",
+      "description": "Interrupteur, porte à signal, console et statut : 4 comportements Blueprint.",
+      "status": "blueprint",
+      "file": "./extensions/warlike-acces-securise.json",
+      "format": "Blueprint JSON",
+      "version": "1.0.0"
+    },
+    {
+      "id": "warlike-objectifs-arcade",
+      "name": "Objectifs arcade",
+      "app": "Engine",
+      "category": "Arcade",
+      "description": "Collectibles, point de reprise, sortie et panneau : 4 comportements Blueprint.",
+      "status": "blueprint",
+      "file": "./extensions/warlike-objectifs-arcade.json",
+      "format": "Blueprint JSON",
+      "version": "1.0.0"
     }
   ]
 }

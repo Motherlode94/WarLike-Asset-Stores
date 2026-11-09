@@ -26,3 +26,9 @@ test('extension files exist and downloadable file types are explicit',()=>{
  assert.ok(manifest.items.length>=6);
  for(const item of manifest.items){assert.match(item.file,/^\.\/extensions\/[a-z0-9-]+\.(js|json)$/);assert.ok(existsSync(new URL('../'+item.file,import.meta.url)),item.file)}
 });
+test('Engine Blueprint packs can be downloaded and contain compatible recipes',()=>{
+ const manifest=JSON.parse(readFileSync(new URL('../extensions/catalog.json',import.meta.url),'utf8'));
+ const packs=manifest.items.filter(item=>item.status==='blueprint');assert.equal(packs.length,4);
+ for(const item of packs){const data=JSON.parse(readFileSync(new URL('../'+item.file,import.meta.url),'utf8'));assert.equal(item.app,'Engine');assert.equal(data.id,item.id);assert.equal(data.apiVersion,'1.0');assert.deepEqual(data.modes,['2d','3d']);assert.equal(data.recipes.length,4);assert.ok(data.recipes.every(recipe=>recipe.sequence?.event));}
+ const html=readFileSync(new URL('../extensions.html',import.meta.url),'utf8');assert.match(html,/Importer un pack \.json/);assert.match(html,/x\.status==='blueprint'\?'Ouvrir Engine'/);
+});
