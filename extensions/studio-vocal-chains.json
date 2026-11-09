@@ -1,0 +1,101 @@
+{
+  "schema": "warlike.studio.track-chains.v1",
+  "presets": [
+    {
+      "id": "voix-claire",
+      "name": "Voix claire",
+      "effects": [
+        {
+          "id": "sculpt",
+          "params": {
+            "highpass": 80,
+            "cutoff": 18000
+          }
+        },
+        {
+          "id": "glue",
+          "params": {
+            "threshold": -20,
+            "ratio": 3,
+            "attack": 12,
+            "release": 160,
+            "makeup": 1,
+            "mix": 1
+          }
+        },
+        {
+          "id": "sibil",
+          "params": {
+            "frequency": 6500,
+            "threshold": -24,
+            "range": 6,
+            "mix": 1
+          }
+        }
+      ]
+    },
+    {
+      "id": "rap-presence",
+      "name": "Rap présence",
+      "effects": [
+        {
+          "id": "sculpt",
+          "params": {
+            "highpass": 90,
+            "cutoff": 18000
+          }
+        },
+        {
+          "id": "glue",
+          "params": {
+            "threshold": -22,
+            "ratio": 4,
+            "attack": 8,
+            "release": 120,
+            "makeup": 2,
+            "mix": 1
+          }
+        },
+        {
+          "id": "sibil",
+          "params": {
+            "frequency": 7000,
+            "threshold": -26,
+            "range": 7,
+            "mix": 1
+          }
+        }
+      ]
+    },
+    {
+      "id": "voix-ambiance",
+      "name": "Voix ambiance",
+      "effects": [
+        {
+          "id": "sculpt",
+          "params": {
+            "highpass": 100,
+            "cutoff": 16000
+          }
+        },
+        {
+          "id": "glue",
+          "params": {
+            "threshold": -18,
+            "ratio": 2,
+            "attack": 20,
+            "release": 200,
+            "makeup": 1,
+            "mix": 1
+          }
+        },
+        {
+          "id": "aura",
+          "params": {
+            "mix": 0.18
+          }
+        }
+      ]
+    }
+  ]
+}
