@@ -35,6 +35,75 @@ export function generateHeightmap(input={}){
  }
  return {config:cfg,heights:values};
 }
+
+export const TERRAIN_LAYERS=Object.freeze([
+ {id:'grass',name:'Herbe',color:[.24,.53,.27,1]},
+ {id:'soil',name:'Terre',color:[.43,.31,.23,1]},
+ {id:'sand',name:'Sable',color:[.85,.72,.46,1]},
+ {id:'rock',name:'Roche',color:[.48,.51,.52,1]},
+ {id:'snow',name:'Neige',color:[.92,.94,.96,1]}
+]);
+const layerCount=TERRAIN_LAYERS.length;
+export function ensureTerrainLayers(terrain){
+ const total=terrain.config.resolution**2;
+ if(terrain.layers instanceof Float32Array&&terrain.layers.length===total*layerCount)return terrain.layers;
+ const weights=new Float32Array(total*layerCount);
+ for(let i=0;i<total;i++){
+  const h=terrain.heights[i],biome=terrain.config.biome,water=terrain.config.water;
+  const target=h<water+.04?'sand':biome==='desert'||biome==='canyon'?'sand':biome==='tundra'||h>.8?'snow':h>.65?'rock':biome==='marsh'?'soil':'grass';
+  weights[i*layerCount+TERRAIN_LAYERS.findIndex(layer=>layer.id===target)]=1;
+ }
+ terrain.layers=weights;return weights;
+}
+export function applyTerrainBrush(terrain,opts={}){
+ const n=terrain.config.resolution,u=Number(opts.u),v=Number(opts.v);
+ if(!Number.isFinite(u)||!Number.isFinite(v)||u<0||u>1||v<0||v>1) return 0;
+ const radius=clamp(Number(opts.radius)||.075,.004,.5),strength=clamp(Number(opts.strength)||.3,.001,1);
+ const mode=opts.mode||'raise';
+ const layer=mode==='paint'?TERRAIN_LAYERS.findIndex(l=>l.id===opts.layer):-1;
+ if(mode==='paint'&&layer<0)throw Error('Couche de terrain inconnue');
+ if(!['raise','lower','smooth','flatten','paint'].includes(mode))throw Error('Pinceau inconnu');
+ const heights=terrain.heights,weights=mode==='paint'?ensureTerrainLayers(terrain):null;
+ const original=mode==='smooth'?heights.slice():null;
+ const target=Number.isFinite(Number(opts.target))?clamp(Number(opts.target)):heights[Math.round(v*(n-1))*n+Math.round(u*(n-1))];
+ const minx=Math.max(0,Math.floor((u-radius)*(n-1))),maxx=Math.min(n-1,Math.ceil((u+radius)*(n-1)));
+ const miny=Math.max(0,Math.floor((v-radius)*(n-1))),maxy=Math.min(n-1,Math.ceil((v+radius)*(n-1)));
+ let changed=0;
+ for(let y=miny;y<=maxy;y++)for(let x=minx;x<=maxx;x++){
+  const distance=Math.hypot(x/(n-1)-u,y/(n-1)-v);
+  if(distance>radius)continue;
+  const falloff=(1-distance/radius)**2,power=clamp(strength*falloff),i=y*n+x;
+  if(mode==='paint'){
+   const offset=i*layerCount;
+   for(let k=0;k<layerCount;k++)weights[offset+k]*=1-power;
+   weights[offset+layer]+=power;
+   // Preserve normalised layer weights after repeated brush strokes.
+   let sum=0;for(let k=0;k<layerCount;k++)sum+=weights[offset+k];
+   if(sum>0)for(let k=0;k<layerCount;k++)weights[offset+k]/=sum;
+  }else{
+   const h=heights[i];let next=h;
+   if(mode==='raise')next=h+power*.065;
+   if(mode==='lower')next=h-power*.065;
+   if(mode==='flatten')next=h+(target-h)*power;
+   if(mode==='smooth'){
+    let sum=0,count=0;
+    for(let sy=Math.max(0,y-1);sy<=Math.min(n-1,y+1);sy++)for(let sx=Math.max(0,x-1);sx<=Math.min(n-1,x+1);sx++){sum+=original[sy*n+sx];count++}
+    next=h+(sum/count-h)*power;
+   }
+   heights[i]=clamp(next);
+  }
+  changed++;
+ }
+ return changed;
+}
+export function colorForTerrainPoint(terrain,i){
+ const weights=terrain.layers;
+ if(!(weights instanceof Float32Array)||weights.length!==terrain.heights.length*layerCount)return terrainColor(terrain.heights[i],terrain.config.water,terrain.config.biome);
+ const rgba=[0,0,0,1];
+ for(let k=0;k<layerCount;k++)for(let channel=0;channel<3;channel++)rgba[channel]+=weights[i*layerCount+k]*TERRAIN_LAYERS[k].color[channel];
+ return rgba;
+}
+
 export function scatterAssets(terrain){
  const {config:c,heights}=terrain,{resolution:n,size,seed}=c;const out=[];
  const sample=(u,v)=>{const x=Math.min(n-1,Math.max(0,Math.round(u*(n-1)))),z=Math.min(n-1,Math.max(0,Math.round(v*(n-1))));return heights[z*n+x]};
@@ -78,7 +147,7 @@ export function exportTerrainGLB(terrain){
  if(!(heights instanceof Float32Array)||heights.length!==total)throw Error('Terrain invalide');
  const vertices=new Float32Array(total*3),colors=new Float32Array(total*4),indices=new Uint32Array((n-1)*(n-1)*6);
  let low=Infinity,high=-Infinity;
- for(let z=0;z<n;z++)for(let x=0;x<n;x++){const i=z*n+x,h=heights[i],y=h*c.height;vertices.set([(x/(n-1)-.5)*c.size,y,(z/(n-1)-.5)*c.size],i*3);colors.set(terrainColor(h,c.water,c.biome),i*4);low=Math.min(low,y);high=Math.max(high,y)}
+ for(let z=0;z<n;z++)for(let x=0;x<n;x++){const i=z*n+x,h=heights[i],y=h*c.height;vertices.set([(x/(n-1)-.5)*c.size,y,(z/(n-1)-.5)*c.size],i*3);colors.set(colorForTerrainPoint(terrain,i),i*4);low=Math.min(low,y);high=Math.max(high,y)}
  let at=0;for(let z=0;z<n-1;z++)for(let x=0;x<n-1;x++){const a=z*n+x,b=a+1,d=a+n,e=d+1;indices.set([a,d,b,b,d,e],at);at+=6}
  const normal=normals(vertices,n),sections=[vertices,normal,colors,indices],data=[],views=[],accessors=[];let size=0;
  for(let i=0;i<sections.length;i++){const s=sections[i],raw=new Uint8Array(s.buffer,s.byteOffset,s.byteLength),padded=align4(raw.length),buffer=new Uint8Array(padded);buffer.set(raw);data.push(buffer);views.push({buffer:0,byteOffset:size,byteLength:raw.length,target:i===3?34963:34962});size+=padded}
@@ -88,5 +157,8 @@ export function exportTerrainGLB(terrain){
  return glbChunk(json,binary);
 }
 export function heightmapPixels(terrain){const {config,heights}=terrain,pixels=new Uint8ClampedArray(config.resolution*config.resolution*4);for(let i=0;i<heights.length;i++){const g=Math.round(heights[i]*255);pixels.set([g,g,g,255],i*4)}return pixels}
-export function previewPixels(terrain){const {config:c,heights}=terrain,pixels=new Uint8ClampedArray(c.resolution*c.resolution*4);for(let i=0;i<heights.length;i++){const h=heights[i],color=h<c.water?[.15,.38,.66,1]:terrainColor(h,c.water,c.biome);pixels.set(color.map((v,j)=>j===3?255:Math.round(v*255)),i*4)}return pixels}
-export function exportTerrainRecipe(terrain){return {schema:'warlike.gaia.terrain.v1',version:1,config:terrain.config,waterHeight:terrain.config.water*terrain.config.height,objects:scatterAssets(terrain),notes:'Terrain GLB statique. Colliders, eau dynamique et instanciation des objets nécessitent une intégration Engine explicite.'}}
+export function previewPixels(terrain){const {config:c,heights}=terrain,pixels=new Uint8ClampedArray(c.resolution*c.resolution*4);for(let i=0;i<heights.length;i++){const h=heights[i],color=h<c.water?[.15,.38,.66,1]:colorForTerrainPoint(terrain,i);pixels.set(color.map((v,j)=>j===3?255:Math.round(v*255)),i*4)}return pixels}
+export function exportTerrainRecipe(terrain){
+ const layers=ensureTerrainLayers(terrain);
+ return {schema:'warlike.gaia.terrain.v1',version:2,config:terrain.config,waterHeight:terrain.config.water*terrain.config.height,objects:scatterAssets(terrain),terrainLayers:TERRAIN_LAYERS.map(layer=>({id:layer.id,name:layer.name,color:layer.color})),heightValues:Array.from(terrain.heights),layerWeights:Array.from(layers,v=>Math.round(v*10000)/10000),notes:'Relief et couches de couleurs modifiables exportés comme données. Collisions, eau dynamique et instanciation restent à intégrer dans Engine.'};
+}
