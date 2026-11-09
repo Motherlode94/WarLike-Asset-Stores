@@ -1,0 +1,292 @@
+{
+  "schema": "warlike.node.presets.v1",
+  "presets": [
+    {
+      "id": "cinema",
+      "name": "Cinéma contrasté",
+      "graph": {
+        "schema": "warlike-node-v2",
+        "nodes": [
+          {
+            "id": "n0",
+            "type": "source",
+            "x": 70,
+            "y": 160,
+            "params": {}
+          },
+          {
+            "id": "n1",
+            "type": "contrast",
+            "x": 320,
+            "y": 160,
+            "params": {
+              "amount": 120
+            }
+          },
+          {
+            "id": "n2",
+            "type": "saturation",
+            "x": 570,
+            "y": 160,
+            "params": {
+              "amount": 85
+            }
+          },
+          {
+            "id": "n3",
+            "type": "output",
+            "x": 820,
+            "y": 160,
+            "params": {}
+          }
+        ],
+        "edges": [
+          {
+            "from": "n0",
+            "to": "n1",
+            "input": "image"
+          },
+          {
+            "from": "n1",
+            "to": "n2",
+            "input": "image"
+          },
+          {
+            "from": "n2",
+            "to": "n3",
+            "input": "image"
+          }
+        ],
+        "length": 10,
+        "fps": 25
+      }
+    },
+    {
+      "id": "monochrome",
+      "name": "Noir et blanc",
+      "graph": {
+        "schema": "warlike-node-v2",
+        "nodes": [
+          {
+            "id": "n0",
+            "type": "source",
+            "x": 70,
+            "y": 160,
+            "params": {}
+          },
+          {
+            "id": "n1",
+            "type": "grayscale",
+            "x": 320,
+            "y": 160,
+            "params": {}
+          },
+          {
+            "id": "n2",
+            "type": "contrast",
+            "x": 570,
+            "y": 160,
+            "params": {
+              "amount": 115
+            }
+          },
+          {
+            "id": "n3",
+            "type": "output",
+            "x": 820,
+            "y": 160,
+            "params": {}
+          }
+        ],
+        "edges": [
+          {
+            "from": "n0",
+            "to": "n1",
+            "input": "image"
+          },
+          {
+            "from": "n1",
+            "to": "n2",
+            "input": "image"
+          },
+          {
+            "from": "n2",
+            "to": "n3",
+            "input": "image"
+          }
+        ],
+        "length": 10,
+        "fps": 25
+      }
+    },
+    {
+      "id": "bleu",
+      "name": "Teinte bleutée",
+      "graph": {
+        "schema": "warlike-node-v2",
+        "nodes": [
+          {
+            "id": "n0",
+            "type": "source",
+            "x": 70,
+            "y": 160,
+            "params": {}
+          },
+          {
+            "id": "n1",
+            "type": "tint",
+            "x": 320,
+            "y": 160,
+            "params": {
+              "color": "#3679c8",
+              "strength": 22
+            }
+          },
+          {
+            "id": "n2",
+            "type": "contrast",
+            "x": 570,
+            "y": 160,
+            "params": {
+              "amount": 110
+            }
+          },
+          {
+            "id": "n3",
+            "type": "output",
+            "x": 820,
+            "y": 160,
+            "params": {}
+          }
+        ],
+        "edges": [
+          {
+            "from": "n0",
+            "to": "n1",
+            "input": "image"
+          },
+          {
+            "from": "n1",
+            "to": "n2",
+            "input": "image"
+          },
+          {
+            "from": "n2",
+            "to": "n3",
+            "input": "image"
+          }
+        ],
+        "length": 10,
+        "fps": 25
+      }
+    },
+    {
+      "id": "adouci",
+      "name": "Flou doux",
+      "graph": {
+        "schema": "warlike-node-v2",
+        "nodes": [
+          {
+            "id": "n0",
+            "type": "source",
+            "x": 70,
+            "y": 160,
+            "params": {}
+          },
+          {
+            "id": "n1",
+            "type": "blur",
+            "x": 320,
+            "y": 160,
+            "params": {
+              "radius": 2
+            }
+          },
+          {
+            "id": "n2",
+            "type": "brightness",
+            "x": 570,
+            "y": 160,
+            "params": {
+              "amount": 105
+            }
+          },
+          {
+            "id": "n3",
+            "type": "output",
+            "x": 820,
+            "y": 160,
+            "params": {}
+          }
+        ],
+        "edges": [
+          {
+            "from": "n0",
+            "to": "n1",
+            "input": "image"
+          },
+          {
+            "from": "n1",
+            "to": "n2",
+            "input": "image"
+          },
+          {
+            "from": "n2",
+            "to": "n3",
+            "input": "image"
+          }
+        ],
+        "length": 10,
+        "fps": 25
+      }
+    },
+    {
+      "id": "blue-screen",
+      "name": "Détourage fond bleu",
+      "graph": {
+        "schema": "warlike-node-v2",
+        "nodes": [
+          {
+            "id": "n0",
+            "type": "source",
+            "x": 70,
+            "y": 160,
+            "params": {}
+          },
+          {
+            "id": "n1",
+            "type": "chroma",
+            "x": 320,
+            "y": 160,
+            "params": {
+              "color": "#0000ff",
+              "threshold": 75,
+              "softness": 25
+            }
+          },
+          {
+            "id": "n2",
+            "type": "output",
+            "x": 570,
+            "y": 160,
+            "params": {}
+          }
+        ],
+        "edges": [
+          {
+            "from": "n0",
+            "to": "n1",
+            "input": "image"
+          },
+          {
+            "from": "n1",
+            "to": "n2",
+            "input": "image"
+          }
+        ],
+        "length": 10,
+        "fps": 25
+      }
+    }
+  ]
+}
