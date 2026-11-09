@@ -1,0 +1,188 @@
+{
+  "apiVersion": "1.0",
+  "id": "warlike-racing-checkpoints",
+  "version": "1.0.0",
+  "name": "Course et checkpoints",
+  "author": "WarLike Studio",
+  "modes": [
+    "2d",
+    "3d"
+  ],
+  "description": "Départ chronométré, deux checkpoints ordonnés et arrivée : 5 comportements.",
+  "recipes": [
+    {
+      "id": "depart",
+      "name": "Départ de course",
+      "description": "Initialise le chronomètre et les checkpoints.",
+      "sequence": {
+        "event": "interact",
+        "key": "e",
+        "radius": 130,
+        "once": true,
+        "conditions": [],
+        "instructions": [
+          {
+            "type": "setVariable",
+            "key": "raceStarted",
+            "value": 1
+          },
+          {
+            "type": "setVariable",
+            "key": "raceFinished",
+            "value": 0
+          },
+          {
+            "type": "setVariable",
+            "key": "raceElapsed",
+            "value": 0
+          },
+          {
+            "type": "setVariable",
+            "key": "raceCheckpoint",
+            "value": 0
+          },
+          {
+            "type": "message",
+            "value": "Course lancée : suis les checkpoints."
+          }
+        ]
+      }
+    },
+    {
+      "id": "checkpoint-un",
+      "name": "Checkpoint 1",
+      "description": "Traverse cette zone après le départ.",
+      "sequence": {
+        "event": "enter",
+        "key": "e",
+        "radius": 130,
+        "once": true,
+        "conditions": [
+          {
+            "type": "variable",
+            "key": "raceStarted",
+            "value": 1,
+            "operator": "=="
+          },
+          {
+            "type": "variable",
+            "key": "raceCheckpoint",
+            "value": 0,
+            "operator": "=="
+          }
+        ],
+        "instructions": [
+          {
+            "type": "setVariable",
+            "key": "raceCheckpoint",
+            "value": 1
+          },
+          {
+            "type": "message",
+            "value": "Checkpoint 1 validé."
+          }
+        ]
+      }
+    },
+    {
+      "id": "checkpoint-deux",
+      "name": "Checkpoint 2",
+      "description": "Traverse cette zone après le premier checkpoint.",
+      "sequence": {
+        "event": "enter",
+        "key": "e",
+        "radius": 130,
+        "once": true,
+        "conditions": [
+          {
+            "type": "variable",
+            "key": "raceStarted",
+            "value": 1,
+            "operator": "=="
+          },
+          {
+            "type": "variable",
+            "key": "raceCheckpoint",
+            "value": 1,
+            "operator": "=="
+          }
+        ],
+        "instructions": [
+          {
+            "type": "setVariable",
+            "key": "raceCheckpoint",
+            "value": 2
+          },
+          {
+            "type": "message",
+            "value": "Checkpoint 2 validé."
+          }
+        ]
+      }
+    },
+    {
+      "id": "arrivee",
+      "name": "Ligne d’arrivée",
+      "description": "Interagis après les deux checkpoints pour terminer le chronomètre.",
+      "sequence": {
+        "event": "interact",
+        "key": "e",
+        "radius": 130,
+        "once": false,
+        "branches": [
+          {
+            "conditions": [
+              {
+                "type": "variable",
+                "key": "raceStarted",
+                "value": 1,
+                "operator": "=="
+              },
+              {
+                "type": "variable",
+                "key": "raceCheckpoint",
+                "value": 2,
+                "operator": "=="
+              }
+            ],
+            "instructions": [
+              {
+                "type": "setVariable",
+                "key": "raceFinished",
+                "value": 1
+              },
+              {
+                "type": "winGame",
+                "value": "Course terminée !"
+              }
+            ]
+          }
+        ],
+        "elseInstructions": [
+          {
+            "type": "message",
+            "value": "Lance la course et valide les deux checkpoints."
+          }
+        ]
+      }
+    },
+    {
+      "id": "panneau",
+      "name": "Panneau de course",
+      "description": "Rappelle l’ordre du parcours.",
+      "sequence": {
+        "event": "interact",
+        "key": "e",
+        "radius": 130,
+        "once": false,
+        "conditions": [],
+        "instructions": [
+          {
+            "type": "message",
+            "value": "Démarre, traverse les deux checkpoints dans l’ordre, puis rejoins l’arrivée."
+          }
+        ]
+      }
+    }
+  ]
+}

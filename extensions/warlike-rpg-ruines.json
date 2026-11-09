@@ -1,0 +1,186 @@
+{
+  "apiVersion": "1.0",
+  "id": "warlike-rpg-ruines",
+  "version": "1.0.0",
+  "name": "RPG · Quête des ruines",
+  "author": "WarLike Studio",
+  "modes": [
+    "2d",
+    "3d"
+  ],
+  "description": "Mission, relique, récompense et soin pour un RPG : 5 comportements.",
+  "recipes": [
+    {
+      "id": "donneur",
+      "name": "Donneur de quête",
+      "description": "Accepte une quête et active son objectif.",
+      "sequence": {
+        "event": "interact",
+        "key": "e",
+        "radius": 130,
+        "once": true,
+        "conditions": [],
+        "instructions": [
+          {
+            "type": "setVariable",
+            "key": "rpgRuinesAcceptee",
+            "value": 1
+          },
+          {
+            "type": "setObjective",
+            "key": "rpgRelique",
+            "value": "Retrouver la relique"
+          },
+          {
+            "type": "message",
+            "value": "Trouve la relique dans les ruines."
+          }
+        ]
+      }
+    },
+    {
+      "id": "relique",
+      "name": "Relique de quête",
+      "description": "Récupère la relique après avoir accepté la quête.",
+      "sequence": {
+        "event": "interact",
+        "key": "e",
+        "radius": 130,
+        "once": true,
+        "conditions": [
+          {
+            "type": "variable",
+            "key": "rpgRuinesAcceptee",
+            "value": 1,
+            "operator": "=="
+          }
+        ],
+        "instructions": [
+          {
+            "type": "setVariable",
+            "key": "rpgReliqueTrouvee",
+            "value": 1
+          },
+          {
+            "type": "setVisibility",
+            "value": false
+          },
+          {
+            "type": "completeObjective",
+            "key": "rpgRelique"
+          },
+          {
+            "type": "message",
+            "value": "Relique récupérée : rapporte-la."
+          }
+        ]
+      }
+    },
+    {
+      "id": "recompense",
+      "name": "Récompense de quête",
+      "description": "Remet la récompense une seule fois après récupération.",
+      "sequence": {
+        "event": "interact",
+        "key": "e",
+        "radius": 130,
+        "once": false,
+        "branches": [
+          {
+            "conditions": [
+              {
+                "type": "variable",
+                "key": "rpgReliqueTrouvee",
+                "value": 1,
+                "operator": "=="
+              },
+              {
+                "type": "variable",
+                "key": "rpgRecompense",
+                "value": 1,
+                "operator": "!="
+              }
+            ],
+            "instructions": [
+              {
+                "type": "setVariable",
+                "key": "rpgRecompense",
+                "value": 1
+              },
+              {
+                "type": "addVariable",
+                "key": "rpgOr",
+                "value": 30
+              },
+              {
+                "type": "addVariable",
+                "key": "rpgExperience",
+                "value": 20
+              },
+              {
+                "type": "message",
+                "value": "Quête rendue : +30 or, +20 expérience."
+              }
+            ]
+          }
+        ],
+        "elseInstructions": [
+          {
+            "type": "message",
+            "value": "La relique manque ou la récompense a déjà été reçue."
+          }
+        ]
+      }
+    },
+    {
+      "id": "sanctuaire",
+      "name": "Sanctuaire de soin",
+      "description": "Rend 25 points de vie au joueur.",
+      "sequence": {
+        "event": "interact",
+        "key": "e",
+        "radius": 130,
+        "once": false,
+        "conditions": [],
+        "instructions": [
+          {
+            "type": "healObject",
+            "targetRole": "player",
+            "value": 25
+          },
+          {
+            "type": "message",
+            "value": "Le sanctuaire soigne 25 PV."
+          }
+        ]
+      }
+    },
+    {
+      "id": "butin",
+      "name": "Bourse de pièces",
+      "description": "Récupère 10 pièces d’or une seule fois.",
+      "sequence": {
+        "event": "interact",
+        "key": "e",
+        "radius": 130,
+        "once": true,
+        "conditions": [],
+        "instructions": [
+          {
+            "type": "addVariable",
+            "key": "rpgOr",
+            "value": 10
+          },
+          {
+            "type": "setVisibility",
+            "value": false
+          },
+          {
+            "type": "message",
+            "value": "Bourse récupérée : +10 or."
+          }
+        ]
+      }
+    }
+  ]
+}

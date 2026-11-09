@@ -1,0 +1,189 @@
+{
+  "apiVersion": "1.0",
+  "id": "warlike-strategie-avant-poste",
+  "version": "1.0.0",
+  "name": "Stratégie · Avant-poste",
+  "author": "WarLike Studio",
+  "modes": [
+    "2d",
+    "3d"
+  ],
+  "description": "Ressources et capture d’un avant-poste avec conditions : 5 comportements.",
+  "recipes": [
+    {
+      "id": "quartier-general",
+      "name": "Quartier général",
+      "description": "Initialise les ressources et la mission.",
+      "sequence": {
+        "event": "interact",
+        "key": "e",
+        "radius": 130,
+        "once": true,
+        "conditions": [],
+        "instructions": [
+          {
+            "type": "setVariable",
+            "key": "stratActif",
+            "value": 1
+          },
+          {
+            "type": "setVariable",
+            "key": "stratRessources",
+            "value": 0
+          },
+          {
+            "type": "setObjective",
+            "key": "stratCapture",
+            "value": "Sécuriser l’avant-poste"
+          },
+          {
+            "type": "message",
+            "value": "Récolte des ressources puis capture l’avant-poste."
+          }
+        ]
+      }
+    },
+    {
+      "id": "mine",
+      "name": "Mine",
+      "description": "Produit 5 ressources par interaction après le début.",
+      "sequence": {
+        "event": "interact",
+        "key": "e",
+        "radius": 130,
+        "once": false,
+        "branches": [
+          {
+            "conditions": [
+              {
+                "type": "variable",
+                "key": "stratActif",
+                "value": 1,
+                "operator": "=="
+              }
+            ],
+            "instructions": [
+              {
+                "type": "addVariable",
+                "key": "stratRessources",
+                "value": 5
+              },
+              {
+                "type": "message",
+                "value": "Ressources +5."
+              }
+            ]
+          }
+        ],
+        "elseInstructions": [
+          {
+            "type": "message",
+            "value": "Active d’abord le quartier général."
+          }
+        ]
+      }
+    },
+    {
+      "id": "ravitaillement",
+      "name": "Caisse de ravitaillement",
+      "description": "Fournit 5 ressources une seule fois.",
+      "sequence": {
+        "event": "interact",
+        "key": "e",
+        "radius": 130,
+        "once": true,
+        "conditions": [
+          {
+            "type": "variable",
+            "key": "stratActif",
+            "value": 1,
+            "operator": "=="
+          }
+        ],
+        "instructions": [
+          {
+            "type": "addVariable",
+            "key": "stratRessources",
+            "value": 5
+          },
+          {
+            "type": "setVisibility",
+            "value": false
+          },
+          {
+            "type": "message",
+            "value": "Ravitaillement : +5 ressources."
+          }
+        ]
+      }
+    },
+    {
+      "id": "avant-poste",
+      "name": "Capture de l’avant-poste",
+      "description": "Nécessite 10 ressources et clôt la partie.",
+      "sequence": {
+        "event": "interact",
+        "key": "e",
+        "radius": 130,
+        "once": false,
+        "branches": [
+          {
+            "conditions": [
+              {
+                "type": "variable",
+                "key": "stratActif",
+                "value": 1,
+                "operator": "=="
+              },
+              {
+                "type": "variable",
+                "key": "stratRessources",
+                "value": 10,
+                "operator": ">="
+              }
+            ],
+            "instructions": [
+              {
+                "type": "addVariable",
+                "key": "stratRessources",
+                "value": -10
+              },
+              {
+                "type": "completeObjective",
+                "key": "stratCapture"
+              },
+              {
+                "type": "winGame",
+                "value": "Avant-poste sécurisé !"
+              }
+            ]
+          }
+        ],
+        "elseInstructions": [
+          {
+            "type": "message",
+            "value": "Active le QG et rassemble 10 ressources."
+          }
+        ]
+      }
+    },
+    {
+      "id": "panneau",
+      "name": "Instructions tactiques",
+      "description": "Rappelle le but.",
+      "sequence": {
+        "event": "interact",
+        "key": "e",
+        "radius": 130,
+        "once": false,
+        "conditions": [],
+        "instructions": [
+          {
+            "type": "message",
+            "value": "Active le QG, récolte 10 ressources et sécurise le poste."
+          }
+        ]
+      }
+    }
+  ]
+}
