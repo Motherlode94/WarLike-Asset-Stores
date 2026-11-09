@@ -14,8 +14,8 @@ test('provider rejects third-party asset URLs and mismatched Library replies',()
 test('only Library delivery receipts mark an asset as sent, without writing Engine state',()=>{
  const map=new Map(),storage={getItem:k=>map.get(k),setItem:(k,v)=>map.set(k,v)};assert.equal(addedAssetIds(storage).size,0);rememberReceipt(asset.id,{resourceId:'store-123',sha256:'a'.repeat(64)},storage);assert.ok(addedAssetIds(storage).has(asset.id));assert.equal(map.size,1);assert.ok(![...map.keys()].some(k=>/prefabs|engine|local-assets/.test(k)));
 });
-test('independent UI keeps five desktop columns and the approved search/filter toolbar',()=>{
- const html=readFileSync(new URL('../index.html',import.meta.url),'utf8');assert.ok(html.includes('repeat(5,minmax(0,1fr))'));for(const id of ['search','authorFilter','genreFilter','utilityFilter','packFilter','sort'])assert.ok(html.includes('id="'+id+'"'));
+test('independent UI keeps seven desktop columns and the approved search/filter toolbar',()=>{
+ const html=readFileSync(new URL('../index.html',import.meta.url),'utf8');assert.ok(html.includes('repeat(7,minmax(0,1fr))'));for(const id of ['search','authorFilter','genreFilter','utilityFilter','packFilter','sort'])assert.ok(html.includes('id="'+id+'"'));
  assert.ok(html.includes('Ajouter à Library'));assert.ok(!html.includes('warlike-local-assets-v1'));assert.ok(!html.includes("indexedDB.open"));
  for(const file of readdirSync(new URL('../',import.meta.url)).filter(f=>f.endsWith('.js'))){const code=readFileSync(new URL('../'+file,import.meta.url),'utf8');assert.ok(!/from ['"]\.\.\/js\//.test(code),file);}
 });
