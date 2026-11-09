@@ -10,6 +10,13 @@ const packs={
  simulation:new Set(['factory-kit','city-kit-commercial','city-kit-industrial','city-kit-suburban','car-kit','cars','publictransport','farmbuildings','furniture-kit','ultimatehomeinterior','sushirestaurantkit','ultimatecrops']),
  rpg:new Set(['rpgcharacters','ultimaterpg','ultimate-monsters','modular-dungeon-kit','medievalvillagemegakit','fantasypropsmegakit','retro-fantasy-kit'])
 };
+// Genre ids used by the Store UI. Keep original mappings as fallbacks for older licensed packs.
+const extraFamilies={
+ strategy:['rts','tactical','fourx'],arcade:['arcade','platformer'],racing:['racing'],
+ scifi:['scifi','fourx'],farm:['farm','construction'],detective:['detective','adventure']
+};
 export function recommendedGenres(asset){
- return Object.keys(families).filter(id=>packs[id].has(asset.pack)||(Array.isArray(asset.genres)&&asset.genres.some(g=>families[id].includes(g))));
+ const genres=new Set(Object.keys(families).filter(id=>packs[id].has(asset.pack)||(Array.isArray(asset.genres)&&asset.genres.some(g=>families[id].includes(g)))));
+ for(const [id,keywords] of Object.entries(extraFamilies))if(Array.isArray(asset.genres)&&asset.genres.some(g=>keywords.includes(g)))genres.add(id);
+ return [...genres];
 }
