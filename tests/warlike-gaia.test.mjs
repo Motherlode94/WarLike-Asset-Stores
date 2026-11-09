@@ -33,7 +33,7 @@ test('GLB contains a genuine indexed colored triangle mesh, normals and safe emb
  assert.equal(doc.extras.warlikeGaia.biome,'forest');
  assert.ok(doc.materials.length===1);
  assert.ok(doc.buffers[0].byteLength>1000);
- assert.equal(20+len+8+view.getUint32(20+len,true)+8,bytes.length);
+ assert.equal(20+len+8+view.getUint32(20+len,true),bytes.length);
 });
 test('heightmap and biome preview are correctly sized RGBA images',()=>{
  const terrain=generateHeightmap({resolution:17,seed:7});
