@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {readFileSync} from 'node:fs';
-import {BIOMES,normalizeConfig,generateHeightmap,scatterAssets,exportTerrainGLB,exportTerrainRecipe,heightmapPixels,previewPixels} from '../extensions/warlike-gaia.js';
+import {BIOMES,TERRAIN_LAYERS,applyTerrainBrush,ensureTerrainLayers,colorForTerrainPoint,normalizeConfig,generateHeightmap,scatterAssets,exportTerrainGLB,exportTerrainRecipe,heightmapPixels,previewPixels} from '../extensions/warlike-gaia.js';
 
 test('WarLike Gaia supports eight selectable biomes and bounds terrain complexity',()=>{
  assert.equal(Object.keys(BIOMES).length,8);
@@ -50,4 +50,42 @@ test('public extension catalog exposes the standalone editor without unsafe auto
  assert.match(html,/exportTerrainGLB/);assert.match(html,/exportTerrainRecipe/);assert.match(html,/heightmapPixels/);
  const shelf=readFileSync(new URL('../extensions.html',import.meta.url),'utf8');
  assert.match(shelf,/Ouvrir le générateur/);
+});
+
+test('terrain raise/lower/smooth/flatten brushes affect local heights only',()=>{
+ const t=generateHeightmap({resolution:33,seed:101});
+ const before=t.heights.slice(),center=16*33+16;
+ assert.ok(applyTerrainBrush(t,{mode:'raise',u:.5,v:.5,radius:.15,strength:1})>0);
+ assert.ok(t.heights[center]>before[center]);
+ assert.equal(t.heights[0],before[0]);
+ const raised=t.heights[center];
+ applyTerrainBrush(t,{mode:'lower',u:.5,v:.5,radius:.15,strength:1});
+ assert.ok(t.heights[center]<raised);
+ applyTerrainBrush(t,{mode:'flatten',u:.5,v:.5,radius:.15,strength:1,target:.8});
+ assert.ok(t.heights[center]>.7);
+ applyTerrainBrush(t,{mode:'smooth',u:.5,v:.5,radius:.18,strength:1});
+ assert.ok(t.heights.every(h=>h>=0&&h<=1));
+});
+test('terrain layer brush paints normalized colors, preserves reproducible exports',()=>{
+ const t=generateHeightmap({resolution:17,seed:12});
+ assert.equal(TERRAIN_LAYERS.length,5);
+ const weights=ensureTerrainLayers(t),center=8*17+8;
+ const before=colorForTerrainPoint(t,center);
+ assert.ok(applyTerrainBrush(t,{mode:'paint',layer:'snow',u:.5,v:.5,radius:.2,strength:1})>0);
+ const sum=Array.from(weights.slice(center*5,center*5+5)).reduce((a,b)=>a+b,0);
+ assert.ok(Math.abs(sum-1)<1e-5);
+ assert.notDeepEqual(colorForTerrainPoint(t,center),before);
+ assert.equal(applyTerrainBrush(t,{mode:'paint',layer:'snow',u:-1,v:.5}),0);
+ assert.throws(()=>applyTerrainBrush(t,{mode:'paint',layer:'unknown',u:.5,v:.5}),/inconnue/);
+ const doc=exportTerrainRecipe(t);
+ assert.equal(doc.version,2);
+ assert.equal(doc.layerWeights.length,t.heights.length*5);
+ assert.equal(doc.heightValues.length,t.heights.length);
+ const bytes=exportTerrainGLB(t),jsonSize=new DataView(bytes.buffer).getUint32(12,true);
+ const gltf=JSON.parse(new TextDecoder().decode(bytes.slice(20,20+jsonSize)).trim());
+ assert.ok(gltf.meshes[0].primitives[0].attributes.COLOR_0>=0);
+});
+test('terrain studio exposes interactive brushes, layers and undo/redo',()=>{
+ const html=readFileSync(new URL('../terrain-generator.html',import.meta.url),'utf8');
+ for(const expected of ['data-tool="raise"','data-tool="lower"','data-tool="smooth"','data-tool="flatten"','data-tool="paint"','id="layers"','id="undo"','id="redo"','pointerdown','pointermove'])assert.ok(html.includes(expected),expected);
 });
