@@ -28,3 +28,11 @@ Le script `scripts/generate-genre-models.mjs` produit **88 modèles GLB autonome
 Onze genres couverts : guerre moderne, stratégie, simulation/restauration, horreur, survie, RPG, arcade, course, science-fiction, agriculture/construction et enquête. Chaque genre comprend huit éléments statiques ; les previews SVG des GLB sont schématiques, pas des captures de leurs meshes. **Ce sont des prototypes stylisés low-poly et des sprites procéduraux simples**, pas des personnages riggés, des animations, des textures AAA ni des objets dotés de gameplay. Leur licence est CC0-1.0, leur auteur est WarLike Originals, et les fichiers sont créés localement sans dépendance réseau.
 
 Pour reproduire le catalogue : `npm test` puis `npm run build`. Les fichiers produits sont des ressources réelles téléchargeables que Library peut recevoir via les transferts déjà existants ; l'intégration et la jouabilité dans Engine restent à valider séparément.
+
+## WarLike Gaia — Terrain Studio (prototype 0.1)
+
+`terrain-generator.html` est un outil **indépendant, fonctionnel dans le navigateur** et visible depuis le rayon Extensions. Le module ES local `extensions/warlike-gaia.js` génère des reliefs reproductibles à partir d'une graine, avec 8 biomes (forêt, plaines, montagnes, îles, désert, canyon, toundra, marécage), grille 17–257 points, niveau d'eau, et coordonnées de placement d'arbres et rochers.
+
+Les trois exports contiennent des **données réelles** : `.glb` = maillage 3D triangulé avec normales, couleurs de vertex et métadonnées du monde ; `.png` = heightmap 8 bits ; `.json` = configuration et liste d'instances proposées, sans exécution de scripts. Génération locale et déterministe, sans dépendance à un service tiers.
+
+**Limites connues :** la vue est une carte du dessus 2D ; le terrain exporté n'est pas encore un composant Terrain natif de WarLike Engine. Les arbres et rochers ne sont pas inclus dans le GLB et les placements JSON ne sont pas automatiquement interprétés par Engine. L'eau est un niveau numérique de référence, sans maillage ni physique. Pas d'érosion, de peinture manuelle, de streaming ou de sauvegarde de sessions d'édition dans ce prototype. L'utilisateur importe manuellement le GLB comme asset 3D dans Library ou Engine ; collisions et matériaux doivent être vérifiés dans Engine.

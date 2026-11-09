@@ -3,6 +3,18 @@
   "version": 1,
   "items": [
     {
+      "id": "warlike-gaia-terrain",
+      "name": "WarLike Gaia · Terrain Studio",
+      "app": "Engine",
+      "category": "Terrain et monde",
+      "description": "Générateur autonome de reliefs 3D : 8 biomes, cartes de hauteur, végétation planifiée, export GLB/PNG/JSON.",
+      "status": "module",
+      "file": "./extensions/warlike-gaia.js",
+      "toolUrl": "./terrain-generator.html",
+      "format": "ES module + éditeur web",
+      "version": "0.1.0"
+    },
+    {
       "id": "engine-animation-audit",
       "name": "Animation QA Toolkit",
       "app": "Engine",
