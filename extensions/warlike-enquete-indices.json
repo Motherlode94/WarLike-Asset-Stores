@@ -1,0 +1,158 @@
+{
+  "apiVersion": "1.0",
+  "id": "warlike-enquete-indices",
+  "version": "1.0.0",
+  "name": "Enquête et indices",
+  "author": "WarLike Studio",
+  "modes": [
+    "2d",
+    "3d"
+  ],
+  "description": "Collecte de trois indices et déduction finale : 5 comportements.",
+  "recipes": [
+    {
+      "id": "debut",
+      "name": "Dossier de l’affaire",
+      "description": "Ouvre l’enquête et initialise les indices.",
+      "sequence": {
+        "event": "interact",
+        "key": "e",
+        "radius": 130,
+        "once": true,
+        "conditions": [],
+        "instructions": [
+          {
+            "type": "setVariable",
+            "key": "enqueteActive",
+            "value": 1
+          },
+          {
+            "type": "setVariable",
+            "key": "enqueteIndices",
+            "value": 0
+          },
+          {
+            "type": "setObjective",
+            "key": "enquetePistes",
+            "value": "Examiner trois indices"
+          },
+          {
+            "type": "message",
+            "value": "Enquête ouverte : cherche trois indices."
+          }
+        ]
+      }
+    },
+    {
+      "id": "indice",
+      "name": "Indice examinable",
+      "description": "À appliquer à trois objets distincts ; chaque indice ne compte qu’une fois.",
+      "sequence": {
+        "event": "interact",
+        "key": "e",
+        "radius": 130,
+        "once": true,
+        "conditions": [
+          {
+            "type": "variable",
+            "key": "enqueteActive",
+            "value": 1,
+            "operator": "=="
+          }
+        ],
+        "instructions": [
+          {
+            "type": "addVariable",
+            "key": "enqueteIndices",
+            "value": 1
+          },
+          {
+            "type": "message",
+            "value": "Indice ajouté au dossier."
+          }
+        ]
+      }
+    },
+    {
+      "id": "conclusion",
+      "name": "Tableau des déductions",
+      "description": "Conclut après trois indices.",
+      "sequence": {
+        "event": "interact",
+        "key": "e",
+        "radius": 130,
+        "once": false,
+        "branches": [
+          {
+            "conditions": [
+              {
+                "type": "variable",
+                "key": "enqueteActive",
+                "value": 1,
+                "operator": "=="
+              },
+              {
+                "type": "variable",
+                "key": "enqueteIndices",
+                "value": 3,
+                "operator": ">="
+              }
+            ],
+            "instructions": [
+              {
+                "type": "completeObjective",
+                "key": "enquetePistes"
+              },
+              {
+                "type": "winGame",
+                "value": "Dossier résolu !"
+              }
+            ]
+          }
+        ],
+        "elseInstructions": [
+          {
+            "type": "message",
+            "value": "Il faut ouvrir le dossier et examiner trois indices."
+          }
+        ]
+      }
+    },
+    {
+      "id": "temoin",
+      "name": "Témoin",
+      "description": "Indique où poursuivre les recherches.",
+      "sequence": {
+        "event": "interact",
+        "key": "e",
+        "radius": 130,
+        "once": false,
+        "conditions": [],
+        "instructions": [
+          {
+            "type": "message",
+            "value": "Regarde près des trois objets marqués dans la scène."
+          }
+        ]
+      }
+    },
+    {
+      "id": "journal",
+      "name": "Panneau de rappel",
+      "description": "Rappelle la méthode au joueur.",
+      "sequence": {
+        "event": "interact",
+        "key": "e",
+        "radius": 130,
+        "once": false,
+        "conditions": [],
+        "instructions": [
+          {
+            "type": "message",
+            "value": "Ouvre le dossier, examine trois indices, puis utilise le tableau des déductions."
+          }
+        ]
+      }
+    }
+  ]
+}

@@ -1,0 +1,186 @@
+{
+  "apiVersion": "1.0",
+  "id": "warlike-infiltration-alarme",
+  "version": "1.0.0",
+  "name": "Infiltration · Alarme",
+  "author": "WarLike Studio",
+  "modes": [
+    "2d",
+    "3d"
+  ],
+  "description": "Zone d’alarme, console et sortie sécurisée : 5 comportements.",
+  "recipes": [
+    {
+      "id": "mission",
+      "name": "Début d’infiltration",
+      "description": "Initialise l’état d’alarme et l’objectif.",
+      "sequence": {
+        "event": "interact",
+        "key": "e",
+        "radius": 130,
+        "once": true,
+        "conditions": [],
+        "instructions": [
+          {
+            "type": "setVariable",
+            "key": "infiltrationActive",
+            "value": 1
+          },
+          {
+            "type": "setVariable",
+            "key": "infiltrationAlarme",
+            "value": 0
+          },
+          {
+            "type": "setObjective",
+            "key": "infiltrationSortie",
+            "value": "Atteindre la sortie sans alarme"
+          },
+          {
+            "type": "message",
+            "value": "Infiltre-toi et coupe l’alarme si elle se déclenche."
+          }
+        ]
+      }
+    },
+    {
+      "id": "zone-alarme",
+      "name": "Zone d’alarme",
+      "description": "Déclenche l’alarme à chaque entrée après le début.",
+      "sequence": {
+        "event": "enter",
+        "key": "e",
+        "radius": 130,
+        "once": false,
+        "conditions": [
+          {
+            "type": "variable",
+            "key": "infiltrationActive",
+            "value": 1,
+            "operator": "=="
+          }
+        ],
+        "instructions": [
+          {
+            "type": "setVariable",
+            "key": "infiltrationAlarme",
+            "value": 1
+          },
+          {
+            "type": "message",
+            "value": "Alerte ! Trouve la console pour couper l’alarme."
+          }
+        ]
+      }
+    },
+    {
+      "id": "console",
+      "name": "Console de désactivation",
+      "description": "Coupe l’alarme déclenchée.",
+      "sequence": {
+        "event": "interact",
+        "key": "e",
+        "radius": 130,
+        "once": false,
+        "branches": [
+          {
+            "conditions": [
+              {
+                "type": "variable",
+                "key": "infiltrationActive",
+                "value": 1,
+                "operator": "=="
+              },
+              {
+                "type": "variable",
+                "key": "infiltrationAlarme",
+                "value": 1,
+                "operator": "=="
+              }
+            ],
+            "instructions": [
+              {
+                "type": "setVariable",
+                "key": "infiltrationAlarme",
+                "value": 0
+              },
+              {
+                "type": "message",
+                "value": "Alarme désactivée."
+              }
+            ]
+          }
+        ],
+        "elseInstructions": [
+          {
+            "type": "message",
+            "value": "Aucune alarme active."
+          }
+        ]
+      }
+    },
+    {
+      "id": "sortie",
+      "name": "Extraction",
+      "description": "Termine la mission lorsque l’alarme est coupée.",
+      "sequence": {
+        "event": "interact",
+        "key": "e",
+        "radius": 130,
+        "once": false,
+        "branches": [
+          {
+            "conditions": [
+              {
+                "type": "variable",
+                "key": "infiltrationActive",
+                "value": 1,
+                "operator": "=="
+              },
+              {
+                "type": "variable",
+                "key": "infiltrationAlarme",
+                "value": 0,
+                "operator": "=="
+              }
+            ],
+            "instructions": [
+              {
+                "type": "completeObjective",
+                "key": "infiltrationSortie"
+              },
+              {
+                "type": "winGame",
+                "value": "Extraction réussie !"
+              }
+            ]
+          }
+        ],
+        "elseInstructions": [
+          {
+            "type": "message",
+            "value": "Démarre la mission et désactive l’alarme."
+          }
+        ]
+      }
+    },
+    {
+      "id": "panneau",
+      "name": "Consignes d’infiltration",
+      "description": "Explique le fonctionnement de l’alarme.",
+      "sequence": {
+        "event": "interact",
+        "key": "e",
+        "radius": 130,
+        "once": false,
+        "conditions": [],
+        "instructions": [
+          {
+            "type": "message",
+            "value": "Traverse le niveau, coupe l’alarme si nécessaire et rejoins l’extraction."
+          }
+        ]
+      }
+    }
+  ]
+}

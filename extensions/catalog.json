@@ -122,6 +122,72 @@
       "file": "./extensions/warlike-objectifs-arcade.json",
       "format": "Blueprint JSON",
       "version": "1.0.0"
+    },
+    {
+      "id": "warlike-racing-checkpoints",
+      "name": "Course et checkpoints",
+      "app": "Engine",
+      "category": "Course",
+      "description": "Départ chronométré, deux checkpoints ordonnés et arrivée : 5 comportements.",
+      "status": "blueprint",
+      "file": "./extensions/warlike-racing-checkpoints.json",
+      "format": "Blueprint JSON",
+      "version": "1.0.0"
+    },
+    {
+      "id": "warlike-rpg-ruines",
+      "name": "RPG · Quête des ruines",
+      "app": "Engine",
+      "category": "RPG",
+      "description": "Mission, relique, récompense et soin pour un RPG : 5 comportements.",
+      "status": "blueprint",
+      "file": "./extensions/warlike-rpg-ruines.json",
+      "format": "Blueprint JSON",
+      "version": "1.0.0"
+    },
+    {
+      "id": "warlike-enquete-indices",
+      "name": "Enquête et indices",
+      "app": "Engine",
+      "category": "Mystère",
+      "description": "Collecte de trois indices et déduction finale : 5 comportements.",
+      "status": "blueprint",
+      "file": "./extensions/warlike-enquete-indices.json",
+      "format": "Blueprint JSON",
+      "version": "1.0.0"
+    },
+    {
+      "id": "warlike-strategie-avant-poste",
+      "name": "Stratégie · Avant-poste",
+      "app": "Engine",
+      "category": "Stratégie",
+      "description": "Ressources et capture d’un avant-poste avec conditions : 5 comportements.",
+      "status": "blueprint",
+      "file": "./extensions/warlike-strategie-avant-poste.json",
+      "format": "Blueprint JSON",
+      "version": "1.0.0"
+    },
+    {
+      "id": "warlike-infiltration-alarme",
+      "name": "Infiltration · Alarme",
+      "app": "Engine",
+      "category": "Infiltration",
+      "description": "Zone d’alarme, console et sortie sécurisée : 5 comportements.",
+      "status": "blueprint",
+      "file": "./extensions/warlike-infiltration-alarme.json",
+      "format": "Blueprint JSON",
+      "version": "1.0.0"
+    },
+    {
+      "id": "warlike-arene-survie",
+      "name": "Arène · Survie",
+      "app": "Engine",
+      "category": "Combat",
+      "description": "Trois adversaires et une sortie conditionnelle : 5 comportements.",
+      "status": "blueprint",
+      "file": "./extensions/warlike-arene-survie.json",
+      "format": "Blueprint JSON",
+      "version": "1.0.0"
     }
   ]
 }

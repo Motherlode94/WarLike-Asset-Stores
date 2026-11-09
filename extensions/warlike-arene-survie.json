@@ -1,0 +1,163 @@
+{
+  "apiVersion": "1.0",
+  "id": "warlike-arene-survie",
+  "version": "1.0.0",
+  "name": "Arène · Survie",
+  "author": "WarLike Studio",
+  "modes": [
+    "2d",
+    "3d"
+  ],
+  "description": "Trois adversaires et une sortie conditionnelle : 5 comportements.",
+  "recipes": [
+    {
+      "id": "debut",
+      "name": "Début d’arène",
+      "description": "Initialise le compteur et l’objectif.",
+      "sequence": {
+        "event": "interact",
+        "key": "e",
+        "radius": 130,
+        "once": true,
+        "conditions": [],
+        "instructions": [
+          {
+            "type": "setVariable",
+            "key": "areneActive",
+            "value": 1
+          },
+          {
+            "type": "setVariable",
+            "key": "areneVaincus",
+            "value": 0
+          },
+          {
+            "type": "setObjective",
+            "key": "areneSurvie",
+            "value": "Vaincre trois adversaires"
+          },
+          {
+            "type": "message",
+            "value": "Arène ouverte : vaincs trois adversaires."
+          }
+        ]
+      }
+    },
+    {
+      "id": "ennemi",
+      "name": "Adversaire comptabilisé",
+      "description": "À appliquer à trois ennemis ayant des points de vie ; leur mort incrémente le compteur.",
+      "sequence": {
+        "event": "death",
+        "key": "e",
+        "radius": 130,
+        "once": true,
+        "conditions": [
+          {
+            "type": "variable",
+            "key": "areneActive",
+            "value": 1,
+            "operator": "=="
+          }
+        ],
+        "instructions": [
+          {
+            "type": "addVariable",
+            "key": "areneVaincus",
+            "value": 1
+          },
+          {
+            "type": "message",
+            "value": "Adversaire neutralisé."
+          }
+        ]
+      }
+    },
+    {
+      "id": "soin",
+      "name": "Station de soin",
+      "description": "Restaure 25 points de vie au joueur.",
+      "sequence": {
+        "event": "interact",
+        "key": "e",
+        "radius": 130,
+        "once": false,
+        "conditions": [],
+        "instructions": [
+          {
+            "type": "healObject",
+            "targetRole": "player",
+            "value": 25
+          },
+          {
+            "type": "message",
+            "value": "Soin : +25 PV."
+          }
+        ]
+      }
+    },
+    {
+      "id": "sortie",
+      "name": "Sortie de l’arène",
+      "description": "Termine la partie après trois éliminations.",
+      "sequence": {
+        "event": "interact",
+        "key": "e",
+        "radius": 130,
+        "once": false,
+        "branches": [
+          {
+            "conditions": [
+              {
+                "type": "variable",
+                "key": "areneActive",
+                "value": 1,
+                "operator": "=="
+              },
+              {
+                "type": "variable",
+                "key": "areneVaincus",
+                "value": 3,
+                "operator": ">="
+              }
+            ],
+            "instructions": [
+              {
+                "type": "completeObjective",
+                "key": "areneSurvie"
+              },
+              {
+                "type": "winGame",
+                "value": "Arène terminée !"
+              }
+            ]
+          }
+        ],
+        "elseInstructions": [
+          {
+            "type": "message",
+            "value": "Lance l’arène et vaincs trois adversaires."
+          }
+        ]
+      }
+    },
+    {
+      "id": "panneau",
+      "name": "Règles de l’arène",
+      "description": "Explique l’objectif.",
+      "sequence": {
+        "event": "interact",
+        "key": "e",
+        "radius": 130,
+        "once": false,
+        "conditions": [],
+        "instructions": [
+          {
+            "type": "message",
+            "value": "Lance l’arène, vaincs trois adversaires et rejoins la sortie."
+          }
+        ]
+      }
+    }
+  ]
+}
