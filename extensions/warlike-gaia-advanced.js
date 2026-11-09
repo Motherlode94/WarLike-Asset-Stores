@@ -63,7 +63,6 @@ export function generateTerrainTiles(config={},opts={}){
  const n=base.resolution,width=tiles*(n-1)+1;
  if(width>1025)throw Error('Grille mondiale trop grande');
  // Create one continuous world heightfield, then split it, sharing seam vertex values.
- const world=generateHeightmap({...base,resolution:257});
  const all=new Float32Array(width*width);
  for(let z=0;z<width;z++)for(let x=0;x<width;x++){
   const u=x/(width-1),v=z/(width-1),noise=advancedNoise(u,v,{seed:base.seed,frequency:5,octaves:6,warp:.32,ridge:base.biome==='mountains'?.8:.15});
