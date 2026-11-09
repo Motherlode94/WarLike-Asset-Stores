@@ -1,0 +1,131 @@
+{
+  "schema": "warlike.monteur.motion-pack.v1",
+  "presets": [
+    {
+      "id": "zoom-avant",
+      "name": "Zoom avant",
+      "start": {
+        "scale": 100,
+        "x": 0,
+        "y": 0,
+        "rotation": 0,
+        "opacity": 100
+      },
+      "end": {
+        "scale": 120,
+        "x": 0,
+        "y": 0,
+        "rotation": 0,
+        "opacity": 100
+      }
+    },
+    {
+      "id": "zoom-arriere",
+      "name": "Zoom arrière",
+      "start": {
+        "scale": 120,
+        "x": 0,
+        "y": 0,
+        "rotation": 0,
+        "opacity": 100
+      },
+      "end": {
+        "scale": 100,
+        "x": 0,
+        "y": 0,
+        "rotation": 0,
+        "opacity": 100
+      }
+    },
+    {
+      "id": "panoramique-droite",
+      "name": "Panoramique vers la droite",
+      "start": {
+        "scale": 112,
+        "x": -6,
+        "y": 0,
+        "rotation": 0,
+        "opacity": 100
+      },
+      "end": {
+        "scale": 112,
+        "x": 6,
+        "y": 0,
+        "rotation": 0,
+        "opacity": 100
+      }
+    },
+    {
+      "id": "panoramique-gauche",
+      "name": "Panoramique vers la gauche",
+      "start": {
+        "scale": 112,
+        "x": 6,
+        "y": 0,
+        "rotation": 0,
+        "opacity": 100
+      },
+      "end": {
+        "scale": 112,
+        "x": -6,
+        "y": 0,
+        "rotation": 0,
+        "opacity": 100
+      }
+    },
+    {
+      "id": "apparition",
+      "name": "Fondu d’apparition",
+      "start": {
+        "scale": 100,
+        "x": 0,
+        "y": 0,
+        "rotation": 0,
+        "opacity": 0
+      },
+      "end": {
+        "scale": 100,
+        "x": 0,
+        "y": 0,
+        "rotation": 0,
+        "opacity": 100
+      }
+    },
+    {
+      "id": "disparition",
+      "name": "Fondu de disparition",
+      "start": {
+        "scale": 100,
+        "x": 0,
+        "y": 0,
+        "rotation": 0,
+        "opacity": 100
+      },
+      "end": {
+        "scale": 100,
+        "x": 0,
+        "y": 0,
+        "rotation": 0,
+        "opacity": 0
+      }
+    },
+    {
+      "id": "ascension",
+      "name": "Mouvement vertical",
+      "start": {
+        "scale": 110,
+        "x": 0,
+        "y": 5,
+        "rotation": 0,
+        "opacity": 100
+      },
+      "end": {
+        "scale": 110,
+        "x": 0,
+        "y": -5,
+        "rotation": 0,
+        "opacity": 100
+      }
+    }
+  ]
+}
