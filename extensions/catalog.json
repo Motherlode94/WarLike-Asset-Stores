@@ -210,6 +210,17 @@
       "file": "./extensions/node-cinema-pack.json",
       "format": "JSON",
       "version": "1.0"
+    },
+    {
+      "id": "studio-vocal-chains",
+      "name": "Studio Voix · Chaînes de piste",
+      "app": "Studio",
+      "category": "Audio",
+      "description": "Ajoute aux inserts libres une chaîne voix claire, rap ou ambiance avec les effets natifs de Studio.",
+      "status": "preset",
+      "file": "./extensions/studio-vocal-chains.json",
+      "format": "JSON",
+      "version": "1.0"
     }
   ]
 }
