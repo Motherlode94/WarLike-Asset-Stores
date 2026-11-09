@@ -1,6 +1,7 @@
 // Original procedural low-poly starter assets for genre-focused WarLike games.
 // Generates real, independent GLB meshes and SVG catalog thumbnails; CC0-1.0.
 import {mkdir,writeFile} from 'node:fs/promises';
+import {deflateSync} from 'node:zlib';
 import path from 'node:path';
 import {fileURLToPath} from 'node:url';
 const root=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'..');
@@ -75,17 +76,57 @@ function glbFor(kind,color,variant){
  const header=Buffer.alloc(12),a=Buffer.alloc(8),b=Buffer.alloc(8);header.write('glTF',0);header.writeUInt32LE(2,4);header.writeUInt32LE(length,8);a.writeUInt32LE(jsonBytes.length,0);a.write('JSON',4);b.writeUInt32LE(binary.length,0);b.write('BIN\0',4);return Buffer.concat([header,a,jsonBytes,b,binary]);
 }
 function thumbnail(name,kind,color){const safe=name.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');return '<svg xmlns="http://www.w3.org/2000/svg" width="480" height="300" viewBox="0 0 480 300"><rect width="480" height="300" fill="#202638"/><ellipse cx="240" cy="235" rx="135" ry="25" fill="#0d111e" opacity=".5"/><path d="M160 185 L240 135 L325 180 L245 229Z" fill="'+color+'" stroke="#d3dce5" stroke-width="5"/><path d="M160 185 L160 114 L240 67 L240 135Z" fill="'+color+'" opacity=".76"/><path d="M240 135 L240 67 L325 114 L325 180Z" fill="'+color+'" opacity=".95"/><text x="240" y="34" text-anchor="middle" fill="#f4f4ff" font-size="19" font-family="sans-serif" font-weight="bold">'+safe+'</text><text x="240" y="278" text-anchor="middle" fill="#bfc7da" font-size="15" font-family="sans-serif">WarLike · '+kind+' · aperçu schématique</text></svg>'}
+
+const paletteBytes=h=>[1,3,5].map(i=>parseInt(h.slice(i,i+2),16));
+function pngFor(kind,color,variant){
+ // Compact transparent 64x64 top-down game prop sprite, generated locally (no remote images).
+ const W=64,H=64,pixels=Buffer.alloc(W*H*4);
+ const tint=paletteBytes(color),dark=tint.map(v=>Math.round(v*.61));
+ function rect(x,y,w,h,c){for(let Y=Math.max(0,y);Y<Math.min(H,y+h);Y++)for(let X=Math.max(0,x);X<Math.min(W,x+w);X++){const k=(Y*W+X)*4;pixels[k]=c[0];pixels[k+1]=c[1];pixels[k+2]=c[2];pixels[k+3]=255}}
+ function disk(cx,cy,r,c){for(let y=Math.max(0,cy-r);y<Math.min(H,cy+r);y++)for(let x=Math.max(0,cx-r);x<Math.min(W,cx+r);x++)if((x-cx)**2+(y-cy)**2<=r*r)rect(x,y,1,1,c)}
+ const metal=[96,104,115],cream=[225,211,177],window=[111,182,215];
+ switch(kind){
+ case 'vehicle':rect(19,9,26,46,dark);rect(22,14,20,35,tint);rect(24,19,16,13,window);rect(14,16,5,10,metal);rect(45,16,5,10,metal);rect(14,40,5,10,metal);rect(45,40,5,10,metal);break;
+ case 'building':rect(9,9,46,46,dark);rect(13,13,38,38,tint);rect(21,20,22,19,cream);rect(28,40,8,11,dark);break;
+ case 'tower':rect(21,7,22,50,dark);rect(17,12,30,30,tint);rect(25,18,14,15,window);break;
+ case 'tree':rect(27,28,10,31,dark);disk(29,29,19,tint);disk(37,24,13,[76,150,86]);break;
+ case 'rock':disk(32,32,21,metal);rect(16,27,23,9,tint);break;
+ case 'crates':rect(10,13,24,25,dark);rect(13,16,18,19,tint);rect(31,29,22,24,metal);rect(34,32,16,18,tint);break;
+ case 'arch':rect(8,8,13,47,tint);rect(43,8,13,47,tint);rect(8,8,48,12,dark);break;
+ case 'barrier':rect(8,23,48,18,dark);rect(12,27,40,10,tint);rect(20,27,6,10,cream);rect(36,27,6,10,cream);break;
+ case 'counter':rect(9,18,46,30,dark);rect(13,22,38,22,tint);rect(19,25,26,6,cream);break;
+ case 'stall':rect(7,14,50,41,dark);rect(10,17,44,31,tint);rect(10,11,44,13,[229,153,93]);break;
+ case 'machine':rect(15,8,34,48,dark);rect(19,12,26,40,tint);rect(23,19,18,17,window);rect(25,42,12,5,cream);break;
+ case 'door':rect(15,6,34,52,dark);rect(20,10,24,44,tint);disk(39,37,3,cream);break;
+ case 'lamp':rect(29,19,6,32,metal);disk(32,19,15,cream);break;
+ case 'bench':rect(10,15,44,8,dark);rect(10,29,44,9,tint);rect(13,39,7,14,metal);rect(44,39,7,14,metal);break;
+ case 'bridge':rect(11,10,42,44,dark);rect(17,11,30,42,tint);for(let y=14;y<51;y+=9)rect(17,y,30,2,cream);break;
+ case 'platform':rect(6,17,52,32,dark);rect(11,21,42,24,tint);break;
+ case 'crystal':rect(24,7,16,50,dark);rect(27,12,10,40,window);rect(18,23,28,19,tint);break;
+ default:rect(16,16,32,32,tint);
+ }
+ const raw=Buffer.alloc(H*(W*4+1));
+ for(let y=0;y<H;y++)pixels.copy(raw,y*(W*4+1)+1,y*W*4,(y+1)*W*4);
+ const crcTable=new Uint32Array(256);for(let n=0;n<256;n++){let c=n;for(let j=0;j<8;j++)c=(c&1)?0xedb88320^(c>>>1):c>>>1;crcTable[n]=c>>>0}
+ function crc(buf){let c=0xffffffff;for(const v of buf)c=crcTable[(c^v)&255]^(c>>>8);return (c^0xffffffff)>>>0}
+ function chunk(name,data){const type=Buffer.from(name),len=Buffer.alloc(4),end=Buffer.alloc(4);len.writeUInt32BE(data.length);end.writeUInt32BE(crc(Buffer.concat([type,data])));return Buffer.concat([len,type,data,end])}
+ const ihdr=Buffer.alloc(13);ihdr.writeUInt32BE(W,0);ihdr.writeUInt32BE(H,4);ihdr[8]=8;ihdr[9]=6;
+ return Buffer.concat([Buffer.from([137,80,78,71,13,10,26,10]),chunk('IHDR',ihdr),chunk('IDAT',deflateSync(raw)),chunk('IEND',Buffer.alloc(0))]);
+}
 export async function generateGenreAssets(){
- await mkdir(out,{recursive:true});const records=[];
+ await mkdir(out,{recursive:true});const records=[],sprites=[];
  for(const pack of genrePacks){
   for(let i=0;i<pack.items.length;i++){
    const [name,kind]=pack.items[i],slug=pack.id+'-'+String(i+1).padStart(2,'0'),nameFile=slug+'.glb';
    const bytes=glbFor(kind,pack.color,i),thumb=slug+'.svg';
    await writeFile(path.join(out,nameFile),bytes);
    await writeFile(path.join(out,thumb),thumbnail(name,kind,pack.color));
+   const spriteName=slug+'.png',sprite=pngFor(kind,pack.color,i);await writeFile(path.join(out,spriteName),sprite);
+   sprites.push({id:'free-warlike-genre-'+slug,name:name+' · 2D',category:kind==='vehicle'?'Vehicles':kind==='tree'?'Nature':kind==='building'?'Buildings':'Props',pack:'warlike-'+pack.id,packName:pack.title,sourceType:'png',spriteUrl:'./assets/free/warlike-genre-packs/'+spriteName,width:64,height:64,license:'CC0-1.0',author:'WarLike Originals',sourceUrl:'https://github.com/Motherlode94/WarLike-Asset-Stores',frames:{}});
+
    records.push({id:'warlike-genre-'+slug,name,category:kind==='vehicle'?'Vehicles':kind==='tree'?'Nature':kind==='building'||kind==='tower'?'Buildings':'Props',pack:'warlike-'+pack.id,packName:pack.title,genres:pack.genres,shape:'glb',url:'./assets/free/warlike-genre-packs/'+nameFile,thumbnailUrl:'./assets/free/warlike-genre-packs/'+thumb,license:'CC0-1.0',sourceUrl:'https://github.com/Motherlode94/WarLike-Asset-Stores',animationClips:[],bytes:bytes.length,triangles:components(kind,pack.color,i).length*12,notes:'Modèle 3D original low-poly statique, éléments non riggés.'});
   }
  }
- await writeFile(path.join(out,'models.json'),JSON.stringify(records,null,2)+'\n');return records;
+ await writeFile(path.join(out,'models.json'),JSON.stringify(records,null,2)+'\n');await writeFile(path.join(out,'sprites.json'),JSON.stringify(sprites,null,2)+'\n');return records;
 }
-if(process.argv[1]&&path.resolve(process.argv[1])===fileURLToPath(import.meta.url)){const generated=await generateGenreAssets();console.log(generated.length+' original GLB models generated in '+out)}
+if(process.argv[1]&&path.resolve(process.argv[1])===fileURLToPath(import.meta.url)){const generated=await generateGenreAssets();console.log(generated.length+' original GLB models and sprites generated in '+out)}
