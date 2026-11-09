@@ -188,6 +188,17 @@
       "file": "./extensions/warlike-arene-survie.json",
       "format": "Blueprint JSON",
       "version": "1.0.0"
+    },
+    {
+      "id": "monteur-motion-studio",
+      "name": "Mouvement Studio",
+      "app": "Monteur",
+      "category": "Montage",
+      "description": "Sept mouvements : zooms, panoramiques, fondus et animation verticale, appliqués aux images clés du clip.",
+      "status": "preset",
+      "file": "./extensions/monteur-motion-studio.json",
+      "format": "JSON",
+      "version": "1.0"
     }
   ]
 }
