@@ -14,7 +14,7 @@ export function categoryFor(asset){
 function assetUrl(path,extension){
  if(typeof path!=='string')return null;
  const clean=path.replace(/^\.\//,'');
- if(clean.includes('..')||!new RegExp('^assets/free/(kenney|quaternius|kaykit|warlike-originals)/[a-z0-9_./-]+\\.'+extension+'$','i').test(clean))return null;
+ if(clean.includes('..')||!new RegExp('^assets/free/(kenney|quaternius|kaykit|warlike-originals|warlike-genre-packs)/[a-z0-9_./-]+\\.'+extension+'$','i').test(clean))return null;
  return new URL('./'+clean,import.meta.url).href;
 }
 export function toStoreAsset(a,author){
@@ -31,7 +31,7 @@ export function toStoreAsset(a,author){
   license:String(a.license||'CC0-1.0'),bundled:true};
 }
 export async function loadBundledCatalog(){
- const entries=[['KayKit','./assets/free/kaykit/models.json'],['Kenney','./assets/free/kenney/models.json'],['Quaternius','./assets/free/quaternius/models.json'],['WarLike Originals','./assets/free/warlike-originals/models.json']];
+ const entries=[['KayKit','./assets/free/kaykit/models.json'],['Kenney','./assets/free/kenney/models.json'],['Quaternius','./assets/free/quaternius/models.json'],['WarLike Originals','./assets/free/warlike-originals/models.json'],['WarLike Genre Starter','./assets/free/warlike-genre-packs/models.json']];
  const settled=await Promise.allSettled(entries.map(async ([author,path])=>{
   const r=await fetch(new URL(path,import.meta.url),{credentials:'same-origin'});
   if(!r.ok)throw Error(author+' : HTTP '+r.status);
