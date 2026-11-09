@@ -20,3 +20,11 @@ jobs:
           node --check catalog-bundled.js
       - name: Run Store tests
         run: npm test
+
+      - name: Build and verify deployable Store assets
+        run: |
+          npm run build
+          test -f dist/assets/free/warlike-genre-packs/models.json
+          test -f dist/assets/free/warlike-genre-packs/sprites.json
+          test -f dist/assets/free/warlike-genre-packs/tactical-01.glb
+          test -f dist/assets/free/warlike-genre-packs/tactical-01.png

@@ -1,3 +1,5 @@
+import {generateGenreAssets} from './generate-genre-models.mjs';
+await generateGenreAssets();
 import {mkdir,readdir,copyFile,link,rm,access} from 'node:fs/promises';
 import path from 'node:path';
 const root=path.resolve(import.meta.dirname,'..'),out=path.join(root,'dist');
