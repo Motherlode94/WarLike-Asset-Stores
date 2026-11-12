@@ -1,0 +1,53 @@
+{
+  "schema": "warlike.monteur.audio-fades.v1",
+  "presets": [
+    {
+      "id": "cut-net",
+      "name": "Coupe nette",
+      "fadeIn": 0,
+      "fadeOut": 0
+    },
+    {
+      "id": "voix-douce",
+      "name": "Voix — entrée douce",
+      "fadeIn": 0.3,
+      "fadeOut": 0.5
+    },
+    {
+      "id": "narration",
+      "name": "Narration — fondus naturels",
+      "fadeIn": 0.8,
+      "fadeOut": 1.2
+    },
+    {
+      "id": "musique-courte",
+      "name": "Musique — transition rapide",
+      "fadeIn": 1.2,
+      "fadeOut": 2
+    },
+    {
+      "id": "musique-cinematique",
+      "name": "Musique — fondu cinématique",
+      "fadeIn": 3,
+      "fadeOut": 4
+    },
+    {
+      "id": "ambiance-longue",
+      "name": "Ambiance — transition lente",
+      "fadeIn": 6,
+      "fadeOut": 8
+    },
+    {
+      "id": "effet-impact",
+      "name": "Impact — attaque franche",
+      "fadeIn": 0,
+      "fadeOut": 0.4
+    },
+    {
+      "id": "transition-podcast",
+      "name": "Podcast — fondu croisé simple",
+      "fadeIn": 0.4,
+      "fadeOut": 0.4
+    }
+  ]
+}
