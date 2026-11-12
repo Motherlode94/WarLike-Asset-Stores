@@ -202,6 +202,17 @@
       "version": "1.0.0"
     },
     {
+      "id": "monteur-audio-fades",
+      "name": "Audio Fade Studio · Transitions",
+      "app": "Monteur",
+      "category": "Audio",
+      "description": "Huit fondus de piste indépendants : narration, musique, ambiance et podcast. Contrôles réels en lecture et dans le WebM exporté.",
+      "status": "preset",
+      "file": "./extensions/monteur-audio-fades.json",
+      "format": "JSON",
+      "version": "1.0"
+    },
+    {
       "id": "monteur-motion-studio",
       "name": "Mouvement Studio",
       "app": "Monteur",
