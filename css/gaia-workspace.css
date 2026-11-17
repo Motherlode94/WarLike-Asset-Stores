@@ -83,3 +83,10 @@ main{max-width:none;width:min(100%,1920px);padding:12px 18px;margin:auto}
  .gaia-quick-tiles{position:sticky;top:0;z-index:2}
  .gaia-view-panel .note{display:none}
 }
+
+#gaiaTilePicker{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:5px;max-height:135px;overflow-y:auto;scrollbar-width:thin;margin-top:8px}
+#gaiaTilePicker:empty{display:none}
+#gaiaTilePicker .gaia-tile-label{grid-column:1/-1;color:#c5e6d6;font-size:11px}
+#gaiaTilePicker button{min-height:34px;border:1px solid #6c958a;background:#1a3335;color:#d8f4e7;font:600 11px system-ui;cursor:pointer;border-radius:7px;padding:5px}
+#gaiaTilePicker button[aria-pressed=true]{background:#b3e3c2;color:#16392b;border-color:#b3e3c2}
+#gaiaTilePicker button:focus-visible{outline:3px solid #f7df88;outline-offset:2px}
