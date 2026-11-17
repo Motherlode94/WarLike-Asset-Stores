@@ -1,0 +1,845 @@
+{
+  "schema": "warlike.project.v2",
+  "name": "Tower Defense · Économie et vagues — Exemple natif · 2D",
+  "mode": "2d",
+  "scenes": [
+    {
+      "schema": "warlike.scene.v2",
+      "id": "demo-warlike-tower-defense-planner-2d",
+      "name": "Tower Defense · Économie et vagues · Démonstration · 2D",
+      "objects": [
+        {
+          "id": "entity-1",
+          "sourceEntityId": 1,
+          "name": "Joueur de démonstration",
+          "parentId": null,
+          "active": true,
+          "components": [
+            {
+              "type": "Transform",
+              "position": [
+                0,
+                0.2,
+                0
+              ],
+              "rotation": [
+                0,
+                0,
+                0
+              ],
+              "scale": [
+                1,
+                1,
+                1
+              ]
+            },
+            {
+              "type": "LegacyEntity",
+              "data": {
+                "id": 1,
+                "name": "Joueur de démonstration",
+                "type": "player",
+                "x": 0,
+                "y": 0,
+                "w": 50,
+                "h": 90,
+                "depth3d": 50,
+                "elevation3d": 0.2,
+                "color": "#41c6b7",
+                "visible": true,
+                "enabled": true,
+                "playable3d": false,
+                "collision3d": false,
+                "solid3d": false,
+                "controller2d": {
+                  "enabled": true,
+                  "mode": "topdown",
+                  "walkSpeed": 180
+                }
+              }
+            }
+          ]
+        },
+        {
+          "id": "entity-2",
+          "sourceEntityId": 2,
+          "name": "Plateforme de démonstration",
+          "parentId": null,
+          "active": true,
+          "components": [
+            {
+              "type": "Transform",
+              "position": [
+                -7.8125,
+                -0.25,
+                -7.8125
+              ],
+              "rotation": [
+                0,
+                0,
+                0
+              ],
+              "scale": [
+                1,
+                1,
+                1
+              ]
+            },
+            {
+              "type": "LegacyEntity",
+              "data": {
+                "id": 2,
+                "name": "Plateforme de démonstration",
+                "type": "object",
+                "x": -500,
+                "y": -500,
+                "w": 1400,
+                "h": 1400,
+                "depth3d": 1400,
+                "elevation3d": -0.25,
+                "color": "#39495a",
+                "visible": true,
+                "enabled": true,
+                "collision3d": false,
+                "solid3d": false,
+                "hierarchyGroup": "Environnement"
+              }
+            }
+          ]
+        },
+        {
+          "id": "entity-3",
+          "sourceEntityId": 3,
+          "name": "Gestionnaire de vagues",
+          "parentId": null,
+          "active": true,
+          "components": [
+            {
+              "type": "Transform",
+              "position": [
+                1.875,
+                0.1,
+                1.25
+              ],
+              "rotation": [
+                0,
+                0,
+                0
+              ],
+              "scale": [
+                1,
+                1,
+                1
+              ]
+            },
+            {
+              "type": "LegacyEntity",
+              "data": {
+                "id": 3,
+                "name": "Gestionnaire de vagues",
+                "type": "object",
+                "x": 120,
+                "y": 80,
+                "w": 54,
+                "h": 72,
+                "depth3d": 54,
+                "elevation3d": 0.1,
+                "color": "#7399dd",
+                "visible": true,
+                "enabled": true,
+                "collision3d": false,
+                "solid3d": false,
+                "hierarchyGroup": "Extension · WarNode",
+                "sequence": {
+                  "event": "start",
+                  "key": "e",
+                  "radius": 130,
+                  "once": true,
+                  "conditions": [],
+                  "instructions": [
+                    {
+                      "type": "setVariable",
+                      "key": "tdGold",
+                      "value": 50
+                    },
+                    {
+                      "type": "setVariable",
+                      "key": "tdTowers",
+                      "value": 0
+                    },
+                    {
+                      "type": "setVariable",
+                      "key": "tdWave",
+                      "value": 0
+                    },
+                    {
+                      "type": "setVariable",
+                      "key": "tdCore",
+                      "value": 1
+                    },
+                    {
+                      "type": "message",
+                      "value": "Construis une défense et lance les vagues."
+                    }
+                  ]
+                },
+                "interactable": {
+                  "enabled": true,
+                  "maxDistance": 3,
+                  "prompt": "Gestionnaire de vagues"
+                }
+              }
+            },
+            {
+              "type": "sequence",
+              "data": {
+                "event": "start",
+                "key": "e",
+                "radius": 130,
+                "once": true,
+                "conditions": [],
+                "instructions": [
+                  {
+                    "type": "setVariable",
+                    "key": "tdGold",
+                    "value": 50
+                  },
+                  {
+                    "type": "setVariable",
+                    "key": "tdTowers",
+                    "value": 0
+                  },
+                  {
+                    "type": "setVariable",
+                    "key": "tdWave",
+                    "value": 0
+                  },
+                  {
+                    "type": "setVariable",
+                    "key": "tdCore",
+                    "value": 1
+                  },
+                  {
+                    "type": "message",
+                    "value": "Construis une défense et lance les vagues."
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "id": "entity-4",
+          "sourceEntityId": 4,
+          "name": "Récolte de crédits",
+          "parentId": null,
+          "active": true,
+          "components": [
+            {
+              "type": "Transform",
+              "position": [
+                4.453125,
+                0.1,
+                1.25
+              ],
+              "rotation": [
+                0,
+                0,
+                0
+              ],
+              "scale": [
+                1,
+                1,
+                1
+              ]
+            },
+            {
+              "type": "LegacyEntity",
+              "data": {
+                "id": 4,
+                "name": "Récolte de crédits",
+                "type": "object",
+                "x": 285,
+                "y": 80,
+                "w": 54,
+                "h": 72,
+                "depth3d": 54,
+                "elevation3d": 0.1,
+                "color": "#b38eda",
+                "visible": true,
+                "enabled": true,
+                "collision3d": false,
+                "solid3d": false,
+                "hierarchyGroup": "Extension · WarNode",
+                "sequence": {
+                  "event": "interact",
+                  "key": "e",
+                  "radius": 130,
+                  "once": false,
+                  "conditions": [],
+                  "instructions": [
+                    {
+                      "type": "addVariable",
+                      "key": "tdGold",
+                      "value": 15
+                    },
+                    {
+                      "type": "message",
+                      "value": "+15 crédits."
+                    }
+                  ]
+                },
+                "interactable": {
+                  "enabled": true,
+                  "maxDistance": 3,
+                  "prompt": "Récolte de crédits"
+                }
+              }
+            },
+            {
+              "type": "sequence",
+              "data": {
+                "event": "interact",
+                "key": "e",
+                "radius": 130,
+                "once": false,
+                "conditions": [],
+                "instructions": [
+                  {
+                    "type": "addVariable",
+                    "key": "tdGold",
+                    "value": 15
+                  },
+                  {
+                    "type": "message",
+                    "value": "+15 crédits."
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "id": "entity-5",
+          "sourceEntityId": 5,
+          "name": "Emplacement de tour",
+          "parentId": null,
+          "active": true,
+          "components": [
+            {
+              "type": "Transform",
+              "position": [
+                7.03125,
+                0.1,
+                1.25
+              ],
+              "rotation": [
+                0,
+                0,
+                0
+              ],
+              "scale": [
+                1,
+                1,
+                1
+              ]
+            },
+            {
+              "type": "LegacyEntity",
+              "data": {
+                "id": 5,
+                "name": "Emplacement de tour",
+                "type": "object",
+                "x": 450,
+                "y": 80,
+                "w": 54,
+                "h": 72,
+                "depth3d": 54,
+                "elevation3d": 0.1,
+                "color": "#d6a96f",
+                "visible": true,
+                "enabled": true,
+                "collision3d": false,
+                "solid3d": false,
+                "hierarchyGroup": "Extension · WarNode",
+                "sequence": {
+                  "event": "interact",
+                  "key": "e",
+                  "radius": 130,
+                  "once": false,
+                  "conditions": [],
+                  "instructions": [],
+                  "branches": [
+                    {
+                      "conditions": [
+                        {
+                          "type": "variable",
+                          "key": "tdGold",
+                          "value": 25,
+                          "operator": ">="
+                        }
+                      ],
+                      "instructions": [
+                        {
+                          "type": "addVariable",
+                          "key": "tdGold",
+                          "value": -25
+                        },
+                        {
+                          "type": "addVariable",
+                          "key": "tdTowers",
+                          "value": 1
+                        },
+                        {
+                          "type": "message",
+                          "value": "Tour budgétée : relier à un prefab."
+                        }
+                      ]
+                    }
+                  ],
+                  "elseInstructions": []
+                },
+                "interactable": {
+                  "enabled": true,
+                  "maxDistance": 3,
+                  "prompt": "Emplacement de tour"
+                }
+              }
+            },
+            {
+              "type": "sequence",
+              "data": {
+                "event": "interact",
+                "key": "e",
+                "radius": 130,
+                "once": false,
+                "conditions": [],
+                "instructions": [],
+                "branches": [
+                  {
+                    "conditions": [
+                      {
+                        "type": "variable",
+                        "key": "tdGold",
+                        "value": 25,
+                        "operator": ">="
+                      }
+                    ],
+                    "instructions": [
+                      {
+                        "type": "addVariable",
+                        "key": "tdGold",
+                        "value": -25
+                      },
+                      {
+                        "type": "addVariable",
+                        "key": "tdTowers",
+                        "value": 1
+                      },
+                      {
+                        "type": "message",
+                        "value": "Tour budgétée : relier à un prefab."
+                      }
+                    ]
+                  }
+                ],
+                "elseInstructions": []
+              }
+            }
+          ]
+        },
+        {
+          "id": "entity-6",
+          "sourceEntityId": 6,
+          "name": "Amélioration de tour",
+          "parentId": null,
+          "active": true,
+          "components": [
+            {
+              "type": "Transform",
+              "position": [
+                1.875,
+                0.1,
+                3.984375
+              ],
+              "rotation": [
+                0,
+                0,
+                0
+              ],
+              "scale": [
+                1,
+                1,
+                1
+              ]
+            },
+            {
+              "type": "LegacyEntity",
+              "data": {
+                "id": 6,
+                "name": "Amélioration de tour",
+                "type": "object",
+                "x": 120,
+                "y": 255,
+                "w": 54,
+                "h": 72,
+                "depth3d": 54,
+                "elevation3d": 0.1,
+                "color": "#76b7a2",
+                "visible": true,
+                "enabled": true,
+                "collision3d": false,
+                "solid3d": false,
+                "hierarchyGroup": "Extension · WarNode",
+                "sequence": {
+                  "event": "interact",
+                  "key": "e",
+                  "radius": 130,
+                  "once": false,
+                  "conditions": [],
+                  "instructions": [],
+                  "branches": [
+                    {
+                      "conditions": [
+                        {
+                          "type": "variable",
+                          "key": "tdGold",
+                          "value": 20,
+                          "operator": ">="
+                        }
+                      ],
+                      "instructions": [
+                        {
+                          "type": "addVariable",
+                          "key": "tdGold",
+                          "value": -20
+                        },
+                        {
+                          "type": "addVariable",
+                          "key": "tdTowers",
+                          "value": 1
+                        },
+                        {
+                          "type": "message",
+                          "value": "Défense améliorée."
+                        }
+                      ]
+                    }
+                  ],
+                  "elseInstructions": []
+                },
+                "interactable": {
+                  "enabled": true,
+                  "maxDistance": 3,
+                  "prompt": "Amélioration de tour"
+                }
+              }
+            },
+            {
+              "type": "sequence",
+              "data": {
+                "event": "interact",
+                "key": "e",
+                "radius": 130,
+                "once": false,
+                "conditions": [],
+                "instructions": [],
+                "branches": [
+                  {
+                    "conditions": [
+                      {
+                        "type": "variable",
+                        "key": "tdGold",
+                        "value": 20,
+                        "operator": ">="
+                      }
+                    ],
+                    "instructions": [
+                      {
+                        "type": "addVariable",
+                        "key": "tdGold",
+                        "value": -20
+                      },
+                      {
+                        "type": "addVariable",
+                        "key": "tdTowers",
+                        "value": 1
+                      },
+                      {
+                        "type": "message",
+                        "value": "Défense améliorée."
+                      }
+                    ]
+                  }
+                ],
+                "elseInstructions": []
+              }
+            }
+          ]
+        },
+        {
+          "id": "entity-7",
+          "sourceEntityId": 7,
+          "name": "Déclencheur de vague",
+          "parentId": null,
+          "active": true,
+          "components": [
+            {
+              "type": "Transform",
+              "position": [
+                4.453125,
+                0.1,
+                3.984375
+              ],
+              "rotation": [
+                0,
+                0,
+                0
+              ],
+              "scale": [
+                1,
+                1,
+                1
+              ]
+            },
+            {
+              "type": "LegacyEntity",
+              "data": {
+                "id": 7,
+                "name": "Déclencheur de vague",
+                "type": "object",
+                "x": 285,
+                "y": 255,
+                "w": 54,
+                "h": 72,
+                "depth3d": 54,
+                "elevation3d": 0.1,
+                "color": "#7399dd",
+                "visible": true,
+                "enabled": true,
+                "collision3d": false,
+                "solid3d": false,
+                "hierarchyGroup": "Extension · WarNode",
+                "sequence": {
+                  "event": "interact",
+                  "key": "e",
+                  "radius": 130,
+                  "once": false,
+                  "conditions": [],
+                  "instructions": [],
+                  "branches": [
+                    {
+                      "conditions": [
+                        {
+                          "type": "variable",
+                          "key": "tdTowers",
+                          "value": 1,
+                          "operator": ">="
+                        }
+                      ],
+                      "instructions": [
+                        {
+                          "type": "addVariable",
+                          "key": "tdWave",
+                          "value": 1
+                        },
+                        {
+                          "type": "emitSignal",
+                          "value": "td:wave"
+                        },
+                        {
+                          "type": "message",
+                          "value": "Vague lancée : brancher l'apparition des ennemis."
+                        }
+                      ]
+                    }
+                  ],
+                  "elseInstructions": []
+                },
+                "interactable": {
+                  "enabled": true,
+                  "maxDistance": 3,
+                  "prompt": "Déclencheur de vague"
+                }
+              }
+            },
+            {
+              "type": "sequence",
+              "data": {
+                "event": "interact",
+                "key": "e",
+                "radius": 130,
+                "once": false,
+                "conditions": [],
+                "instructions": [],
+                "branches": [
+                  {
+                    "conditions": [
+                      {
+                        "type": "variable",
+                        "key": "tdTowers",
+                        "value": 1,
+                        "operator": ">="
+                      }
+                    ],
+                    "instructions": [
+                      {
+                        "type": "addVariable",
+                        "key": "tdWave",
+                        "value": 1
+                      },
+                      {
+                        "type": "emitSignal",
+                        "value": "td:wave"
+                      },
+                      {
+                        "type": "message",
+                        "value": "Vague lancée : brancher l'apparition des ennemis."
+                      }
+                    ]
+                  }
+                ],
+                "elseInstructions": []
+              }
+            }
+          ]
+        },
+        {
+          "id": "entity-8",
+          "sourceEntityId": 8,
+          "name": "Contrôle de fin",
+          "parentId": null,
+          "active": true,
+          "components": [
+            {
+              "type": "Transform",
+              "position": [
+                7.03125,
+                0.1,
+                3.984375
+              ],
+              "rotation": [
+                0,
+                0,
+                0
+              ],
+              "scale": [
+                1,
+                1,
+                1
+              ]
+            },
+            {
+              "type": "LegacyEntity",
+              "data": {
+                "id": 8,
+                "name": "Contrôle de fin",
+                "type": "object",
+                "x": 450,
+                "y": 255,
+                "w": 54,
+                "h": 72,
+                "depth3d": 54,
+                "elevation3d": 0.1,
+                "color": "#b38eda",
+                "visible": true,
+                "enabled": true,
+                "collision3d": false,
+                "solid3d": false,
+                "hierarchyGroup": "Extension · WarNode",
+                "sequence": {
+                  "event": "interact",
+                  "key": "e",
+                  "radius": 130,
+                  "once": false,
+                  "conditions": [],
+                  "instructions": [],
+                  "branches": [
+                    {
+                      "conditions": [
+                        {
+                          "type": "variable",
+                          "key": "tdWave",
+                          "value": 3,
+                          "operator": ">="
+                        },
+                        {
+                          "type": "variable",
+                          "key": "tdTowers",
+                          "value": 1,
+                          "operator": ">="
+                        }
+                      ],
+                      "instructions": [
+                        {
+                          "type": "winGame",
+                          "value": "Défense de la base validée."
+                        }
+                      ]
+                    }
+                  ],
+                  "elseInstructions": [
+                    {
+                      "type": "message",
+                      "value": "Trois vagues sont nécessaires."
+                    }
+                  ]
+                },
+                "interactable": {
+                  "enabled": true,
+                  "maxDistance": 3,
+                  "prompt": "Contrôle de fin"
+                }
+              }
+            },
+            {
+              "type": "sequence",
+              "data": {
+                "event": "interact",
+                "key": "e",
+                "radius": 130,
+                "once": false,
+                "conditions": [],
+                "instructions": [],
+                "branches": [
+                  {
+                    "conditions": [
+                      {
+                        "type": "variable",
+                        "key": "tdWave",
+                        "value": 3,
+                        "operator": ">="
+                      },
+                      {
+                        "type": "variable",
+                        "key": "tdTowers",
+                        "value": 1,
+                        "operator": ">="
+                      }
+                    ],
+                    "instructions": [
+                      {
+                        "type": "winGame",
+                        "value": "Défense de la base validée."
+                      }
+                    ]
+                  }
+                ],
+                "elseInstructions": [
+                  {
+                    "type": "message",
+                    "value": "Trois vagues sont nécessaires."
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "assets": [],
+  "settings": {
+    "startSceneId": "demo-warlike-tower-defense-planner-2d"
+  }
+}
