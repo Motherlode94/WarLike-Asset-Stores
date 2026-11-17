@@ -1,0 +1,235 @@
+{
+  "apiVersion": "1.0",
+  "id": "warlike-farm-production",
+  "version": "1.0.0",
+  "name": "Ferme · Récolte et vente",
+  "author": "WarLike Corps",
+  "modes": [
+    "2d",
+    "3d"
+  ],
+  "description": "Planter, récolter, transformer et vendre avec gestion de ressources de départ.",
+  "recipes": [
+    {
+      "id": "depart",
+      "name": "Démarrer la ferme",
+      "description": "Initialise argent, graines et récolte",
+      "sequence": {
+        "event": "start",
+        "key": "e",
+        "radius": 130,
+        "once": true,
+        "conditions": [],
+        "instructions": [
+          {
+            "type": "setVariable",
+            "key": "farmSeeds",
+            "value": 3
+          },
+          {
+            "type": "setVariable",
+            "key": "farmCrops",
+            "value": 0
+          },
+          {
+            "type": "setVariable",
+            "key": "farmMoney",
+            "value": 20
+          },
+          {
+            "type": "setVariable",
+            "key": "farmSales",
+            "value": 0
+          },
+          {
+            "type": "message",
+            "value": "Plante, récolte et réalise trois ventes."
+          }
+        ]
+      }
+    },
+    {
+      "id": "planter",
+      "name": "Champ à semer",
+      "description": "Consomme une graine pour produire une récolte",
+      "sequence": {
+        "event": "interact",
+        "key": "e",
+        "radius": 130,
+        "once": false,
+        "conditions": [],
+        "instructions": [],
+        "branches": [
+          {
+            "conditions": [
+              {
+                "type": "variable",
+                "key": "farmSeeds",
+                "value": 1,
+                "operator": ">="
+              }
+            ],
+            "instructions": [
+              {
+                "type": "addVariable",
+                "key": "farmSeeds",
+                "value": -1
+              },
+              {
+                "type": "addVariable",
+                "key": "farmCrops",
+                "value": 1
+              },
+              {
+                "type": "message",
+                "value": "Champ cultivé : récolte disponible."
+              }
+            ]
+          }
+        ],
+        "elseInstructions": [
+          {
+            "type": "message",
+            "value": "Plus de graines."
+          }
+        ]
+      }
+    },
+    {
+      "id": "semences",
+      "name": "Fournisseur de graines",
+      "description": "Achète deux graines contre dix crédits",
+      "sequence": {
+        "event": "interact",
+        "key": "e",
+        "radius": 130,
+        "once": false,
+        "conditions": [],
+        "instructions": [],
+        "branches": [
+          {
+            "conditions": [
+              {
+                "type": "variable",
+                "key": "farmMoney",
+                "value": 10,
+                "operator": ">="
+              }
+            ],
+            "instructions": [
+              {
+                "type": "addVariable",
+                "key": "farmMoney",
+                "value": -10
+              },
+              {
+                "type": "addVariable",
+                "key": "farmSeeds",
+                "value": 2
+              },
+              {
+                "type": "message",
+                "value": "Deux graines achetées."
+              }
+            ]
+          }
+        ],
+        "elseInstructions": [
+          {
+            "type": "message",
+            "value": "Pas assez d'argent."
+          }
+        ]
+      }
+    },
+    {
+      "id": "vente",
+      "name": "Marché",
+      "description": "Vends une récolte contre quinze crédits",
+      "sequence": {
+        "event": "interact",
+        "key": "e",
+        "radius": 130,
+        "once": false,
+        "conditions": [],
+        "instructions": [],
+        "branches": [
+          {
+            "conditions": [
+              {
+                "type": "variable",
+                "key": "farmCrops",
+                "value": 1,
+                "operator": ">="
+              }
+            ],
+            "instructions": [
+              {
+                "type": "addVariable",
+                "key": "farmCrops",
+                "value": -1
+              },
+              {
+                "type": "addVariable",
+                "key": "farmMoney",
+                "value": 15
+              },
+              {
+                "type": "addVariable",
+                "key": "farmSales",
+                "value": 1
+              },
+              {
+                "type": "message",
+                "value": "Récolte vendue."
+              }
+            ]
+          }
+        ],
+        "elseInstructions": [
+          {
+            "type": "message",
+            "value": "Récolte insuffisante."
+          }
+        ]
+      }
+    },
+    {
+      "id": "livraison",
+      "name": "Tableau des objectifs",
+      "description": "Valide trois ventes pour gagner",
+      "sequence": {
+        "event": "interact",
+        "key": "e",
+        "radius": 130,
+        "once": false,
+        "conditions": [],
+        "instructions": [],
+        "branches": [
+          {
+            "conditions": [
+              {
+                "type": "variable",
+                "key": "farmSales",
+                "value": 3,
+                "operator": ">="
+              }
+            ],
+            "instructions": [
+              {
+                "type": "winGame",
+                "value": "La ferme est rentable : trois ventes !"
+              }
+            ]
+          }
+        ],
+        "elseInstructions": [
+          {
+            "type": "message",
+            "value": "Trois ventes sont nécessaires."
+          }
+        ]
+      }
+    }
+  ]
+}
