@@ -1,0 +1,140 @@
+{
+  "schema": "warlike.studio.track-chains.v1",
+  "presets": [
+    {
+      "id": "atlanta-lead",
+      "name": "Atlanta Trap · Lead",
+      "effects": [
+        {
+          "id": "sculpt",
+          "params": {
+            "highpass": 80,
+            "cutoff": 17000
+          }
+        },
+        {
+          "id": "glue",
+          "params": {
+            "threshold": -23,
+            "ratio": 3.5,
+            "attack": 12,
+            "release": 115,
+            "makeup": 2,
+            "mix": 1
+          }
+        },
+        {
+          "id": "sibil",
+          "params": {
+            "frequency": 6700,
+            "threshold": -27,
+            "range": 5,
+            "mix": 1
+          }
+        }
+      ]
+    },
+    {
+      "id": "drill-dark-vocal",
+      "name": "Drill · Voix sombre",
+      "effects": [
+        {
+          "id": "sculpt",
+          "params": {
+            "highpass": 90,
+            "cutoff": 14500
+          }
+        },
+        {
+          "id": "glue",
+          "params": {
+            "threshold": -24,
+            "ratio": 4,
+            "attack": 8,
+            "release": 105,
+            "makeup": 2,
+            "mix": 1
+          }
+        },
+        {
+          "id": "sibil",
+          "params": {
+            "frequency": 6100,
+            "threshold": -25,
+            "range": 5,
+            "mix": 1
+          }
+        }
+      ]
+    },
+    {
+      "id": "afro-lead-warm",
+      "name": "Afro · Voix chaleureuse",
+      "effects": [
+        {
+          "id": "sculpt",
+          "params": {
+            "highpass": 70,
+            "cutoff": 18000
+          }
+        },
+        {
+          "id": "glue",
+          "params": {
+            "threshold": -18,
+            "ratio": 2,
+            "attack": 22,
+            "release": 190,
+            "makeup": 1,
+            "mix": 1
+          }
+        },
+        {
+          "id": "aura",
+          "params": {
+            "mix": 0.12
+          }
+        }
+      ]
+    },
+    {
+      "id": "rnb-air",
+      "name": "R&B · Air et douceur",
+      "effects": [
+        {
+          "id": "sculpt",
+          "params": {
+            "highpass": 65,
+            "cutoff": 19000
+          }
+        },
+        {
+          "id": "glue",
+          "params": {
+            "threshold": -19,
+            "ratio": 2.3,
+            "attack": 30,
+            "release": 240,
+            "makeup": 1,
+            "mix": 1
+          }
+        },
+        {
+          "id": "sibil",
+          "params": {
+            "frequency": 7300,
+            "threshold": -28,
+            "range": 4,
+            "mix": 1
+          }
+        },
+        {
+          "id": "aura",
+          "params": {
+            "mix": 0.16
+          }
+        }
+      ]
+    }
+  ]
+}
