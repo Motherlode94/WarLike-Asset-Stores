@@ -1,0 +1,196 @@
+{
+  "apiVersion": "1.0",
+  "id": "warlike-detective-case",
+  "version": "1.0.0",
+  "name": "Detective Stories · Enquête à indices",
+  "author": "WarLike Corps",
+  "modes": [
+    "2d",
+    "3d"
+  ],
+  "description": "Enquête à embranchements : scène, indices, témoin, déduction et arrestation. Le dialogue affiché dépend d'une interaction de GameObject.",
+  "recipes": [
+    {
+      "id": "case-start",
+      "name": "Ouvrir l'enquête",
+      "description": "Initialise les preuves et le dossier.",
+      "sequence": {
+        "event": "start",
+        "key": "e",
+        "radius": 130,
+        "once": true,
+        "conditions": [],
+        "instructions": [
+          {
+            "type": "setVariable",
+            "key": "caseEvidence",
+            "value": 0
+          },
+          {
+            "type": "setVariable",
+            "key": "caseWitness",
+            "value": 0
+          },
+          {
+            "type": "setVariable",
+            "key": "caseDeduction",
+            "value": 0
+          },
+          {
+            "type": "message",
+            "value": "Inspecte la pièce, collecte deux preuves et interroge le témoin."
+          }
+        ]
+      }
+    },
+    {
+      "id": "evidence-a",
+      "name": "Première preuve",
+      "description": "Collecte l'empreinte du suspect.",
+      "sequence": {
+        "event": "interact",
+        "key": "e",
+        "radius": 130,
+        "once": true,
+        "conditions": [],
+        "instructions": [
+          {
+            "type": "addVariable",
+            "key": "caseEvidence",
+            "value": 1
+          },
+          {
+            "type": "message",
+            "value": "Empreinte enregistrée."
+          }
+        ]
+      }
+    },
+    {
+      "id": "evidence-b",
+      "name": "Seconde preuve",
+      "description": "Collecte la note cryptée.",
+      "sequence": {
+        "event": "interact",
+        "key": "e",
+        "radius": 130,
+        "once": true,
+        "conditions": [],
+        "instructions": [
+          {
+            "type": "addVariable",
+            "key": "caseEvidence",
+            "value": 1
+          },
+          {
+            "type": "message",
+            "value": "Note cryptée découverte."
+          }
+        ]
+      }
+    },
+    {
+      "id": "witness",
+      "name": "Témoignage",
+      "description": "Révèle une piste secondaire.",
+      "sequence": {
+        "event": "interact",
+        "key": "e",
+        "radius": 130,
+        "once": true,
+        "conditions": [],
+        "instructions": [
+          {
+            "type": "setVariable",
+            "key": "caseWitness",
+            "value": 1
+          },
+          {
+            "type": "message",
+            "value": "Le témoin confirme avoir vu le véhicule."
+          }
+        ]
+      }
+    },
+    {
+      "id": "deduction",
+      "name": "Tableau des déductions",
+      "description": "Valide les éléments recueillis.",
+      "sequence": {
+        "event": "interact",
+        "key": "e",
+        "radius": 130,
+        "once": false,
+        "conditions": [],
+        "instructions": [],
+        "branches": [
+          {
+            "conditions": [
+              {
+                "type": "variable",
+                "key": "caseEvidence",
+                "value": 2,
+                "operator": ">="
+              },
+              {
+                "type": "variable",
+                "key": "caseWitness",
+                "value": 1,
+                "operator": "=="
+              }
+            ],
+            "instructions": [
+              {
+                "type": "setVariable",
+                "key": "caseDeduction",
+                "value": 1
+              },
+              {
+                "type": "message",
+                "value": "L'identité du suspect est établie."
+              }
+            ]
+          }
+        ],
+        "elseInstructions": [
+          {
+            "type": "message",
+            "value": "Il manque des preuves ou le témoignage."
+          }
+        ]
+      }
+    },
+    {
+      "id": "arrest",
+      "name": "Interpellation",
+      "description": "Termine l'enquête après déduction.",
+      "sequence": {
+        "event": "interact",
+        "key": "e",
+        "radius": 130,
+        "once": false,
+        "conditions": [],
+        "instructions": [],
+        "branches": [
+          {
+            "conditions": [
+              {
+                "type": "variable",
+                "key": "caseDeduction",
+                "value": 1,
+                "operator": "=="
+              }
+            ],
+            "instructions": [
+              {
+                "type": "winGame",
+                "value": "Affaire élucidée."
+              }
+            ]
+          }
+        ],
+        "elseInstructions": []
+      }
+    }
+  ]
+}
