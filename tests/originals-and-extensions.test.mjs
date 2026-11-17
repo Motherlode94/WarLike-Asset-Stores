@@ -29,6 +29,6 @@ test('extension files exist and downloadable file types are explicit',()=>{
 test('Engine Blueprint packs can be downloaded and contain compatible recipes',()=>{
  const manifest=JSON.parse(readFileSync(new URL('../extensions/catalog.json',import.meta.url),'utf8'));
  const packs=manifest.items.filter(item=>item.status==='blueprint');assert.ok(packs.length>=10);
- for(const item of packs){const data=JSON.parse(readFileSync(new URL('../'+item.file,import.meta.url),'utf8'));assert.equal(item.app,'Engine');assert.equal(data.id,item.id);assert.equal(data.apiVersion,'1.0');assert.deepEqual(data.modes,['2d','3d']);assert.ok(data.recipes.length>=4&&data.recipes.length<=20);assert.ok(data.recipes.every(recipe=>recipe.sequence?.event));}
+ for(const item of packs){const data=JSON.parse(readFileSync(new URL('../'+item.file,import.meta.url),'utf8'));assert.equal(item.app,'Engine');assert.equal(data.id,item.id);assert.equal(data.apiVersion,'1.0');assert.ok(Array.isArray(data.modes)&&data.modes.length>0&&data.modes.every(mode=>['2d','3d'].includes(mode)),item.id+' unsupported game mode');assert.deepEqual(data.modes,item.modes||['2d','3d'],item.id+' catalog/pack mode mismatch');assert.ok(data.recipes.length>=4&&data.recipes.length<=20);assert.ok(data.recipes.every(recipe=>recipe.sequence?.event));}
  const html=readFileSync(new URL('../extensions.html',import.meta.url),'utf8');assert.match(html,/Importer un pack \.json/);assert.match(html,/x\.status==='blueprint'\?'Ouvrir Engine'/);
 });
