@@ -66,3 +66,13 @@ Les **4 autres collections JSON** servent Studio (chaînes vocales Trap/Drill/Af
 Les recettes RTS, tour par tour, Tower Defense et Construction pilotent des **variables et des signaux réels**, mais ne génèrent pas de troupes, constructions, ennemis ou colliders automatiquement. Pour une expérience complète, les créateurs doivent raccorder les composants et prefabs réels de leur projet dans Engine.
 
 Tests supplémentaires : `tests/extension-catalog-growth.test.mjs` (fichiers réels, unicité, formats et 72 recettes). Les essais Play 2D/3D, import inter-application et export Web nécessitent une validation distincte après publication.
+
+## Scènes compagnes des extensions WarNode
+
+Les 12 nouveaux packs Engine disposent chacun d'un fichier `*.project-v2.json` qui contient une scène V2 sérialisée, un GameObject joueur, une plateforme, et six GameObjects portant exactement les séquences Blueprint du pack. Les 8 packs compatibles 2D et 3D disposent en complément d'un fichier `*.project-v2-2d.json`.
+
+- Les fichiers sont référencés par `sceneFile` et `scene2dFile` dans `extensions/catalog.json`. La page `extensions.html` propose leurs téléchargements.
+- Les GameObjects contiennent des composants `Transform`, `LegacyEntity` et, lorsqu'applicable, `sequence`. Leur propriété `interactable` est préparée pour l'Interaction System de WarLike Engine.
+- Ces fichiers ne remplacent pas les packs communautaires API 1.0 : importer d'abord le pack Blueprint pour l'utiliser dans l'Inspector ; les scènes V2 constituent des **projets compagnons distincts**. Elles ne sont pas installées automatiquement.
+- **Validation à poursuivre :** l'ouverture des projets V2 via le parcours de l'éditeur, le gameplay FPS/TPS, la stabilité de la physique sur la plateforme, ainsi que la parité Play / export Web. Le format structurel ne prouve pas, à lui seul, la jouabilité finale.
+- Tests structurels : `tests/extension-scene-companions.test.mjs`.
