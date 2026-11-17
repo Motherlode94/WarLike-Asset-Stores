@@ -1,6 +1,6 @@
 {
   "schema": "warlike.extensions.catalog.v1",
-  "version": 1,
+  "version": 2,
   "items": [
     {
       "id": "warlike-gaia-terrain",
@@ -244,6 +244,65 @@
       "file": "./extensions/studio-vocal-chains.json",
       "format": "JSON",
       "version": "1.0"
+    },
+    {
+      "id": "warlike-platformer-2d",
+      "name": "Plateforme 2D · Parcours et checkpoints",
+      "app": "Engine",
+      "category": "Plateforme",
+      "description": "Quatre comportements 2D WarNode : départ, collecte de pièces, checkpoint et portail de victoire. Requiert des zones Collider2D Trigger configurées.",
+      "status": "blueprint",
+      "file": "./extensions/warlike-platformer-2d.json",
+      "format": "Blueprint JSON",
+      "version": "1.0.0",
+      "modes": [
+        "2d"
+      ]
+    },
+    {
+      "id": "warlike-horror-escape",
+      "name": "Horreur · Escape Room",
+      "app": "Engine",
+      "category": "Horreur",
+      "description": "Cinq comportements : mission, clé, console, porte et extraction ; conditions de progression et victoire.",
+      "status": "blueprint",
+      "file": "./extensions/warlike-horror-escape.json",
+      "format": "Blueprint JSON",
+      "version": "1.0.0",
+      "modes": [
+        "2d",
+        "3d"
+      ]
+    },
+    {
+      "id": "warlike-farm-production",
+      "name": "Ferme · Récolte et vente",
+      "app": "Engine",
+      "category": "Agriculture",
+      "description": "Cinq comportements : graines, cultures abstraites, achats, ventes et objectif de rentabilité. Pas de cycle de croissance visuel automatique.",
+      "status": "blueprint",
+      "file": "./extensions/warlike-farm-production.json",
+      "format": "Blueprint JSON",
+      "version": "1.0.0",
+      "modes": [
+        "2d",
+        "3d"
+      ]
+    },
+    {
+      "id": "warlike-rts-logistics",
+      "name": "RTS · Ravitaillement et contrôle",
+      "app": "Engine",
+      "category": "RTS / Stratégie",
+      "description": "Cinq comportements : mine, dépôt, budget de renforts et capture. Le spawn et les ordres de troupes restent à raccorder à la scène.",
+      "status": "blueprint",
+      "file": "./extensions/warlike-rts-logistics.json",
+      "format": "Blueprint JSON",
+      "version": "1.0.0",
+      "modes": [
+        "2d",
+        "3d"
+      ]
     }
   ]
 }

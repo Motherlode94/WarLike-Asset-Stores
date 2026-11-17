@@ -1,0 +1,191 @@
+{
+  "apiVersion": "1.0",
+  "id": "warlike-horror-escape",
+  "version": "1.0.0",
+  "name": "Horreur · Escape Room",
+  "author": "WarLike Corps",
+  "modes": [
+    "2d",
+    "3d"
+  ],
+  "description": "Collecter une clé, couper un système de surveillance, ouvrir une porte et s'échapper.",
+  "recipes": [
+    {
+      "id": "depart",
+      "name": "Début d'escape room",
+      "description": "Déclenche le scénario",
+      "sequence": {
+        "event": "start",
+        "key": "e",
+        "radius": 130,
+        "once": true,
+        "conditions": [],
+        "instructions": [
+          {
+            "type": "setVariable",
+            "key": "escapeKey",
+            "value": 0
+          },
+          {
+            "type": "setVariable",
+            "key": "escapeSecurity",
+            "value": 1
+          },
+          {
+            "type": "setVariable",
+            "key": "escapeDoor",
+            "value": 0
+          },
+          {
+            "type": "message",
+            "value": "Trouve la clé et désactive la surveillance."
+          }
+        ]
+      }
+    },
+    {
+      "id": "cle",
+      "name": "Clé de service",
+      "description": "Récupère la clé à proximité",
+      "sequence": {
+        "event": "interact",
+        "key": "e",
+        "radius": 130,
+        "once": true,
+        "conditions": [],
+        "instructions": [
+          {
+            "type": "setVariable",
+            "key": "escapeKey",
+            "value": 1
+          },
+          {
+            "type": "message",
+            "value": "Clé de service récupérée."
+          }
+        ]
+      }
+    },
+    {
+      "id": "console",
+      "name": "Console de sécurité",
+      "description": "Désactive la surveillance avec la clé",
+      "sequence": {
+        "event": "interact",
+        "key": "e",
+        "radius": 130,
+        "once": false,
+        "conditions": [],
+        "instructions": [],
+        "branches": [
+          {
+            "conditions": [
+              {
+                "type": "variable",
+                "key": "escapeKey",
+                "value": 1,
+                "operator": "=="
+              }
+            ],
+            "instructions": [
+              {
+                "type": "setVariable",
+                "key": "escapeSecurity",
+                "value": 0
+              },
+              {
+                "type": "message",
+                "value": "Surveillance coupée."
+              }
+            ]
+          }
+        ],
+        "elseInstructions": [
+          {
+            "type": "message",
+            "value": "Clé de service nécessaire."
+          }
+        ]
+      }
+    },
+    {
+      "id": "porte",
+      "name": "Porte sécurisée",
+      "description": "Ouvre la porte si la surveillance est coupée",
+      "sequence": {
+        "event": "interact",
+        "key": "e",
+        "radius": 130,
+        "once": false,
+        "conditions": [],
+        "instructions": [],
+        "branches": [
+          {
+            "conditions": [
+              {
+                "type": "variable",
+                "key": "escapeSecurity",
+                "value": 0,
+                "operator": "=="
+              }
+            ],
+            "instructions": [
+              {
+                "type": "setVariable",
+                "key": "escapeDoor",
+                "value": 1
+              },
+              {
+                "type": "message",
+                "value": "Porte déverrouillée."
+              }
+            ]
+          }
+        ],
+        "elseInstructions": [
+          {
+            "type": "message",
+            "value": "Surveillance encore active."
+          }
+        ]
+      }
+    },
+    {
+      "id": "sortie",
+      "name": "Sortie de secours",
+      "description": "Termine la mission après ouverture",
+      "sequence": {
+        "event": "interact",
+        "key": "e",
+        "radius": 130,
+        "once": false,
+        "conditions": [],
+        "instructions": [],
+        "branches": [
+          {
+            "conditions": [
+              {
+                "type": "variable",
+                "key": "escapeDoor",
+                "value": 1,
+                "operator": "=="
+              }
+            ],
+            "instructions": [
+              {
+                "type": "winGame",
+                "value": "Évasion réussie !"
+              }
+            ]
+          }
+        ],
+        "elseInstructions": [
+          {
+            "type": "message",
+            "value": "La porte doit être ouverte."
+          }
+        ]
+      }
+    }
+  ]
+}

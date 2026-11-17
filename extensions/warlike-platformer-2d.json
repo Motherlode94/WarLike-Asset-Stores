@@ -1,0 +1,135 @@
+{
+  "apiVersion": "1.0",
+  "id": "warlike-platformer-2d",
+  "version": "1.0.0",
+  "name": "Plateforme 2D · Parcours et checkpoints",
+  "author": "WarLike Corps",
+  "modes": [
+    "2d"
+  ],
+  "description": "Démarrage, pièces à ramasser, checkpoint et portail d'arrivée : 4 comportements WarNode 2D.",
+  "recipes": [
+    {
+      "id": "depart",
+      "name": "Départ du parcours",
+      "description": "Initialise les variables du niveau",
+      "sequence": {
+        "event": "start",
+        "key": "e",
+        "radius": 130,
+        "once": true,
+        "conditions": [],
+        "instructions": [
+          {
+            "type": "setVariable",
+            "key": "platformCoins",
+            "value": 0
+          },
+          {
+            "type": "setVariable",
+            "key": "platformCheckpoint",
+            "value": 0
+          },
+          {
+            "type": "setVariable",
+            "key": "platformStarted",
+            "value": 1
+          },
+          {
+            "type": "message",
+            "value": "Parcours lancé : ramasse trois pièces et trouve la sortie."
+          }
+        ]
+      }
+    },
+    {
+      "id": "piece",
+      "name": "Pièce à ramasser",
+      "description": "Collectible à déclencher en entrant dans la zone",
+      "sequence": {
+        "event": "triggerEnter2d",
+        "key": "e",
+        "radius": 130,
+        "once": true,
+        "conditions": [],
+        "instructions": [
+          {
+            "type": "addVariable",
+            "key": "platformCoins",
+            "value": 1
+          },
+          {
+            "type": "message",
+            "value": "Pièce récupérée."
+          }
+        ]
+      }
+    },
+    {
+      "id": "checkpoint",
+      "name": "Point de passage",
+      "description": "Marque l'étape atteinte par le joueur",
+      "sequence": {
+        "event": "triggerEnter2d",
+        "key": "e",
+        "radius": 130,
+        "once": true,
+        "conditions": [],
+        "instructions": [
+          {
+            "type": "setVariable",
+            "key": "platformCheckpoint",
+            "value": 1
+          },
+          {
+            "type": "message",
+            "value": "Checkpoint validé."
+          }
+        ]
+      }
+    },
+    {
+      "id": "arrivee",
+      "name": "Portail de fin",
+      "description": "Victoire si trois pièces et le checkpoint",
+      "sequence": {
+        "event": "triggerEnter2d",
+        "key": "e",
+        "radius": 130,
+        "once": false,
+        "conditions": [],
+        "instructions": [],
+        "branches": [
+          {
+            "conditions": [
+              {
+                "type": "variable",
+                "key": "platformCoins",
+                "value": 3,
+                "operator": ">="
+              },
+              {
+                "type": "variable",
+                "key": "platformCheckpoint",
+                "value": 1,
+                "operator": "=="
+              }
+            ],
+            "instructions": [
+              {
+                "type": "winGame",
+                "value": "Parcours terminé !"
+              }
+            ]
+          }
+        ],
+        "elseInstructions": [
+          {
+            "type": "message",
+            "value": "Il faut trois pièces et passer par le checkpoint."
+          }
+        ]
+      }
+    }
+  ]
+}
