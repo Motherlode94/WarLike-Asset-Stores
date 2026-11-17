@@ -58,3 +58,28 @@ test('Store explicitly offers project V2 companion downloads, not fabricated aut
  assert.ok(html.includes('⬡ Scène exemple V2'));
  assert.ok(html.includes('sameOrigin(x.sceneFile)'));
 });
+
+test('all dual-mode packs also contain distinct 2D companion projects',()=>{
+ let dual=0;
+ for(const id of ids){
+  const item=catalog.items.find(x=>x.id===id);
+  if(item.modes.length<2)continue;
+  dual++;
+  assert.match(item.scene2dFile,/^\.\/extensions\/scenes\/[a-z0-9-]+\.project-v2-2d\.json$/);
+  assert.ok(existsSync(join(root,item.scene2dFile)));
+  const pack=json(item.file),project=json(item.scene2dFile);
+  assert.equal(project.schema,'warlike.project.v2');
+  assert.equal(project.mode,'2d');
+  assert.equal(project.scenes.length,1);
+  assert.equal(project.settings.startSceneId,project.scenes[0].id);
+  assert.equal(project.scenes[0].objects.length,pack.recipes.length+2);
+  const actor=project.scenes[0].objects[0].components.find(c=>c.type==='LegacyEntity').data;
+  assert.equal(actor.playable3d,false);
+  assert.ok(actor.controller2d?.enabled);
+  for(let i=0;i<pack.recipes.length;i++){
+   const data=project.scenes[0].objects[i+2].components.find(c=>c.type==='LegacyEntity').data;
+   assert.deepEqual(data.sequence,pack.recipes[i].sequence);
+  }
+ }
+ assert.equal(dual,8);
+});
