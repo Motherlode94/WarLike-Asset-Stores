@@ -1,0 +1,272 @@
+{
+  "apiVersion": "1.0",
+  "id": "warlike-garage-pitstop",
+  "version": "1.0.0",
+  "name": "Garage · Entretien et course",
+  "author": "WarLike Corps",
+  "modes": [
+    "3d"
+  ],
+  "description": "Gestion abstraite du carburant, de la maintenance et d'une course. Ne remplace pas les composants véhicules et la physique native.",
+  "recipes": [
+    {
+      "id": "garage",
+      "name": "Ouverture du garage",
+      "description": "Initialise le carburant et l'état mécanique.",
+      "sequence": {
+        "event": "start",
+        "key": "e",
+        "radius": 130,
+        "once": true,
+        "conditions": [],
+        "instructions": [
+          {
+            "type": "setVariable",
+            "key": "garageMoney",
+            "value": 60
+          },
+          {
+            "type": "setVariable",
+            "key": "garageFuel",
+            "value": 0
+          },
+          {
+            "type": "setVariable",
+            "key": "garageMaintained",
+            "value": 0
+          },
+          {
+            "type": "setVariable",
+            "key": "garageCheckpoint",
+            "value": 0
+          },
+          {
+            "type": "message",
+            "value": "Prépare le véhicule avant de rejoindre la course."
+          }
+        ]
+      }
+    },
+    {
+      "id": "fuel",
+      "name": "Pompe à carburant",
+      "description": "Ajoute du carburant au compteur de préparation.",
+      "sequence": {
+        "event": "interact",
+        "key": "e",
+        "radius": 130,
+        "once": false,
+        "conditions": [],
+        "instructions": [],
+        "branches": [
+          {
+            "conditions": [
+              {
+                "type": "variable",
+                "key": "garageMoney",
+                "value": 10,
+                "operator": ">="
+              }
+            ],
+            "instructions": [
+              {
+                "type": "addVariable",
+                "key": "garageMoney",
+                "value": -10
+              },
+              {
+                "type": "addVariable",
+                "key": "garageFuel",
+                "value": 1
+              },
+              {
+                "type": "message",
+                "value": "Véhicule ravitaillé : raccorde au système de carburant réel."
+              }
+            ]
+          }
+        ],
+        "elseInstructions": [
+          {
+            "type": "message",
+            "value": "Pas assez d'argent."
+          }
+        ]
+      }
+    },
+    {
+      "id": "service",
+      "name": "Atelier mécanique",
+      "description": "Autorise le départ si le garage dispose du budget.",
+      "sequence": {
+        "event": "interact",
+        "key": "e",
+        "radius": 130,
+        "once": false,
+        "conditions": [],
+        "instructions": [],
+        "branches": [
+          {
+            "conditions": [
+              {
+                "type": "variable",
+                "key": "garageMoney",
+                "value": 20,
+                "operator": ">="
+              }
+            ],
+            "instructions": [
+              {
+                "type": "addVariable",
+                "key": "garageMoney",
+                "value": -20
+              },
+              {
+                "type": "setVariable",
+                "key": "garageMaintained",
+                "value": 1
+              },
+              {
+                "type": "message",
+                "value": "Entretien validé : appliquer aux pièces du véhicule."
+              }
+            ]
+          }
+        ],
+        "elseInstructions": [
+          {
+            "type": "message",
+            "value": "Entretien : 20 crédits requis."
+          }
+        ]
+      }
+    },
+    {
+      "id": "start-line",
+      "name": "Grille de départ",
+      "description": "Autorise le départ après carburant et maintenance.",
+      "sequence": {
+        "event": "interact",
+        "key": "e",
+        "radius": 130,
+        "once": false,
+        "conditions": [],
+        "instructions": [],
+        "branches": [
+          {
+            "conditions": [
+              {
+                "type": "variable",
+                "key": "garageFuel",
+                "value": 1,
+                "operator": ">="
+              },
+              {
+                "type": "variable",
+                "key": "garageMaintained",
+                "value": 1,
+                "operator": "=="
+              }
+            ],
+            "instructions": [
+              {
+                "type": "setVariable",
+                "key": "garageCheckpoint",
+                "value": 1
+              },
+              {
+                "type": "message",
+                "value": "Départ autorisé."
+              }
+            ]
+          }
+        ],
+        "elseInstructions": [
+          {
+            "type": "message",
+            "value": "Carburant ou maintenance manquants."
+          }
+        ]
+      }
+    },
+    {
+      "id": "checkpoint",
+      "name": "Checkpoint de circuit",
+      "description": "Valide le passage uniquement après départ.",
+      "sequence": {
+        "event": "interact",
+        "key": "e",
+        "radius": 130,
+        "once": false,
+        "conditions": [],
+        "instructions": [],
+        "branches": [
+          {
+            "conditions": [
+              {
+                "type": "variable",
+                "key": "garageCheckpoint",
+                "value": 1,
+                "operator": "=="
+              }
+            ],
+            "instructions": [
+              {
+                "type": "setVariable",
+                "key": "garageCheckpoint",
+                "value": 2
+              },
+              {
+                "type": "message",
+                "value": "Checkpoint validé."
+              }
+            ]
+          }
+        ],
+        "elseInstructions": [
+          {
+            "type": "message",
+            "value": "Départ requis."
+          }
+        ]
+      }
+    },
+    {
+      "id": "finish",
+      "name": "Ligne d'arrivée",
+      "description": "Déclare la course terminée après checkpoint.",
+      "sequence": {
+        "event": "interact",
+        "key": "e",
+        "radius": 130,
+        "once": false,
+        "conditions": [],
+        "instructions": [],
+        "branches": [
+          {
+            "conditions": [
+              {
+                "type": "variable",
+                "key": "garageCheckpoint",
+                "value": 2,
+                "operator": "=="
+              }
+            ],
+            "instructions": [
+              {
+                "type": "winGame",
+                "value": "Course terminée après inspection et checkpoint."
+              }
+            ]
+          }
+        ],
+        "elseInstructions": [
+          {
+            "type": "message",
+            "value": "Checkpoint non atteint."
+          }
+        ]
+      }
+    }
+  ]
+}
