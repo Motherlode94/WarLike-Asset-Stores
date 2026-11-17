@@ -1,0 +1,243 @@
+{
+  "apiVersion": "1.0",
+  "id": "warlike-tower-defense-planner",
+  "version": "1.0.0",
+  "name": "Tower Defense · Économie et vagues",
+  "author": "WarLike Corps",
+  "modes": [
+    "2d",
+    "3d"
+  ],
+  "description": "Gestion déclarative des crédits, tours abstraites et phases. Ne crée pas automatiquement les projectiles, tours ou ennemis.",
+  "recipes": [
+    {
+      "id": "controller",
+      "name": "Gestionnaire de vagues",
+      "description": "Initialise crédits, tours et compteurs.",
+      "sequence": {
+        "event": "start",
+        "key": "e",
+        "radius": 130,
+        "once": true,
+        "conditions": [],
+        "instructions": [
+          {
+            "type": "setVariable",
+            "key": "tdGold",
+            "value": 50
+          },
+          {
+            "type": "setVariable",
+            "key": "tdTowers",
+            "value": 0
+          },
+          {
+            "type": "setVariable",
+            "key": "tdWave",
+            "value": 0
+          },
+          {
+            "type": "setVariable",
+            "key": "tdCore",
+            "value": 1
+          },
+          {
+            "type": "message",
+            "value": "Construis une défense et lance les vagues."
+          }
+        ]
+      }
+    },
+    {
+      "id": "earn",
+      "name": "Récolte de crédits",
+      "description": "Accorde 15 crédits via interaction.",
+      "sequence": {
+        "event": "interact",
+        "key": "e",
+        "radius": 130,
+        "once": false,
+        "conditions": [],
+        "instructions": [
+          {
+            "type": "addVariable",
+            "key": "tdGold",
+            "value": 15
+          },
+          {
+            "type": "message",
+            "value": "+15 crédits."
+          }
+        ]
+      }
+    },
+    {
+      "id": "build",
+      "name": "Emplacement de tour",
+      "description": "Consomme 25 crédits par emplacement de défense abstrait.",
+      "sequence": {
+        "event": "interact",
+        "key": "e",
+        "radius": 130,
+        "once": false,
+        "conditions": [],
+        "instructions": [],
+        "branches": [
+          {
+            "conditions": [
+              {
+                "type": "variable",
+                "key": "tdGold",
+                "value": 25,
+                "operator": ">="
+              }
+            ],
+            "instructions": [
+              {
+                "type": "addVariable",
+                "key": "tdGold",
+                "value": -25
+              },
+              {
+                "type": "addVariable",
+                "key": "tdTowers",
+                "value": 1
+              },
+              {
+                "type": "message",
+                "value": "Tour budgétée : relier à un prefab."
+              }
+            ]
+          }
+        ],
+        "elseInstructions": []
+      }
+    },
+    {
+      "id": "upgrade",
+      "name": "Amélioration de tour",
+      "description": "Convertit 20 crédits en amélioration globale.",
+      "sequence": {
+        "event": "interact",
+        "key": "e",
+        "radius": 130,
+        "once": false,
+        "conditions": [],
+        "instructions": [],
+        "branches": [
+          {
+            "conditions": [
+              {
+                "type": "variable",
+                "key": "tdGold",
+                "value": 20,
+                "operator": ">="
+              }
+            ],
+            "instructions": [
+              {
+                "type": "addVariable",
+                "key": "tdGold",
+                "value": -20
+              },
+              {
+                "type": "addVariable",
+                "key": "tdTowers",
+                "value": 1
+              },
+              {
+                "type": "message",
+                "value": "Défense améliorée."
+              }
+            ]
+          }
+        ],
+        "elseInstructions": []
+      }
+    },
+    {
+      "id": "wave",
+      "name": "Déclencheur de vague",
+      "description": "Incrémente une phase uniquement si une défense est budgétée.",
+      "sequence": {
+        "event": "interact",
+        "key": "e",
+        "radius": 130,
+        "once": false,
+        "conditions": [],
+        "instructions": [],
+        "branches": [
+          {
+            "conditions": [
+              {
+                "type": "variable",
+                "key": "tdTowers",
+                "value": 1,
+                "operator": ">="
+              }
+            ],
+            "instructions": [
+              {
+                "type": "addVariable",
+                "key": "tdWave",
+                "value": 1
+              },
+              {
+                "type": "emitSignal",
+                "value": "td:wave"
+              },
+              {
+                "type": "message",
+                "value": "Vague lancée : brancher l'apparition des ennemis."
+              }
+            ]
+          }
+        ],
+        "elseInstructions": []
+      }
+    },
+    {
+      "id": "finish",
+      "name": "Contrôle de fin",
+      "description": "Victoire lorsque trois vagues et une défense ont été enregistrées.",
+      "sequence": {
+        "event": "interact",
+        "key": "e",
+        "radius": 130,
+        "once": false,
+        "conditions": [],
+        "instructions": [],
+        "branches": [
+          {
+            "conditions": [
+              {
+                "type": "variable",
+                "key": "tdWave",
+                "value": 3,
+                "operator": ">="
+              },
+              {
+                "type": "variable",
+                "key": "tdTowers",
+                "value": 1,
+                "operator": ">="
+              }
+            ],
+            "instructions": [
+              {
+                "type": "winGame",
+                "value": "Défense de la base validée."
+              }
+            ]
+          }
+        ],
+        "elseInstructions": [
+          {
+            "type": "message",
+            "value": "Trois vagues sont nécessaires."
+          }
+        ]
+      }
+    }
+  ]
+}
