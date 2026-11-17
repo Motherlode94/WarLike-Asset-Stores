@@ -1,0 +1,249 @@
+{
+  "apiVersion": "1.0",
+  "id": "warlike-tactical-command",
+  "version": "1.0.0",
+  "name": "Tactique RTS · Commandement de terrain",
+  "author": "WarLike Corps",
+  "modes": [
+    "2d",
+    "3d"
+  ],
+  "description": "Six recettes pour contrôle d'objectifs et logistique. Les ordres réels et le spawn de soldats restent à connecter au projet.",
+  "recipes": [
+    {
+      "id": "headquarters",
+      "name": "QG de commandement",
+      "description": "Prépare le stock et l'état des deux secteurs.",
+      "sequence": {
+        "event": "start",
+        "key": "e",
+        "radius": 130,
+        "once": true,
+        "conditions": [],
+        "instructions": [
+          {
+            "type": "setVariable",
+            "key": "cmdSupply",
+            "value": 10
+          },
+          {
+            "type": "setVariable",
+            "key": "cmdAlpha",
+            "value": 0
+          },
+          {
+            "type": "setVariable",
+            "key": "cmdBravo",
+            "value": 0
+          },
+          {
+            "type": "setVariable",
+            "key": "cmdOrders",
+            "value": 0
+          },
+          {
+            "type": "message",
+            "value": "Sécurise Alpha et Bravo."
+          }
+        ]
+      }
+    },
+    {
+      "id": "sector-alpha",
+      "name": "Secteur Alpha",
+      "description": "Capture le premier secteur.",
+      "sequence": {
+        "event": "interact",
+        "key": "e",
+        "radius": 130,
+        "once": true,
+        "conditions": [],
+        "instructions": [
+          {
+            "type": "setVariable",
+            "key": "cmdAlpha",
+            "value": 1
+          },
+          {
+            "type": "addVariable",
+            "key": "cmdSupply",
+            "value": 5
+          },
+          {
+            "type": "message",
+            "value": "Secteur Alpha sécurisé."
+          }
+        ]
+      }
+    },
+    {
+      "id": "sector-bravo",
+      "name": "Secteur Bravo",
+      "description": "Capture Bravo après Alpha.",
+      "sequence": {
+        "event": "interact",
+        "key": "e",
+        "radius": 130,
+        "once": false,
+        "conditions": [],
+        "instructions": [],
+        "branches": [
+          {
+            "conditions": [
+              {
+                "type": "variable",
+                "key": "cmdAlpha",
+                "value": 1,
+                "operator": "=="
+              }
+            ],
+            "instructions": [
+              {
+                "type": "setVariable",
+                "key": "cmdBravo",
+                "value": 1
+              },
+              {
+                "type": "message",
+                "value": "Secteur Bravo sécurisé."
+              }
+            ]
+          }
+        ],
+        "elseInstructions": []
+      }
+    },
+    {
+      "id": "supply",
+      "name": "Dépôt logistique",
+      "description": "Accorde du ravitaillement uniquement après capture.",
+      "sequence": {
+        "event": "interact",
+        "key": "e",
+        "radius": 130,
+        "once": false,
+        "conditions": [],
+        "instructions": [],
+        "branches": [
+          {
+            "conditions": [
+              {
+                "type": "variable",
+                "key": "cmdAlpha",
+                "value": 1,
+                "operator": "=="
+              }
+            ],
+            "instructions": [
+              {
+                "type": "addVariable",
+                "key": "cmdSupply",
+                "value": 5
+              },
+              {
+                "type": "message",
+                "value": "Ravitaillement disponible."
+              }
+            ]
+          }
+        ],
+        "elseInstructions": []
+      }
+    },
+    {
+      "id": "orders",
+      "name": "Terminal de commandement",
+      "description": "Consomme du ravitaillement pour autoriser un ordre abstrait.",
+      "sequence": {
+        "event": "interact",
+        "key": "e",
+        "radius": 130,
+        "once": false,
+        "conditions": [],
+        "instructions": [],
+        "branches": [
+          {
+            "conditions": [
+              {
+                "type": "variable",
+                "key": "cmdSupply",
+                "value": 10,
+                "operator": ">="
+              }
+            ],
+            "instructions": [
+              {
+                "type": "addVariable",
+                "key": "cmdSupply",
+                "value": -10
+              },
+              {
+                "type": "addVariable",
+                "key": "cmdOrders",
+                "value": 1
+              },
+              {
+                "type": "emitSignal",
+                "value": "cmd:order"
+              },
+              {
+                "type": "message",
+                "value": "Ordre approuvé : raccorde l'IA du projet."
+              }
+            ]
+          }
+        ],
+        "elseInstructions": []
+      }
+    },
+    {
+      "id": "victory",
+      "name": "Rapport de victoire",
+      "description": "Valide les secteurs et un ordre approuvé.",
+      "sequence": {
+        "event": "interact",
+        "key": "e",
+        "radius": 130,
+        "once": false,
+        "conditions": [],
+        "instructions": [],
+        "branches": [
+          {
+            "conditions": [
+              {
+                "type": "variable",
+                "key": "cmdAlpha",
+                "value": 1,
+                "operator": "=="
+              },
+              {
+                "type": "variable",
+                "key": "cmdBravo",
+                "value": 1,
+                "operator": "=="
+              },
+              {
+                "type": "variable",
+                "key": "cmdOrders",
+                "value": 1,
+                "operator": ">="
+              }
+            ],
+            "instructions": [
+              {
+                "type": "winGame",
+                "value": "Contrôle opérationnel confirmé."
+              }
+            ]
+          }
+        ],
+        "elseInstructions": [
+          {
+            "type": "message",
+            "value": "Mission tactique incomplète."
+          }
+        ]
+      }
+    }
+  ]
+}
