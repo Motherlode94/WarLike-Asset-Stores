@@ -15,6 +15,14 @@ The origin is `https://warlike-asset-stores.pages.dev`; Library receives at `htt
 
 The `assets/free/warlike-originals/` package contains eight original low-poly modular models with per-model GLB files, SVG preview illustrations, a JSON manifest, and a CC0 declaration. They are simple prototypes intended for simulation, RTS/FPS scenery, buildings and props, not animated high-fidelity characters. The binaries are committed to this repository and are served as assets, not fabricated catalog links.
 
+## Gameplay Store — nouveaux packs Blueprint natifs (novembre 2026)
+
+Le rayon `extensions.html` contient désormais quatre packs supplémentaires : **Plateforme 2D** (pièces, checkpoint et sortie), **Horreur / Escape Room** (clé, console, porte, extraction), **Ferme et commerce** (graines, production, ventes) et **RTS Logistique** (mine, ressources et capture). Chaque pack est un véritable fichier JSON versionné, avec **4 à 5 recettes WarNode** utilisant les événements et actions de gameplay du moteur, et non une simple fiche sans fichier.
+
+Les utilisateurs filtrent le rayon par **application**, **catégorie**, **mode de jeu 2D/3D** et **type de ressource** (Blueprint, préréglage ou module JavaScript). Les boutons restent honnêtes : les packs Blueprint se téléchargent puis s'importent explicitement dans Engine ; le Store **n'exécute pas** de JavaScript distant et ne prétend pas installer automatiquement un module non intégré. Le pack Plateforme exige des GameObjects Collider2D configurés comme Trigger pour ses événements de contact ; l'extension RTS gère les ressources, **pas encore le spawn physique des unités** ; les cultures de la ferme sont abstraites, sans croissance graphique automatique.
+
+Les tests `tests/gameplay-store-packs.test.mjs` vérifient que les fichiers existent, que les ressources annoncées sont uniques, que les recettes disposent d'événements/actions compatibles et que le filtrage Web est raccordé.
+
 ## Extension shelf
 
 `extensions.html` reads `extensions/catalog.json`, exposing downloadable ES modules and JSON resource templates for WarLike Engine, Studio, Node, Monteur and MISC. JSON presets can now be sent to their matching application using an origin-checked postMessage handshake and are installed in that application's browser localStorage. Installed presets can be enabled, disabled or removed in its `extensions.html` manager. Engine uses the animation-map preset for GLB clip matching, Studio uses mastering presets, Node loads validated graph-v2 templates, Monteur applies 720/1080p export profiles and MISC displays practice plans. These flows require a separate browser integration test after deployment. JavaScript extension modules remain **download-only** and are never remotely evaluated. Unsupported formats (for example Monteur 4K/H.264) do not become supported just by installing a JSON preset.
