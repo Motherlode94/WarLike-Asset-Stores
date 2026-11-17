@@ -1,0 +1,217 @@
+{
+  "apiVersion": "1.0",
+  "id": "warlike-rts-logistics",
+  "version": "1.0.0",
+  "name": "RTS · Ravitaillement et contrôle",
+  "author": "WarLike Corps",
+  "modes": [
+    "2d",
+    "3d"
+  ],
+  "description": "Sécuriser une mine, générer du ravitaillement, renforcer les unités et capturer un poste.",
+  "recipes": [
+    {
+      "id": "start",
+      "name": "Commandement initial",
+      "description": "Initialise les ressources et la mission",
+      "sequence": {
+        "event": "start",
+        "key": "e",
+        "radius": 130,
+        "once": true,
+        "conditions": [],
+        "instructions": [
+          {
+            "type": "setVariable",
+            "key": "rtsSupply",
+            "value": 20
+          },
+          {
+            "type": "setVariable",
+            "key": "rtsMine",
+            "value": 0
+          },
+          {
+            "type": "setVariable",
+            "key": "rtsOutpost",
+            "value": 0
+          },
+          {
+            "type": "setVariable",
+            "key": "rtsReinforcements",
+            "value": 0
+          },
+          {
+            "type": "message",
+            "value": "Sécurise la mine, prépare du ravitaillement puis prends le poste."
+          }
+        ]
+      }
+    },
+    {
+      "id": "mine",
+      "name": "Mine logistique",
+      "description": "Débloque la source de ravitaillement",
+      "sequence": {
+        "event": "interact",
+        "key": "e",
+        "radius": 130,
+        "once": true,
+        "conditions": [],
+        "instructions": [
+          {
+            "type": "setVariable",
+            "key": "rtsMine",
+            "value": 1
+          },
+          {
+            "type": "addVariable",
+            "key": "rtsSupply",
+            "value": 15
+          },
+          {
+            "type": "message",
+            "value": "Mine sécurisée : +15 ravitaillement."
+          }
+        ]
+      }
+    },
+    {
+      "id": "depot",
+      "name": "Dépôt de ravitaillement",
+      "description": "Convertit la mine en stock logistique",
+      "sequence": {
+        "event": "interact",
+        "key": "e",
+        "radius": 130,
+        "once": false,
+        "conditions": [],
+        "instructions": [],
+        "branches": [
+          {
+            "conditions": [
+              {
+                "type": "variable",
+                "key": "rtsMine",
+                "value": 1,
+                "operator": "=="
+              }
+            ],
+            "instructions": [
+              {
+                "type": "addVariable",
+                "key": "rtsSupply",
+                "value": 10
+              },
+              {
+                "type": "message",
+                "value": "Convoyage : +10 ravitaillement."
+              }
+            ]
+          }
+        ],
+        "elseInstructions": [
+          {
+            "type": "message",
+            "value": "La mine doit être sécurisée."
+          }
+        ]
+      }
+    },
+    {
+      "id": "recruter",
+      "name": "Renforts",
+      "description": "Débloque le budget de renforts",
+      "sequence": {
+        "event": "interact",
+        "key": "e",
+        "radius": 130,
+        "once": false,
+        "conditions": [],
+        "instructions": [],
+        "branches": [
+          {
+            "conditions": [
+              {
+                "type": "variable",
+                "key": "rtsSupply",
+                "value": 20,
+                "operator": ">="
+              }
+            ],
+            "instructions": [
+              {
+                "type": "addVariable",
+                "key": "rtsSupply",
+                "value": -20
+              },
+              {
+                "type": "addVariable",
+                "key": "rtsReinforcements",
+                "value": 1
+              },
+              {
+                "type": "message",
+                "value": "Un renfort débloqué : la création physique d'unité doit être reliée au projet."
+              }
+            ]
+          }
+        ],
+        "elseInstructions": [
+          {
+            "type": "message",
+            "value": "Il faut 20 ravitaillements."
+          }
+        ]
+      }
+    },
+    {
+      "id": "capture",
+      "name": "Poste avancé",
+      "description": "Victoire après mine et renfort",
+      "sequence": {
+        "event": "interact",
+        "key": "e",
+        "radius": 130,
+        "once": false,
+        "conditions": [],
+        "instructions": [],
+        "branches": [
+          {
+            "conditions": [
+              {
+                "type": "variable",
+                "key": "rtsMine",
+                "value": 1,
+                "operator": "=="
+              },
+              {
+                "type": "variable",
+                "key": "rtsReinforcements",
+                "value": 1,
+                "operator": ">="
+              }
+            ],
+            "instructions": [
+              {
+                "type": "setVariable",
+                "key": "rtsOutpost",
+                "value": 1
+              },
+              {
+                "type": "winGame",
+                "value": "Poste avancé sécurisé."
+              }
+            ]
+          }
+        ],
+        "elseInstructions": [
+          {
+            "type": "message",
+            "value": "Sécurise la mine et débloque un renfort."
+          }
+        ]
+      }
+    }
+  ]
+}
