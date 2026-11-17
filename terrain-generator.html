@@ -5,7 +5,7 @@
 <link rel="stylesheet" href="./design-system/warlike-foundation.css?v=1.1">
 <link rel="stylesheet" href="./design-system/warlike-shell.css?v=1.1">
 </head><body><header><strong>🌍 WARLIKE GAIA <span style="color:#9ed4af">· TERRAIN STUDIO</span></strong><nav><a href="./extensions.html">← Extensions</a> · <a href="./index.html">Asset Store</a> · <a href="https://warlike-engine.pages.dev/">Engine</a></nav></header><main><div class="intro"><h1>Générateur de terrains procéduraux</h1><p class="muted">Créer un relief reproductible, choisir un biome, placer arbres et roches dans un plan de scène, puis exporter un vrai modèle 3D GLB et une heightmap PNG. Outil WarLike original inspiré du flux de création des logiciels de terrain.</p></div><div class="layout gaia-workspace"><section class="panel gaia-world-panel"><h2>🌎 Paramètres du monde</h2><form class="settings" id="settings"><div class="setting"><label for="biome">Biome</label><select id="biome" name="biome"><option value="forest">Forêt</option><option value="plains">Plaines</option><option value="mountains">Montagnes</option><option value="islands">Îles</option><option value="desert">Désert</option><option value="canyon">Canyon</option><option value="tundra">Toundra</option><option value="marsh">Marécage</option></select></div><div class="setting"><label for="seed">Graine (reproductible)</label><input id="seed" name="seed" type="number" value="2026" min="0" max="2147483647" step="1"></div><div class="setting"><label for="size">Dimensions du terrain (m)</label><select id="size" name="size"><option>64</option><option>128</option><option selected>256</option><option>512</option><option>1024</option></select></div><div class="setting"><label for="resolution">Résolution du maillage</label><select id="resolution" name="resolution"><option>33</option><option selected>65</option><option>129</option><option>257</option></select><small>257 = plus de détails, fichiers plus lourds.</small></div><div class="setting"><label for="height">Hauteur maximale (m)</label><input id="height" name="height" type="number" min="1" max="320" value="58"></div><div class="setting"><label for="water">Niveau d'eau (0–0,85)</label><input id="water" name="water" type="range" min="0" max=".85" value=".32" step=".01"><small id="waterLabel">0,32</small></div><div class="setting"><label for="trees">Arbres (plan de placement)</label><input id="trees" name="trees" type="number" min="0" max="2500" value="120"></div><div class="setting"><label for="rocks">Rochers (plan de placement)</label><input id="rocks" name="rocks" type="number" min="0" max="900" value="35"></div><div class="buttons"><button class="btn primary" id="generate" type="submit">⛰ Générer le terrain</button><button class="btn" id="random" type="button">🎲 Nouvelle graine</button></div></form>
-</section><section class="panel gaia-tools-panel" aria-label="Outils du terrain"><div class="gaia-panel-head"><h2>🛠 Outils Gaia</h2><p>Les outils restent accessibles pendant l’édition.</p></div><nav class="gaia-tool-tabs" aria-label="Catégories d’outils"><button type="button" data-gaia-pane="sculpt" aria-pressed="true">⛰ Relief</button><button type="button" data-gaia-pane="layers" aria-pressed="false">🎨 Calques</button><button type="button" data-gaia-pane="advanced" aria-pressed="false">🌧 Avancé</button></nav><div class="gaia-quick-tiles"><h3>▦ Tuiles du monde</h3><div id="gaiaTilesQuick"></div></div><div class="editing gaia-tool-section" data-gaia-section="sculpt"><h2>🖌 Sculpture du relief</h2><div class="tool-row" id="tools">
+</section><section class="panel gaia-tools-panel" aria-label="Outils du terrain"><div class="gaia-panel-head"><h2>🛠 Outils Gaia</h2><p>Les outils restent accessibles pendant l’édition.</p></div><nav class="gaia-tool-tabs" aria-label="Catégories d’outils"><button type="button" data-gaia-pane="sculpt" aria-pressed="true">⛰ Relief</button><button type="button" data-gaia-pane="layers" aria-pressed="false">🎨 Calques</button><button type="button" data-gaia-pane="advanced" aria-pressed="false">🌧 Avancé</button></nav><div class="gaia-quick-tiles"><h3>▦ Tuiles du monde</h3><div id="gaiaTilesQuick"></div><div id="gaiaTilePicker" class="gaia-tile-picker" aria-label="Choix des tuiles générées"></div></div><div class="editing gaia-tool-section" data-gaia-section="sculpt"><h2>🖌 Sculpture du relief</h2><div class="tool-row" id="tools">
 <button type="button" class="btn" data-tool="raise" aria-pressed="true">⛰ Monter</button>
 <button type="button" class="btn" data-tool="lower" aria-pressed="false">⛏ Creuser</button>
 <button type="button" class="btn" data-tool="smooth" aria-pressed="false">≈ Lisser</button>
@@ -28,11 +28,11 @@
 <script type="module">
 import {BIOMES,TERRAIN_LAYERS,applyTerrainBrush,ensureTerrainLayers,generateHeightmap,scatterAssets,previewPixels,heightmapPixels,exportTerrainGLB,exportTerrainRecipe} from './extensions/warlike-gaia.js';
 import {applyAdvancedNoise,erodeThermal,erodeHydraulic,generateTerrainTiles,terrainCollisionDescriptor,exportWorldRecipe} from './extensions/warlike-gaia-advanced.js';
-const $=id=>document.getElementById(id),canvas=$('preview'),ctx=canvas.getContext('2d'),tmp=document.createElement('canvas'),tctx=tmp.getContext('2d');let current,activeTool='raise',activeLayer='grass',stroke=null,undo=[],redo=[],world=null;
+const $=id=>document.getElementById(id),canvas=$('preview'),ctx=canvas.getContext('2d'),tmp=document.createElement('canvas'),tctx=tmp.getContext('2d');let current,activeTool='raise',activeLayer='grass',stroke=null,undo=[],redo=[],world=null,previewTileIndex=null;
 function config(){return Object.fromEntries(new FormData($('settings')).entries())}
 function download(filename,bytes,mime){const blob=bytes instanceof Blob?bytes:new Blob([bytes],{type:mime}),href=URL.createObjectURL(blob),anchor=document.createElement('a');anchor.href=href;anchor.download=filename;document.body.append(anchor);anchor.click();anchor.remove();setTimeout(()=>URL.revokeObjectURL(href),12000)}
 function paint(pixels){const n=current.config.resolution;tmp.width=n;tmp.height=n;tctx.putImageData(new ImageData(pixels,n,n),0,0);ctx.clearRect(0,0,600,600);ctx.imageSmoothingEnabled=true;ctx.drawImage(tmp,0,0,600,600)}
-function generate(){try{current=generateHeightmap(config());ensureTerrainLayers(current);world=null;$('exportTiles').disabled=true;$('exportWorld').disabled=true;$('tileSummary').textContent='';undo=[];redo=[];syncHistory();paint(previewPixels(current));const c=current.config,placed=scatterAssets(current);$('vertices').textContent=(c.resolution*c.resolution).toLocaleString('fr-FR');$('triangles').textContent=(2*(c.resolution-1)**2).toLocaleString('fr-FR');$('placements').textContent=placed.filter(p=>p.type==='tree').length+' / '+placed.filter(p=>p.type==='rock').length;$('seedDisplay').textContent=c.seed;$('status').textContent='✓ Terrain '+BIOMES[c.biome].name+' généré — export prêt.';return true}catch(e){$('status').textContent='Erreur : '+e.message;return false}}
+function generate(){try{current=generateHeightmap(config());ensureTerrainLayers(current);world=null;previewTileIndex=null;$('gaiaTilePicker').replaceChildren();$('exportTiles').disabled=true;$('exportWorld').disabled=true;$('tileSummary').textContent='';undo=[];redo=[];syncHistory();paint(previewPixels(current));const c=current.config,placed=scatterAssets(current);$('vertices').textContent=(c.resolution*c.resolution).toLocaleString('fr-FR');$('triangles').textContent=(2*(c.resolution-1)**2).toLocaleString('fr-FR');$('placements').textContent=placed.filter(p=>p.type==='tree').length+' / '+placed.filter(p=>p.type==='rock').length;$('seedDisplay').textContent=c.seed;$('status').textContent='✓ Terrain '+BIOMES[c.biome].name+' généré — export prêt.';return true}catch(e){$('status').textContent='Erreur : '+e.message;return false}}
 
 const layerRoot=$('layers');
 for(const layer of TERRAIN_LAYERS){
@@ -61,6 +61,7 @@ function draw(event){
 }
 canvas.addEventListener('pointerdown',event=>{
  if(event.button!==0||!current||stroke)return;
+ if(previewTileIndex!==null){$('status').textContent='Aperçu de tuile : reviens au terrain principal pour utiliser les pinceaux.';return;}
  const {u,v}=pointerCoord(event),n=current.config.resolution;
  stroke={id:event.pointerId,flattenHeight:current.heights[Math.round(v*(n-1))*n+Math.round(u*(n-1))]};
  undo.push(snapshot());if(undo.length>25)undo.shift();redo=[];syncHistory();
@@ -83,16 +84,30 @@ $('exportRecipe').onclick=()=>{if(!current&&!generate())return;download('warlike
 function updateTerrain(next,description){
  if(!current)return;
  undo.push(snapshot());if(undo.length>25)undo.shift();redo=[];
- current=next;ensureTerrainLayers(current);world=null;$('exportTiles').disabled=true;$('exportWorld').disabled=true;syncHistory();
+ current=next;ensureTerrainLayers(current);world=null;previewTileIndex=null;$('gaiaTilePicker').replaceChildren();$('exportTiles').disabled=true;$('exportWorld').disabled=true;syncHistory();
  paint(previewPixels(current));$('status').textContent='✓ '+description;
 }
 $('applyNoise').onclick=()=>{if(!current)return;updateTerrain(applyAdvancedNoise(current,{seed:current.config.seed,octaves:Number($('noiseOctaves').value),warp:Number($('noiseWarp').value),ridge:Number($('noiseRidge').value),amount:Number($('noiseAmount').value)}),'Bruit avancé appliqué.')};
 $('thermal').onclick=()=>{if(!current)return;updateTerrain(erodeThermal(current,{iterations:Number($('erosionIterations').value)}),'Érosion thermique appliquée.')};
 $('hydraulic').onclick=()=>{if(!current)return;updateTerrain(erodeHydraulic(current,{iterations:Number($('erosionIterations').value)}),'Érosion hydraulique appliquée.')};
+function renderGaiaTilePicker(){
+ const host=$('gaiaTilePicker');host.replaceChildren();if(!world)return;
+ const title=document.createElement('span');title.className='gaia-tile-label';title.textContent='Choisir une tuile pour l’aperçu :';host.append(title);
+ const base=document.createElement('button');base.type='button';base.textContent='Vue du terrain';base.setAttribute('aria-pressed',String(previewTileIndex===null));
+ base.onclick=()=>{previewTileIndex=null;paint(previewPixels(current));renderGaiaTilePicker();$('status').textContent='Terrain principal : pinceaux disponibles.'};host.append(base);
+ for(let i=0;i<world.tiles.length;i++){
+  const tile=world.tiles[i],btn=document.createElement('button');btn.type='button';
+  btn.textContent='Tuile '+tile.tileX+' · '+tile.tileZ;btn.setAttribute('aria-pressed',String(previewTileIndex===i));
+  btn.setAttribute('aria-label','Prévisualiser la tuile '+tile.tileX+', '+tile.tileZ);
+  btn.onclick=()=>{previewTileIndex=i;paint(previewPixels(tile.terrain));renderGaiaTilePicker();$('status').textContent='Aperçu de la tuile '+tile.tileX+' / '+tile.tileZ+' : retourne au terrain principal pour sculpter.'};
+  host.append(btn);
+ }
+}
 $('makeTiles').onclick=()=>{
  try{
   world=generateTerrainTiles(current?.config||config(),{tiles:Number($('tileCount').value)});
   $('exportTiles').disabled=false;$('exportWorld').disabled=false;
+  renderGaiaTilePicker();
   $('tileSummary').textContent=world.tiles.length+' terrains adjacents de '+world.config.size+' m chacun, '+world.worldResolution+' sommets par axe. Les coins et les bords sont partagés.';
   $('status').textContent='✓ Grille de terrains adjacents générée.';
  }catch(e){$('status').textContent='Erreur de terrain : '+e.message}
