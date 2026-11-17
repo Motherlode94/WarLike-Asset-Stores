@@ -318,7 +318,8 @@
         "2d",
         "3d"
       ],
-      "sceneFile": "./extensions/scenes/warlike-interaction-lab.project-v2.json"
+      "sceneFile": "./extensions/scenes/warlike-interaction-lab.project-v2.json",
+      "scene2dFile": "./extensions/scenes/warlike-interaction-lab.project-v2-2d.json"
     },
     {
       "id": "warlike-fps-operation",
@@ -349,7 +350,8 @@
         "2d",
         "3d"
       ],
-      "sceneFile": "./extensions/scenes/warlike-tactical-command.project-v2.json"
+      "sceneFile": "./extensions/scenes/warlike-tactical-command.project-v2.json",
+      "scene2dFile": "./extensions/scenes/warlike-tactical-command.project-v2-2d.json"
     },
     {
       "id": "warlike-tower-defense-planner",
@@ -365,7 +367,8 @@
         "2d",
         "3d"
       ],
-      "sceneFile": "./extensions/scenes/warlike-tower-defense-planner.project-v2.json"
+      "sceneFile": "./extensions/scenes/warlike-tower-defense-planner.project-v2.json",
+      "scene2dFile": "./extensions/scenes/warlike-tower-defense-planner.project-v2-2d.json"
     },
     {
       "id": "warlike-detective-case",
@@ -381,7 +384,8 @@
         "2d",
         "3d"
       ],
-      "sceneFile": "./extensions/scenes/warlike-detective-case.project-v2.json"
+      "sceneFile": "./extensions/scenes/warlike-detective-case.project-v2.json",
+      "scene2dFile": "./extensions/scenes/warlike-detective-case.project-v2-2d.json"
     },
     {
       "id": "warlike-horror-power-grid",
@@ -412,7 +416,8 @@
         "2d",
         "3d"
       ],
-      "sceneFile": "./extensions/scenes/warlike-supermarket-business.project-v2.json"
+      "sceneFile": "./extensions/scenes/warlike-supermarket-business.project-v2.json",
+      "scene2dFile": "./extensions/scenes/warlike-supermarket-business.project-v2-2d.json"
     },
     {
       "id": "warlike-construction-operations",
@@ -443,7 +448,8 @@
         "2d",
         "3d"
       ],
-      "sceneFile": "./extensions/scenes/warlike-rpg-dungeon-relay.project-v2.json"
+      "sceneFile": "./extensions/scenes/warlike-rpg-dungeon-relay.project-v2.json",
+      "scene2dFile": "./extensions/scenes/warlike-rpg-dungeon-relay.project-v2-2d.json"
     },
     {
       "id": "warlike-turnbased-operations",
@@ -459,7 +465,8 @@
         "2d",
         "3d"
       ],
-      "sceneFile": "./extensions/scenes/warlike-turnbased-operations.project-v2.json"
+      "sceneFile": "./extensions/scenes/warlike-turnbased-operations.project-v2.json",
+      "scene2dFile": "./extensions/scenes/warlike-turnbased-operations.project-v2-2d.json"
     },
     {
       "id": "warlike-farming-greenhouse",
@@ -475,7 +482,8 @@
         "2d",
         "3d"
       ],
-      "sceneFile": "./extensions/scenes/warlike-farming-greenhouse.project-v2.json"
+      "sceneFile": "./extensions/scenes/warlike-farming-greenhouse.project-v2.json",
+      "scene2dFile": "./extensions/scenes/warlike-farming-greenhouse.project-v2-2d.json"
     },
     {
       "id": "warlike-garage-pitstop",
