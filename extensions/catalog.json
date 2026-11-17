@@ -317,7 +317,8 @@
       "modes": [
         "2d",
         "3d"
-      ]
+      ],
+      "sceneFile": "./extensions/scenes/warlike-interaction-lab.project-v2.json"
     },
     {
       "id": "warlike-fps-operation",
@@ -331,7 +332,8 @@
       "version": "1.0.0",
       "modes": [
         "3d"
-      ]
+      ],
+      "sceneFile": "./extensions/scenes/warlike-fps-operation.project-v2.json"
     },
     {
       "id": "warlike-tactical-command",
@@ -346,7 +348,8 @@
       "modes": [
         "2d",
         "3d"
-      ]
+      ],
+      "sceneFile": "./extensions/scenes/warlike-tactical-command.project-v2.json"
     },
     {
       "id": "warlike-tower-defense-planner",
@@ -361,7 +364,8 @@
       "modes": [
         "2d",
         "3d"
-      ]
+      ],
+      "sceneFile": "./extensions/scenes/warlike-tower-defense-planner.project-v2.json"
     },
     {
       "id": "warlike-detective-case",
@@ -376,7 +380,8 @@
       "modes": [
         "2d",
         "3d"
-      ]
+      ],
+      "sceneFile": "./extensions/scenes/warlike-detective-case.project-v2.json"
     },
     {
       "id": "warlike-horror-power-grid",
@@ -390,7 +395,8 @@
       "version": "1.0.0",
       "modes": [
         "3d"
-      ]
+      ],
+      "sceneFile": "./extensions/scenes/warlike-horror-power-grid.project-v2.json"
     },
     {
       "id": "warlike-supermarket-business",
@@ -405,7 +411,8 @@
       "modes": [
         "2d",
         "3d"
-      ]
+      ],
+      "sceneFile": "./extensions/scenes/warlike-supermarket-business.project-v2.json"
     },
     {
       "id": "warlike-construction-operations",
@@ -419,7 +426,8 @@
       "version": "1.0.0",
       "modes": [
         "3d"
-      ]
+      ],
+      "sceneFile": "./extensions/scenes/warlike-construction-operations.project-v2.json"
     },
     {
       "id": "warlike-rpg-dungeon-relay",
@@ -434,7 +442,8 @@
       "modes": [
         "2d",
         "3d"
-      ]
+      ],
+      "sceneFile": "./extensions/scenes/warlike-rpg-dungeon-relay.project-v2.json"
     },
     {
       "id": "warlike-turnbased-operations",
@@ -449,7 +458,8 @@
       "modes": [
         "2d",
         "3d"
-      ]
+      ],
+      "sceneFile": "./extensions/scenes/warlike-turnbased-operations.project-v2.json"
     },
     {
       "id": "warlike-farming-greenhouse",
@@ -464,7 +474,8 @@
       "modes": [
         "2d",
         "3d"
-      ]
+      ],
+      "sceneFile": "./extensions/scenes/warlike-farming-greenhouse.project-v2.json"
     },
     {
       "id": "warlike-garage-pitstop",
@@ -478,7 +489,8 @@
       "version": "1.0.0",
       "modes": [
         "3d"
-      ]
+      ],
+      "sceneFile": "./extensions/scenes/warlike-garage-pitstop.project-v2.json"
     },
     {
       "id": "studio-genre-vocal-chains",
