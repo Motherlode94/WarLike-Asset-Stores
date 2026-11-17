@@ -1,0 +1,775 @@
+{
+  "schema": "warlike.project.v2",
+  "name": "Interaction Lab · Portes et consoles — Exemple natif · 2D",
+  "mode": "2d",
+  "scenes": [
+    {
+      "schema": "warlike.scene.v2",
+      "id": "demo-warlike-interaction-lab-2d",
+      "name": "Interaction Lab · Portes et consoles · Démonstration · 2D",
+      "objects": [
+        {
+          "id": "entity-1",
+          "sourceEntityId": 1,
+          "name": "Joueur de démonstration",
+          "parentId": null,
+          "active": true,
+          "components": [
+            {
+              "type": "Transform",
+              "position": [
+                0,
+                0.2,
+                0
+              ],
+              "rotation": [
+                0,
+                0,
+                0
+              ],
+              "scale": [
+                1,
+                1,
+                1
+              ]
+            },
+            {
+              "type": "LegacyEntity",
+              "data": {
+                "id": 1,
+                "name": "Joueur de démonstration",
+                "type": "player",
+                "x": 0,
+                "y": 0,
+                "w": 50,
+                "h": 90,
+                "depth3d": 50,
+                "elevation3d": 0.2,
+                "color": "#41c6b7",
+                "visible": true,
+                "enabled": true,
+                "playable3d": false,
+                "collision3d": false,
+                "solid3d": false,
+                "controller2d": {
+                  "enabled": true,
+                  "mode": "topdown",
+                  "walkSpeed": 180
+                }
+              }
+            }
+          ]
+        },
+        {
+          "id": "entity-2",
+          "sourceEntityId": 2,
+          "name": "Plateforme de démonstration",
+          "parentId": null,
+          "active": true,
+          "components": [
+            {
+              "type": "Transform",
+              "position": [
+                -7.8125,
+                -0.25,
+                -7.8125
+              ],
+              "rotation": [
+                0,
+                0,
+                0
+              ],
+              "scale": [
+                1,
+                1,
+                1
+              ]
+            },
+            {
+              "type": "LegacyEntity",
+              "data": {
+                "id": 2,
+                "name": "Plateforme de démonstration",
+                "type": "object",
+                "x": -500,
+                "y": -500,
+                "w": 1400,
+                "h": 1400,
+                "depth3d": 1400,
+                "elevation3d": -0.25,
+                "color": "#39495a",
+                "visible": true,
+                "enabled": true,
+                "collision3d": false,
+                "solid3d": false,
+                "hierarchyGroup": "Environnement"
+              }
+            }
+          ]
+        },
+        {
+          "id": "entity-3",
+          "sourceEntityId": 3,
+          "name": "Initialisation des accès",
+          "parentId": null,
+          "active": true,
+          "components": [
+            {
+              "type": "Transform",
+              "position": [
+                1.875,
+                0.1,
+                1.25
+              ],
+              "rotation": [
+                0,
+                0,
+                0
+              ],
+              "scale": [
+                1,
+                1,
+                1
+              ]
+            },
+            {
+              "type": "LegacyEntity",
+              "data": {
+                "id": 3,
+                "name": "Initialisation des accès",
+                "type": "object",
+                "x": 120,
+                "y": 80,
+                "w": 54,
+                "h": 72,
+                "depth3d": 54,
+                "elevation3d": 0.1,
+                "color": "#7399dd",
+                "visible": true,
+                "enabled": true,
+                "collision3d": false,
+                "solid3d": false,
+                "hierarchyGroup": "Extension · WarNode",
+                "sequence": {
+                  "event": "start",
+                  "key": "e",
+                  "radius": 130,
+                  "once": true,
+                  "conditions": [],
+                  "instructions": [
+                    {
+                      "type": "setVariable",
+                      "key": "labBadge",
+                      "value": 0
+                    },
+                    {
+                      "type": "setVariable",
+                      "key": "labPower",
+                      "value": 0
+                    },
+                    {
+                      "type": "setVariable",
+                      "key": "labDoor",
+                      "value": 0
+                    },
+                    {
+                      "type": "message",
+                      "value": "Trouve le badge, active le courant puis ouvre la sortie."
+                    }
+                  ]
+                },
+                "interactable": {
+                  "enabled": true,
+                  "maxDistance": 3,
+                  "prompt": "Initialisation des accès"
+                }
+              }
+            },
+            {
+              "type": "sequence",
+              "data": {
+                "event": "start",
+                "key": "e",
+                "radius": 130,
+                "once": true,
+                "conditions": [],
+                "instructions": [
+                  {
+                    "type": "setVariable",
+                    "key": "labBadge",
+                    "value": 0
+                  },
+                  {
+                    "type": "setVariable",
+                    "key": "labPower",
+                    "value": 0
+                  },
+                  {
+                    "type": "setVariable",
+                    "key": "labDoor",
+                    "value": 0
+                  },
+                  {
+                    "type": "message",
+                    "value": "Trouve le badge, active le courant puis ouvre la sortie."
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "id": "entity-4",
+          "sourceEntityId": 4,
+          "name": "Badge de sécurité",
+          "parentId": null,
+          "active": true,
+          "components": [
+            {
+              "type": "Transform",
+              "position": [
+                4.453125,
+                0.1,
+                1.25
+              ],
+              "rotation": [
+                0,
+                0,
+                0
+              ],
+              "scale": [
+                1,
+                1,
+                1
+              ]
+            },
+            {
+              "type": "LegacyEntity",
+              "data": {
+                "id": 4,
+                "name": "Badge de sécurité",
+                "type": "object",
+                "x": 285,
+                "y": 80,
+                "w": 54,
+                "h": 72,
+                "depth3d": 54,
+                "elevation3d": 0.1,
+                "color": "#b38eda",
+                "visible": true,
+                "enabled": true,
+                "collision3d": false,
+                "solid3d": false,
+                "hierarchyGroup": "Extension · WarNode",
+                "sequence": {
+                  "event": "interact",
+                  "key": "e",
+                  "radius": 130,
+                  "once": true,
+                  "conditions": [],
+                  "instructions": [
+                    {
+                      "type": "setVariable",
+                      "key": "labBadge",
+                      "value": 1
+                    },
+                    {
+                      "type": "message",
+                      "value": "Badge de service récupéré."
+                    }
+                  ]
+                },
+                "interactable": {
+                  "enabled": true,
+                  "maxDistance": 3,
+                  "prompt": "Badge de sécurité"
+                }
+              }
+            },
+            {
+              "type": "sequence",
+              "data": {
+                "event": "interact",
+                "key": "e",
+                "radius": 130,
+                "once": true,
+                "conditions": [],
+                "instructions": [
+                  {
+                    "type": "setVariable",
+                    "key": "labBadge",
+                    "value": 1
+                  },
+                  {
+                    "type": "message",
+                    "value": "Badge de service récupéré."
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "id": "entity-5",
+          "sourceEntityId": 5,
+          "name": "Levier de courant",
+          "parentId": null,
+          "active": true,
+          "components": [
+            {
+              "type": "Transform",
+              "position": [
+                7.03125,
+                0.1,
+                1.25
+              ],
+              "rotation": [
+                0,
+                0,
+                0
+              ],
+              "scale": [
+                1,
+                1,
+                1
+              ]
+            },
+            {
+              "type": "LegacyEntity",
+              "data": {
+                "id": 5,
+                "name": "Levier de courant",
+                "type": "object",
+                "x": 450,
+                "y": 80,
+                "w": 54,
+                "h": 72,
+                "depth3d": 54,
+                "elevation3d": 0.1,
+                "color": "#d6a96f",
+                "visible": true,
+                "enabled": true,
+                "collision3d": false,
+                "solid3d": false,
+                "hierarchyGroup": "Extension · WarNode",
+                "sequence": {
+                  "event": "interact",
+                  "key": "e",
+                  "radius": 130,
+                  "once": true,
+                  "conditions": [],
+                  "instructions": [
+                    {
+                      "type": "setVariable",
+                      "key": "labPower",
+                      "value": 1
+                    },
+                    {
+                      "type": "emitSignal",
+                      "value": "lab:power"
+                    },
+                    {
+                      "type": "message",
+                      "value": "Énergie activée."
+                    }
+                  ]
+                },
+                "interactable": {
+                  "enabled": true,
+                  "maxDistance": 3,
+                  "prompt": "Levier de courant"
+                }
+              }
+            },
+            {
+              "type": "sequence",
+              "data": {
+                "event": "interact",
+                "key": "e",
+                "radius": 130,
+                "once": true,
+                "conditions": [],
+                "instructions": [
+                  {
+                    "type": "setVariable",
+                    "key": "labPower",
+                    "value": 1
+                  },
+                  {
+                    "type": "emitSignal",
+                    "value": "lab:power"
+                  },
+                  {
+                    "type": "message",
+                    "value": "Énergie activée."
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "id": "entity-6",
+          "sourceEntityId": 6,
+          "name": "Console sous contrôle",
+          "parentId": null,
+          "active": true,
+          "components": [
+            {
+              "type": "Transform",
+              "position": [
+                1.875,
+                0.1,
+                3.984375
+              ],
+              "rotation": [
+                0,
+                0,
+                0
+              ],
+              "scale": [
+                1,
+                1,
+                1
+              ]
+            },
+            {
+              "type": "LegacyEntity",
+              "data": {
+                "id": 6,
+                "name": "Console sous contrôle",
+                "type": "object",
+                "x": 120,
+                "y": 255,
+                "w": 54,
+                "h": 72,
+                "depth3d": 54,
+                "elevation3d": 0.1,
+                "color": "#76b7a2",
+                "visible": true,
+                "enabled": true,
+                "collision3d": false,
+                "solid3d": false,
+                "hierarchyGroup": "Extension · WarNode",
+                "sequence": {
+                  "event": "interact",
+                  "key": "e",
+                  "radius": 130,
+                  "once": false,
+                  "conditions": [],
+                  "instructions": [],
+                  "branches": [
+                    {
+                      "conditions": [
+                        {
+                          "type": "variable",
+                          "key": "labBadge",
+                          "value": 1,
+                          "operator": "=="
+                        },
+                        {
+                          "type": "variable",
+                          "key": "labPower",
+                          "value": 1,
+                          "operator": "=="
+                        }
+                      ],
+                      "instructions": [
+                        {
+                          "type": "emitSignal",
+                          "value": "lab:open"
+                        },
+                        {
+                          "type": "setVariable",
+                          "key": "labDoor",
+                          "value": 1
+                        },
+                        {
+                          "type": "message",
+                          "value": "Porte déverrouillée."
+                        }
+                      ]
+                    }
+                  ],
+                  "elseInstructions": [
+                    {
+                      "type": "message",
+                      "value": "Badge et alimentation nécessaires."
+                    }
+                  ]
+                },
+                "interactable": {
+                  "enabled": true,
+                  "maxDistance": 3,
+                  "prompt": "Console sous contrôle"
+                }
+              }
+            },
+            {
+              "type": "sequence",
+              "data": {
+                "event": "interact",
+                "key": "e",
+                "radius": 130,
+                "once": false,
+                "conditions": [],
+                "instructions": [],
+                "branches": [
+                  {
+                    "conditions": [
+                      {
+                        "type": "variable",
+                        "key": "labBadge",
+                        "value": 1,
+                        "operator": "=="
+                      },
+                      {
+                        "type": "variable",
+                        "key": "labPower",
+                        "value": 1,
+                        "operator": "=="
+                      }
+                    ],
+                    "instructions": [
+                      {
+                        "type": "emitSignal",
+                        "value": "lab:open"
+                      },
+                      {
+                        "type": "setVariable",
+                        "key": "labDoor",
+                        "value": 1
+                      },
+                      {
+                        "type": "message",
+                        "value": "Porte déverrouillée."
+                      }
+                    ]
+                  }
+                ],
+                "elseInstructions": [
+                  {
+                    "type": "message",
+                    "value": "Badge et alimentation nécessaires."
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "id": "entity-7",
+          "sourceEntityId": 7,
+          "name": "Porte commandée",
+          "parentId": null,
+          "active": true,
+          "components": [
+            {
+              "type": "Transform",
+              "position": [
+                4.453125,
+                0.1,
+                3.984375
+              ],
+              "rotation": [
+                0,
+                0,
+                0
+              ],
+              "scale": [
+                1,
+                1,
+                1
+              ]
+            },
+            {
+              "type": "LegacyEntity",
+              "data": {
+                "id": 7,
+                "name": "Porte commandée",
+                "type": "object",
+                "x": 285,
+                "y": 255,
+                "w": 54,
+                "h": 72,
+                "depth3d": 54,
+                "elevation3d": 0.1,
+                "color": "#7399dd",
+                "visible": true,
+                "enabled": true,
+                "collision3d": false,
+                "solid3d": false,
+                "hierarchyGroup": "Extension · WarNode",
+                "sequence": {
+                  "event": "signal",
+                  "key": "e",
+                  "radius": 130,
+                  "once": true,
+                  "conditions": [],
+                  "instructions": [
+                    {
+                      "type": "setCollision",
+                      "value": false
+                    },
+                    {
+                      "type": "setVisibility",
+                      "value": false
+                    }
+                  ]
+                },
+                "interactable": {
+                  "enabled": true,
+                  "maxDistance": 3,
+                  "prompt": "Porte commandée"
+                }
+              }
+            },
+            {
+              "type": "sequence",
+              "data": {
+                "event": "signal",
+                "key": "e",
+                "radius": 130,
+                "once": true,
+                "conditions": [],
+                "instructions": [
+                  {
+                    "type": "setCollision",
+                    "value": false
+                  },
+                  {
+                    "type": "setVisibility",
+                    "value": false
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "id": "entity-8",
+          "sourceEntityId": 8,
+          "name": "Fin du circuit",
+          "parentId": null,
+          "active": true,
+          "components": [
+            {
+              "type": "Transform",
+              "position": [
+                7.03125,
+                0.1,
+                3.984375
+              ],
+              "rotation": [
+                0,
+                0,
+                0
+              ],
+              "scale": [
+                1,
+                1,
+                1
+              ]
+            },
+            {
+              "type": "LegacyEntity",
+              "data": {
+                "id": 8,
+                "name": "Fin du circuit",
+                "type": "object",
+                "x": 450,
+                "y": 255,
+                "w": 54,
+                "h": 72,
+                "depth3d": 54,
+                "elevation3d": 0.1,
+                "color": "#b38eda",
+                "visible": true,
+                "enabled": true,
+                "collision3d": false,
+                "solid3d": false,
+                "hierarchyGroup": "Extension · WarNode",
+                "sequence": {
+                  "event": "interact",
+                  "key": "e",
+                  "radius": 130,
+                  "once": false,
+                  "conditions": [],
+                  "instructions": [],
+                  "branches": [
+                    {
+                      "conditions": [
+                        {
+                          "type": "variable",
+                          "key": "labDoor",
+                          "value": 1,
+                          "operator": "=="
+                        }
+                      ],
+                      "instructions": [
+                        {
+                          "type": "winGame",
+                          "value": "Circuit d'interaction terminé."
+                        }
+                      ]
+                    }
+                  ],
+                  "elseInstructions": [
+                    {
+                      "type": "message",
+                      "value": "La porte est encore verrouillée."
+                    }
+                  ]
+                },
+                "interactable": {
+                  "enabled": true,
+                  "maxDistance": 3,
+                  "prompt": "Fin du circuit"
+                }
+              }
+            },
+            {
+              "type": "sequence",
+              "data": {
+                "event": "interact",
+                "key": "e",
+                "radius": 130,
+                "once": false,
+                "conditions": [],
+                "instructions": [],
+                "branches": [
+                  {
+                    "conditions": [
+                      {
+                        "type": "variable",
+                        "key": "labDoor",
+                        "value": 1,
+                        "operator": "=="
+                      }
+                    ],
+                    "instructions": [
+                      {
+                        "type": "winGame",
+                        "value": "Circuit d'interaction terminé."
+                      }
+                    ]
+                  }
+                ],
+                "elseInstructions": [
+                  {
+                    "type": "message",
+                    "value": "La porte est encore verrouillée."
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "assets": [],
+  "settings": {
+    "startSceneId": "demo-warlike-interaction-lab-2d"
+  }
+}
