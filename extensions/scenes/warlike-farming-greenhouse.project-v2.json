@@ -1,0 +1,918 @@
+{
+  "schema": "warlike.project.v2",
+  "name": "Farm Life · Serre et circuit de vente — Exemple natif",
+  "mode": "3d",
+  "scenes": [
+    {
+      "schema": "warlike.scene.v2",
+      "id": "demo-warlike-farming-greenhouse",
+      "name": "Farm Life · Serre et circuit de vente · Démonstration",
+      "objects": [
+        {
+          "id": "entity-1",
+          "sourceEntityId": 1,
+          "name": "Joueur de démonstration",
+          "parentId": null,
+          "active": true,
+          "components": [
+            {
+              "type": "Transform",
+              "position": [
+                0,
+                0.2,
+                0
+              ],
+              "rotation": [
+                0,
+                0,
+                0
+              ],
+              "scale": [
+                1,
+                1,
+                1
+              ]
+            },
+            {
+              "type": "LegacyEntity",
+              "data": {
+                "id": 1,
+                "name": "Joueur de démonstration",
+                "type": "player",
+                "x": 0,
+                "y": 0,
+                "w": 50,
+                "h": 90,
+                "depth3d": 50,
+                "elevation3d": 0.2,
+                "color": "#41c6b7",
+                "visible": true,
+                "enabled": true,
+                "playable3d": true,
+                "collision3d": true,
+                "solid3d": true,
+                "controller3d": {
+                  "enabled": true,
+                  "walkSpeed": 4,
+                  "sprintSpeed": 6,
+                  "jumpSpeed": 5
+                }
+              }
+            }
+          ]
+        },
+        {
+          "id": "entity-2",
+          "sourceEntityId": 2,
+          "name": "Plateforme de démonstration",
+          "parentId": null,
+          "active": true,
+          "components": [
+            {
+              "type": "Transform",
+              "position": [
+                -7.8125,
+                -0.25,
+                -7.8125
+              ],
+              "rotation": [
+                0,
+                0,
+                0
+              ],
+              "scale": [
+                1,
+                1,
+                1
+              ]
+            },
+            {
+              "type": "LegacyEntity",
+              "data": {
+                "id": 2,
+                "name": "Plateforme de démonstration",
+                "type": "object",
+                "x": -500,
+                "y": -500,
+                "w": 1400,
+                "h": 1400,
+                "depth3d": 1400,
+                "elevation3d": -0.25,
+                "color": "#39495a",
+                "visible": true,
+                "enabled": true,
+                "collision3d": true,
+                "solid3d": true,
+                "collider3d": {
+                  "enabled": true,
+                  "shape": "box",
+                  "size": [
+                    21.875,
+                    0.5,
+                    21.875
+                  ],
+                  "isTrigger": false
+                },
+                "hierarchyGroup": "Environnement"
+              }
+            }
+          ]
+        },
+        {
+          "id": "entity-3",
+          "sourceEntityId": 3,
+          "name": "Début de saison",
+          "parentId": null,
+          "active": true,
+          "components": [
+            {
+              "type": "Transform",
+              "position": [
+                1.875,
+                0.1,
+                1.25
+              ],
+              "rotation": [
+                0,
+                0,
+                0
+              ],
+              "scale": [
+                1,
+                1,
+                1
+              ]
+            },
+            {
+              "type": "LegacyEntity",
+              "data": {
+                "id": 3,
+                "name": "Début de saison",
+                "type": "object",
+                "x": 120,
+                "y": 80,
+                "w": 54,
+                "h": 72,
+                "depth3d": 54,
+                "elevation3d": 0.1,
+                "color": "#7399dd",
+                "visible": true,
+                "enabled": true,
+                "collision3d": false,
+                "solid3d": false,
+                "hierarchyGroup": "Extension · WarNode",
+                "sequence": {
+                  "event": "start",
+                  "key": "e",
+                  "radius": 130,
+                  "once": true,
+                  "conditions": [],
+                  "instructions": [
+                    {
+                      "type": "setVariable",
+                      "key": "farmCash",
+                      "value": 30
+                    },
+                    {
+                      "type": "setVariable",
+                      "key": "farmSeeds",
+                      "value": 0
+                    },
+                    {
+                      "type": "setVariable",
+                      "key": "farmWater",
+                      "value": 0
+                    },
+                    {
+                      "type": "setVariable",
+                      "key": "farmCrops",
+                      "value": 0
+                    },
+                    {
+                      "type": "setVariable",
+                      "key": "farmSold",
+                      "value": 0
+                    },
+                    {
+                      "type": "message",
+                      "value": "Achète des graines, arrose et récolte."
+                    }
+                  ]
+                },
+                "interactable": {
+                  "enabled": true,
+                  "maxDistance": 3,
+                  "prompt": "Début de saison"
+                }
+              }
+            },
+            {
+              "type": "sequence",
+              "data": {
+                "event": "start",
+                "key": "e",
+                "radius": 130,
+                "once": true,
+                "conditions": [],
+                "instructions": [
+                  {
+                    "type": "setVariable",
+                    "key": "farmCash",
+                    "value": 30
+                  },
+                  {
+                    "type": "setVariable",
+                    "key": "farmSeeds",
+                    "value": 0
+                  },
+                  {
+                    "type": "setVariable",
+                    "key": "farmWater",
+                    "value": 0
+                  },
+                  {
+                    "type": "setVariable",
+                    "key": "farmCrops",
+                    "value": 0
+                  },
+                  {
+                    "type": "setVariable",
+                    "key": "farmSold",
+                    "value": 0
+                  },
+                  {
+                    "type": "message",
+                    "value": "Achète des graines, arrose et récolte."
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "id": "entity-4",
+          "sourceEntityId": 4,
+          "name": "Magasin de semences",
+          "parentId": null,
+          "active": true,
+          "components": [
+            {
+              "type": "Transform",
+              "position": [
+                4.453125,
+                0.1,
+                1.25
+              ],
+              "rotation": [
+                0,
+                0,
+                0
+              ],
+              "scale": [
+                1,
+                1,
+                1
+              ]
+            },
+            {
+              "type": "LegacyEntity",
+              "data": {
+                "id": 4,
+                "name": "Magasin de semences",
+                "type": "object",
+                "x": 285,
+                "y": 80,
+                "w": 54,
+                "h": 72,
+                "depth3d": 54,
+                "elevation3d": 0.1,
+                "color": "#b38eda",
+                "visible": true,
+                "enabled": true,
+                "collision3d": false,
+                "solid3d": false,
+                "hierarchyGroup": "Extension · WarNode",
+                "sequence": {
+                  "event": "interact",
+                  "key": "e",
+                  "radius": 130,
+                  "once": false,
+                  "conditions": [],
+                  "instructions": [],
+                  "branches": [
+                    {
+                      "conditions": [
+                        {
+                          "type": "variable",
+                          "key": "farmCash",
+                          "value": 6,
+                          "operator": ">="
+                        }
+                      ],
+                      "instructions": [
+                        {
+                          "type": "addVariable",
+                          "key": "farmCash",
+                          "value": -6
+                        },
+                        {
+                          "type": "addVariable",
+                          "key": "farmSeeds",
+                          "value": 3
+                        },
+                        {
+                          "type": "message",
+                          "value": "Trois graines achetées."
+                        }
+                      ]
+                    }
+                  ],
+                  "elseInstructions": [
+                    {
+                      "type": "message",
+                      "value": "Il manque 6 pièces."
+                    }
+                  ]
+                },
+                "interactable": {
+                  "enabled": true,
+                  "maxDistance": 3,
+                  "prompt": "Magasin de semences"
+                }
+              }
+            },
+            {
+              "type": "sequence",
+              "data": {
+                "event": "interact",
+                "key": "e",
+                "radius": 130,
+                "once": false,
+                "conditions": [],
+                "instructions": [],
+                "branches": [
+                  {
+                    "conditions": [
+                      {
+                        "type": "variable",
+                        "key": "farmCash",
+                        "value": 6,
+                        "operator": ">="
+                      }
+                    ],
+                    "instructions": [
+                      {
+                        "type": "addVariable",
+                        "key": "farmCash",
+                        "value": -6
+                      },
+                      {
+                        "type": "addVariable",
+                        "key": "farmSeeds",
+                        "value": 3
+                      },
+                      {
+                        "type": "message",
+                        "value": "Trois graines achetées."
+                      }
+                    ]
+                  }
+                ],
+                "elseInstructions": [
+                  {
+                    "type": "message",
+                    "value": "Il manque 6 pièces."
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "id": "entity-5",
+          "sourceEntityId": 5,
+          "name": "Puits",
+          "parentId": null,
+          "active": true,
+          "components": [
+            {
+              "type": "Transform",
+              "position": [
+                7.03125,
+                0.1,
+                1.25
+              ],
+              "rotation": [
+                0,
+                0,
+                0
+              ],
+              "scale": [
+                1,
+                1,
+                1
+              ]
+            },
+            {
+              "type": "LegacyEntity",
+              "data": {
+                "id": 5,
+                "name": "Puits",
+                "type": "object",
+                "x": 450,
+                "y": 80,
+                "w": 54,
+                "h": 72,
+                "depth3d": 54,
+                "elevation3d": 0.1,
+                "color": "#d6a96f",
+                "visible": true,
+                "enabled": true,
+                "collision3d": false,
+                "solid3d": false,
+                "hierarchyGroup": "Extension · WarNode",
+                "sequence": {
+                  "event": "interact",
+                  "key": "e",
+                  "radius": 130,
+                  "once": false,
+                  "conditions": [],
+                  "instructions": [
+                    {
+                      "type": "addVariable",
+                      "key": "farmWater",
+                      "value": 2
+                    },
+                    {
+                      "type": "message",
+                      "value": "Deux charges d'eau récupérées."
+                    }
+                  ]
+                },
+                "interactable": {
+                  "enabled": true,
+                  "maxDistance": 3,
+                  "prompt": "Puits"
+                }
+              }
+            },
+            {
+              "type": "sequence",
+              "data": {
+                "event": "interact",
+                "key": "e",
+                "radius": 130,
+                "once": false,
+                "conditions": [],
+                "instructions": [
+                  {
+                    "type": "addVariable",
+                    "key": "farmWater",
+                    "value": 2
+                  },
+                  {
+                    "type": "message",
+                    "value": "Deux charges d'eau récupérées."
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "id": "entity-6",
+          "sourceEntityId": 6,
+          "name": "Parcelle",
+          "parentId": null,
+          "active": true,
+          "components": [
+            {
+              "type": "Transform",
+              "position": [
+                1.875,
+                0.1,
+                3.984375
+              ],
+              "rotation": [
+                0,
+                0,
+                0
+              ],
+              "scale": [
+                1,
+                1,
+                1
+              ]
+            },
+            {
+              "type": "LegacyEntity",
+              "data": {
+                "id": 6,
+                "name": "Parcelle",
+                "type": "object",
+                "x": 120,
+                "y": 255,
+                "w": 54,
+                "h": 72,
+                "depth3d": 54,
+                "elevation3d": 0.1,
+                "color": "#76b7a2",
+                "visible": true,
+                "enabled": true,
+                "collision3d": false,
+                "solid3d": false,
+                "hierarchyGroup": "Extension · WarNode",
+                "sequence": {
+                  "event": "interact",
+                  "key": "e",
+                  "radius": 130,
+                  "once": false,
+                  "conditions": [],
+                  "instructions": [],
+                  "branches": [
+                    {
+                      "conditions": [
+                        {
+                          "type": "variable",
+                          "key": "farmSeeds",
+                          "value": 1,
+                          "operator": ">="
+                        },
+                        {
+                          "type": "variable",
+                          "key": "farmWater",
+                          "value": 1,
+                          "operator": ">="
+                        }
+                      ],
+                      "instructions": [
+                        {
+                          "type": "addVariable",
+                          "key": "farmSeeds",
+                          "value": -1
+                        },
+                        {
+                          "type": "addVariable",
+                          "key": "farmWater",
+                          "value": -1
+                        },
+                        {
+                          "type": "addVariable",
+                          "key": "farmCrops",
+                          "value": 1
+                        },
+                        {
+                          "type": "message",
+                          "value": "Culture comptabilisée : ajouter l'animation de pousse."
+                        }
+                      ]
+                    }
+                  ],
+                  "elseInstructions": [
+                    {
+                      "type": "message",
+                      "value": "Graines et eau nécessaires."
+                    }
+                  ]
+                },
+                "interactable": {
+                  "enabled": true,
+                  "maxDistance": 3,
+                  "prompt": "Parcelle"
+                }
+              }
+            },
+            {
+              "type": "sequence",
+              "data": {
+                "event": "interact",
+                "key": "e",
+                "radius": 130,
+                "once": false,
+                "conditions": [],
+                "instructions": [],
+                "branches": [
+                  {
+                    "conditions": [
+                      {
+                        "type": "variable",
+                        "key": "farmSeeds",
+                        "value": 1,
+                        "operator": ">="
+                      },
+                      {
+                        "type": "variable",
+                        "key": "farmWater",
+                        "value": 1,
+                        "operator": ">="
+                      }
+                    ],
+                    "instructions": [
+                      {
+                        "type": "addVariable",
+                        "key": "farmSeeds",
+                        "value": -1
+                      },
+                      {
+                        "type": "addVariable",
+                        "key": "farmWater",
+                        "value": -1
+                      },
+                      {
+                        "type": "addVariable",
+                        "key": "farmCrops",
+                        "value": 1
+                      },
+                      {
+                        "type": "message",
+                        "value": "Culture comptabilisée : ajouter l'animation de pousse."
+                      }
+                    ]
+                  }
+                ],
+                "elseInstructions": [
+                  {
+                    "type": "message",
+                    "value": "Graines et eau nécessaires."
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "id": "entity-7",
+          "sourceEntityId": 7,
+          "name": "Marché fermier",
+          "parentId": null,
+          "active": true,
+          "components": [
+            {
+              "type": "Transform",
+              "position": [
+                4.453125,
+                0.1,
+                3.984375
+              ],
+              "rotation": [
+                0,
+                0,
+                0
+              ],
+              "scale": [
+                1,
+                1,
+                1
+              ]
+            },
+            {
+              "type": "LegacyEntity",
+              "data": {
+                "id": 7,
+                "name": "Marché fermier",
+                "type": "object",
+                "x": 285,
+                "y": 255,
+                "w": 54,
+                "h": 72,
+                "depth3d": 54,
+                "elevation3d": 0.1,
+                "color": "#7399dd",
+                "visible": true,
+                "enabled": true,
+                "collision3d": false,
+                "solid3d": false,
+                "hierarchyGroup": "Extension · WarNode",
+                "sequence": {
+                  "event": "interact",
+                  "key": "e",
+                  "radius": 130,
+                  "once": false,
+                  "conditions": [],
+                  "instructions": [],
+                  "branches": [
+                    {
+                      "conditions": [
+                        {
+                          "type": "variable",
+                          "key": "farmCrops",
+                          "value": 1,
+                          "operator": ">="
+                        }
+                      ],
+                      "instructions": [
+                        {
+                          "type": "addVariable",
+                          "key": "farmCrops",
+                          "value": -1
+                        },
+                        {
+                          "type": "addVariable",
+                          "key": "farmSold",
+                          "value": 1
+                        },
+                        {
+                          "type": "addVariable",
+                          "key": "farmCash",
+                          "value": 10
+                        },
+                        {
+                          "type": "message",
+                          "value": "Récolte vendue : +10 pièces."
+                        }
+                      ]
+                    }
+                  ],
+                  "elseInstructions": [
+                    {
+                      "type": "message",
+                      "value": "Aucune récolte à vendre."
+                    }
+                  ]
+                },
+                "interactable": {
+                  "enabled": true,
+                  "maxDistance": 3,
+                  "prompt": "Marché fermier"
+                }
+              }
+            },
+            {
+              "type": "sequence",
+              "data": {
+                "event": "interact",
+                "key": "e",
+                "radius": 130,
+                "once": false,
+                "conditions": [],
+                "instructions": [],
+                "branches": [
+                  {
+                    "conditions": [
+                      {
+                        "type": "variable",
+                        "key": "farmCrops",
+                        "value": 1,
+                        "operator": ">="
+                      }
+                    ],
+                    "instructions": [
+                      {
+                        "type": "addVariable",
+                        "key": "farmCrops",
+                        "value": -1
+                      },
+                      {
+                        "type": "addVariable",
+                        "key": "farmSold",
+                        "value": 1
+                      },
+                      {
+                        "type": "addVariable",
+                        "key": "farmCash",
+                        "value": 10
+                      },
+                      {
+                        "type": "message",
+                        "value": "Récolte vendue : +10 pièces."
+                      }
+                    ]
+                  }
+                ],
+                "elseInstructions": [
+                  {
+                    "type": "message",
+                    "value": "Aucune récolte à vendre."
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "id": "entity-8",
+          "sourceEntityId": 8,
+          "name": "Clôturer la saison",
+          "parentId": null,
+          "active": true,
+          "components": [
+            {
+              "type": "Transform",
+              "position": [
+                7.03125,
+                0.1,
+                3.984375
+              ],
+              "rotation": [
+                0,
+                0,
+                0
+              ],
+              "scale": [
+                1,
+                1,
+                1
+              ]
+            },
+            {
+              "type": "LegacyEntity",
+              "data": {
+                "id": 8,
+                "name": "Clôturer la saison",
+                "type": "object",
+                "x": 450,
+                "y": 255,
+                "w": 54,
+                "h": 72,
+                "depth3d": 54,
+                "elevation3d": 0.1,
+                "color": "#b38eda",
+                "visible": true,
+                "enabled": true,
+                "collision3d": false,
+                "solid3d": false,
+                "hierarchyGroup": "Extension · WarNode",
+                "sequence": {
+                  "event": "interact",
+                  "key": "e",
+                  "radius": 130,
+                  "once": false,
+                  "conditions": [],
+                  "instructions": [],
+                  "branches": [
+                    {
+                      "conditions": [
+                        {
+                          "type": "variable",
+                          "key": "farmSold",
+                          "value": 3,
+                          "operator": ">="
+                        }
+                      ],
+                      "instructions": [
+                        {
+                          "type": "winGame",
+                          "value": "Saison rentable : trois récoltes vendues."
+                        }
+                      ]
+                    }
+                  ],
+                  "elseInstructions": [
+                    {
+                      "type": "message",
+                      "value": "Trois ventes sont nécessaires."
+                    }
+                  ]
+                },
+                "interactable": {
+                  "enabled": true,
+                  "maxDistance": 3,
+                  "prompt": "Clôturer la saison"
+                }
+              }
+            },
+            {
+              "type": "sequence",
+              "data": {
+                "event": "interact",
+                "key": "e",
+                "radius": 130,
+                "once": false,
+                "conditions": [],
+                "instructions": [],
+                "branches": [
+                  {
+                    "conditions": [
+                      {
+                        "type": "variable",
+                        "key": "farmSold",
+                        "value": 3,
+                        "operator": ">="
+                      }
+                    ],
+                    "instructions": [
+                      {
+                        "type": "winGame",
+                        "value": "Saison rentable : trois récoltes vendues."
+                      }
+                    ]
+                  }
+                ],
+                "elseInstructions": [
+                  {
+                    "type": "message",
+                    "value": "Trois ventes sont nécessaires."
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "assets": [],
+  "settings": {
+    "startSceneId": "demo-warlike-farming-greenhouse"
+  }
+}
