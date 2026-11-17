@@ -1,0 +1,922 @@
+{
+  "schema": "warlike.project.v2",
+  "name": "Construction · Chantier et réception — Exemple natif",
+  "mode": "3d",
+  "scenes": [
+    {
+      "schema": "warlike.scene.v2",
+      "id": "demo-warlike-construction-operations",
+      "name": "Construction · Chantier et réception · Démonstration",
+      "objects": [
+        {
+          "id": "entity-1",
+          "sourceEntityId": 1,
+          "name": "Joueur de démonstration",
+          "parentId": null,
+          "active": true,
+          "components": [
+            {
+              "type": "Transform",
+              "position": [
+                0,
+                0.2,
+                0
+              ],
+              "rotation": [
+                0,
+                0,
+                0
+              ],
+              "scale": [
+                1,
+                1,
+                1
+              ]
+            },
+            {
+              "type": "LegacyEntity",
+              "data": {
+                "id": 1,
+                "name": "Joueur de démonstration",
+                "type": "player",
+                "x": 0,
+                "y": 0,
+                "w": 50,
+                "h": 90,
+                "depth3d": 50,
+                "elevation3d": 0.2,
+                "color": "#41c6b7",
+                "visible": true,
+                "enabled": true,
+                "playable3d": true,
+                "collision3d": true,
+                "solid3d": true,
+                "controller3d": {
+                  "enabled": true,
+                  "walkSpeed": 4,
+                  "sprintSpeed": 6,
+                  "jumpSpeed": 5
+                }
+              }
+            }
+          ]
+        },
+        {
+          "id": "entity-2",
+          "sourceEntityId": 2,
+          "name": "Plateforme de démonstration",
+          "parentId": null,
+          "active": true,
+          "components": [
+            {
+              "type": "Transform",
+              "position": [
+                -7.8125,
+                -0.25,
+                -7.8125
+              ],
+              "rotation": [
+                0,
+                0,
+                0
+              ],
+              "scale": [
+                1,
+                1,
+                1
+              ]
+            },
+            {
+              "type": "LegacyEntity",
+              "data": {
+                "id": 2,
+                "name": "Plateforme de démonstration",
+                "type": "object",
+                "x": -500,
+                "y": -500,
+                "w": 1400,
+                "h": 1400,
+                "depth3d": 1400,
+                "elevation3d": -0.25,
+                "color": "#39495a",
+                "visible": true,
+                "enabled": true,
+                "collision3d": true,
+                "solid3d": true,
+                "collider3d": {
+                  "enabled": true,
+                  "shape": "box",
+                  "size": [
+                    21.875,
+                    0.5,
+                    21.875
+                  ],
+                  "isTrigger": false
+                },
+                "hierarchyGroup": "Environnement"
+              }
+            }
+          ]
+        },
+        {
+          "id": "entity-3",
+          "sourceEntityId": 3,
+          "name": "Permis de construire",
+          "parentId": null,
+          "active": true,
+          "components": [
+            {
+              "type": "Transform",
+              "position": [
+                1.875,
+                0.1,
+                1.25
+              ],
+              "rotation": [
+                0,
+                0,
+                0
+              ],
+              "scale": [
+                1,
+                1,
+                1
+              ]
+            },
+            {
+              "type": "LegacyEntity",
+              "data": {
+                "id": 3,
+                "name": "Permis de construire",
+                "type": "object",
+                "x": 120,
+                "y": 80,
+                "w": 54,
+                "h": 72,
+                "depth3d": 54,
+                "elevation3d": 0.1,
+                "color": "#7399dd",
+                "visible": true,
+                "enabled": true,
+                "collision3d": false,
+                "solid3d": false,
+                "hierarchyGroup": "Extension · WarNode",
+                "sequence": {
+                  "event": "start",
+                  "key": "e",
+                  "radius": 130,
+                  "once": true,
+                  "conditions": [],
+                  "instructions": [
+                    {
+                      "type": "setVariable",
+                      "key": "buildBudget",
+                      "value": 100
+                    },
+                    {
+                      "type": "setVariable",
+                      "key": "buildMaterials",
+                      "value": 0
+                    },
+                    {
+                      "type": "setVariable",
+                      "key": "buildFoundation",
+                      "value": 0
+                    },
+                    {
+                      "type": "setVariable",
+                      "key": "buildSafety",
+                      "value": 0
+                    },
+                    {
+                      "type": "setVariable",
+                      "key": "buildFinished",
+                      "value": 0
+                    },
+                    {
+                      "type": "message",
+                      "value": "Approvisionne puis prépare les fondations."
+                    }
+                  ]
+                },
+                "interactable": {
+                  "enabled": true,
+                  "maxDistance": 3,
+                  "prompt": "Permis de construire"
+                }
+              }
+            },
+            {
+              "type": "sequence",
+              "data": {
+                "event": "start",
+                "key": "e",
+                "radius": 130,
+                "once": true,
+                "conditions": [],
+                "instructions": [
+                  {
+                    "type": "setVariable",
+                    "key": "buildBudget",
+                    "value": 100
+                  },
+                  {
+                    "type": "setVariable",
+                    "key": "buildMaterials",
+                    "value": 0
+                  },
+                  {
+                    "type": "setVariable",
+                    "key": "buildFoundation",
+                    "value": 0
+                  },
+                  {
+                    "type": "setVariable",
+                    "key": "buildSafety",
+                    "value": 0
+                  },
+                  {
+                    "type": "setVariable",
+                    "key": "buildFinished",
+                    "value": 0
+                  },
+                  {
+                    "type": "message",
+                    "value": "Approvisionne puis prépare les fondations."
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "id": "entity-4",
+          "sourceEntityId": 4,
+          "name": "Livraison de matériaux",
+          "parentId": null,
+          "active": true,
+          "components": [
+            {
+              "type": "Transform",
+              "position": [
+                4.453125,
+                0.1,
+                1.25
+              ],
+              "rotation": [
+                0,
+                0,
+                0
+              ],
+              "scale": [
+                1,
+                1,
+                1
+              ]
+            },
+            {
+              "type": "LegacyEntity",
+              "data": {
+                "id": 4,
+                "name": "Livraison de matériaux",
+                "type": "object",
+                "x": 285,
+                "y": 80,
+                "w": 54,
+                "h": 72,
+                "depth3d": 54,
+                "elevation3d": 0.1,
+                "color": "#b38eda",
+                "visible": true,
+                "enabled": true,
+                "collision3d": false,
+                "solid3d": false,
+                "hierarchyGroup": "Extension · WarNode",
+                "sequence": {
+                  "event": "interact",
+                  "key": "e",
+                  "radius": 130,
+                  "once": false,
+                  "conditions": [],
+                  "instructions": [],
+                  "branches": [
+                    {
+                      "conditions": [
+                        {
+                          "type": "variable",
+                          "key": "buildBudget",
+                          "value": 20,
+                          "operator": ">="
+                        }
+                      ],
+                      "instructions": [
+                        {
+                          "type": "addVariable",
+                          "key": "buildBudget",
+                          "value": -20
+                        },
+                        {
+                          "type": "addVariable",
+                          "key": "buildMaterials",
+                          "value": 5
+                        },
+                        {
+                          "type": "message",
+                          "value": "Livraison reçue : 5 matériaux."
+                        }
+                      ]
+                    }
+                  ],
+                  "elseInstructions": [
+                    {
+                      "type": "message",
+                      "value": "Budget insuffisant."
+                    }
+                  ]
+                },
+                "interactable": {
+                  "enabled": true,
+                  "maxDistance": 3,
+                  "prompt": "Livraison de matériaux"
+                }
+              }
+            },
+            {
+              "type": "sequence",
+              "data": {
+                "event": "interact",
+                "key": "e",
+                "radius": 130,
+                "once": false,
+                "conditions": [],
+                "instructions": [],
+                "branches": [
+                  {
+                    "conditions": [
+                      {
+                        "type": "variable",
+                        "key": "buildBudget",
+                        "value": 20,
+                        "operator": ">="
+                      }
+                    ],
+                    "instructions": [
+                      {
+                        "type": "addVariable",
+                        "key": "buildBudget",
+                        "value": -20
+                      },
+                      {
+                        "type": "addVariable",
+                        "key": "buildMaterials",
+                        "value": 5
+                      },
+                      {
+                        "type": "message",
+                        "value": "Livraison reçue : 5 matériaux."
+                      }
+                    ]
+                  }
+                ],
+                "elseInstructions": [
+                  {
+                    "type": "message",
+                    "value": "Budget insuffisant."
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "id": "entity-5",
+          "sourceEntityId": 5,
+          "name": "Fondations",
+          "parentId": null,
+          "active": true,
+          "components": [
+            {
+              "type": "Transform",
+              "position": [
+                7.03125,
+                0.1,
+                1.25
+              ],
+              "rotation": [
+                0,
+                0,
+                0
+              ],
+              "scale": [
+                1,
+                1,
+                1
+              ]
+            },
+            {
+              "type": "LegacyEntity",
+              "data": {
+                "id": 5,
+                "name": "Fondations",
+                "type": "object",
+                "x": 450,
+                "y": 80,
+                "w": 54,
+                "h": 72,
+                "depth3d": 54,
+                "elevation3d": 0.1,
+                "color": "#d6a96f",
+                "visible": true,
+                "enabled": true,
+                "collision3d": false,
+                "solid3d": false,
+                "hierarchyGroup": "Extension · WarNode",
+                "sequence": {
+                  "event": "interact",
+                  "key": "e",
+                  "radius": 130,
+                  "once": false,
+                  "conditions": [],
+                  "instructions": [],
+                  "branches": [
+                    {
+                      "conditions": [
+                        {
+                          "type": "variable",
+                          "key": "buildMaterials",
+                          "value": 3,
+                          "operator": ">="
+                        }
+                      ],
+                      "instructions": [
+                        {
+                          "type": "addVariable",
+                          "key": "buildMaterials",
+                          "value": -3
+                        },
+                        {
+                          "type": "setVariable",
+                          "key": "buildFoundation",
+                          "value": 1
+                        },
+                        {
+                          "type": "message",
+                          "value": "Fondations validées : mettre à jour les objets du chantier."
+                        }
+                      ]
+                    }
+                  ],
+                  "elseInstructions": [
+                    {
+                      "type": "message",
+                      "value": "Trois matériaux sont nécessaires."
+                    }
+                  ]
+                },
+                "interactable": {
+                  "enabled": true,
+                  "maxDistance": 3,
+                  "prompt": "Fondations"
+                }
+              }
+            },
+            {
+              "type": "sequence",
+              "data": {
+                "event": "interact",
+                "key": "e",
+                "radius": 130,
+                "once": false,
+                "conditions": [],
+                "instructions": [],
+                "branches": [
+                  {
+                    "conditions": [
+                      {
+                        "type": "variable",
+                        "key": "buildMaterials",
+                        "value": 3,
+                        "operator": ">="
+                      }
+                    ],
+                    "instructions": [
+                      {
+                        "type": "addVariable",
+                        "key": "buildMaterials",
+                        "value": -3
+                      },
+                      {
+                        "type": "setVariable",
+                        "key": "buildFoundation",
+                        "value": 1
+                      },
+                      {
+                        "type": "message",
+                        "value": "Fondations validées : mettre à jour les objets du chantier."
+                      }
+                    ]
+                  }
+                ],
+                "elseInstructions": [
+                  {
+                    "type": "message",
+                    "value": "Trois matériaux sont nécessaires."
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "id": "entity-6",
+          "sourceEntityId": 6,
+          "name": "Contrôle sécurité",
+          "parentId": null,
+          "active": true,
+          "components": [
+            {
+              "type": "Transform",
+              "position": [
+                1.875,
+                0.1,
+                3.984375
+              ],
+              "rotation": [
+                0,
+                0,
+                0
+              ],
+              "scale": [
+                1,
+                1,
+                1
+              ]
+            },
+            {
+              "type": "LegacyEntity",
+              "data": {
+                "id": 6,
+                "name": "Contrôle sécurité",
+                "type": "object",
+                "x": 120,
+                "y": 255,
+                "w": 54,
+                "h": 72,
+                "depth3d": 54,
+                "elevation3d": 0.1,
+                "color": "#76b7a2",
+                "visible": true,
+                "enabled": true,
+                "collision3d": false,
+                "solid3d": false,
+                "hierarchyGroup": "Extension · WarNode",
+                "sequence": {
+                  "event": "interact",
+                  "key": "e",
+                  "radius": 130,
+                  "once": false,
+                  "conditions": [],
+                  "instructions": [],
+                  "branches": [
+                    {
+                      "conditions": [
+                        {
+                          "type": "variable",
+                          "key": "buildFoundation",
+                          "value": 1,
+                          "operator": "=="
+                        }
+                      ],
+                      "instructions": [
+                        {
+                          "type": "setVariable",
+                          "key": "buildSafety",
+                          "value": 1
+                        },
+                        {
+                          "type": "message",
+                          "value": "Inspection de sécurité réussie."
+                        }
+                      ]
+                    }
+                  ],
+                  "elseInstructions": [
+                    {
+                      "type": "message",
+                      "value": "Fondations non terminées."
+                    }
+                  ]
+                },
+                "interactable": {
+                  "enabled": true,
+                  "maxDistance": 3,
+                  "prompt": "Contrôle sécurité"
+                }
+              }
+            },
+            {
+              "type": "sequence",
+              "data": {
+                "event": "interact",
+                "key": "e",
+                "radius": 130,
+                "once": false,
+                "conditions": [],
+                "instructions": [],
+                "branches": [
+                  {
+                    "conditions": [
+                      {
+                        "type": "variable",
+                        "key": "buildFoundation",
+                        "value": 1,
+                        "operator": "=="
+                      }
+                    ],
+                    "instructions": [
+                      {
+                        "type": "setVariable",
+                        "key": "buildSafety",
+                        "value": 1
+                      },
+                      {
+                        "type": "message",
+                        "value": "Inspection de sécurité réussie."
+                      }
+                    ]
+                  }
+                ],
+                "elseInstructions": [
+                  {
+                    "type": "message",
+                    "value": "Fondations non terminées."
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "id": "entity-7",
+          "sourceEntityId": 7,
+          "name": "Commande de grue",
+          "parentId": null,
+          "active": true,
+          "components": [
+            {
+              "type": "Transform",
+              "position": [
+                4.453125,
+                0.1,
+                3.984375
+              ],
+              "rotation": [
+                0,
+                0,
+                0
+              ],
+              "scale": [
+                1,
+                1,
+                1
+              ]
+            },
+            {
+              "type": "LegacyEntity",
+              "data": {
+                "id": 7,
+                "name": "Commande de grue",
+                "type": "object",
+                "x": 285,
+                "y": 255,
+                "w": 54,
+                "h": 72,
+                "depth3d": 54,
+                "elevation3d": 0.1,
+                "color": "#7399dd",
+                "visible": true,
+                "enabled": true,
+                "collision3d": false,
+                "solid3d": false,
+                "hierarchyGroup": "Extension · WarNode",
+                "sequence": {
+                  "event": "interact",
+                  "key": "e",
+                  "radius": 130,
+                  "once": false,
+                  "conditions": [],
+                  "instructions": [],
+                  "branches": [
+                    {
+                      "conditions": [
+                        {
+                          "type": "variable",
+                          "key": "buildSafety",
+                          "value": 1,
+                          "operator": "=="
+                        }
+                      ],
+                      "instructions": [
+                        {
+                          "type": "setVariable",
+                          "key": "buildFinished",
+                          "value": 1
+                        },
+                        {
+                          "type": "emitSignal",
+                          "value": "construction:lift"
+                        },
+                        {
+                          "type": "message",
+                          "value": "Levage autorisé : connecter Animator à ce signal."
+                        }
+                      ]
+                    }
+                  ],
+                  "elseInstructions": [
+                    {
+                      "type": "message",
+                      "value": "Autorisation de sécurité absente."
+                    }
+                  ]
+                },
+                "interactable": {
+                  "enabled": true,
+                  "maxDistance": 3,
+                  "prompt": "Commande de grue"
+                }
+              }
+            },
+            {
+              "type": "sequence",
+              "data": {
+                "event": "interact",
+                "key": "e",
+                "radius": 130,
+                "once": false,
+                "conditions": [],
+                "instructions": [],
+                "branches": [
+                  {
+                    "conditions": [
+                      {
+                        "type": "variable",
+                        "key": "buildSafety",
+                        "value": 1,
+                        "operator": "=="
+                      }
+                    ],
+                    "instructions": [
+                      {
+                        "type": "setVariable",
+                        "key": "buildFinished",
+                        "value": 1
+                      },
+                      {
+                        "type": "emitSignal",
+                        "value": "construction:lift"
+                      },
+                      {
+                        "type": "message",
+                        "value": "Levage autorisé : connecter Animator à ce signal."
+                      }
+                    ]
+                  }
+                ],
+                "elseInstructions": [
+                  {
+                    "type": "message",
+                    "value": "Autorisation de sécurité absente."
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "id": "entity-8",
+          "sourceEntityId": 8,
+          "name": "Réception du chantier",
+          "parentId": null,
+          "active": true,
+          "components": [
+            {
+              "type": "Transform",
+              "position": [
+                7.03125,
+                0.1,
+                3.984375
+              ],
+              "rotation": [
+                0,
+                0,
+                0
+              ],
+              "scale": [
+                1,
+                1,
+                1
+              ]
+            },
+            {
+              "type": "LegacyEntity",
+              "data": {
+                "id": 8,
+                "name": "Réception du chantier",
+                "type": "object",
+                "x": 450,
+                "y": 255,
+                "w": 54,
+                "h": 72,
+                "depth3d": 54,
+                "elevation3d": 0.1,
+                "color": "#b38eda",
+                "visible": true,
+                "enabled": true,
+                "collision3d": false,
+                "solid3d": false,
+                "hierarchyGroup": "Extension · WarNode",
+                "sequence": {
+                  "event": "interact",
+                  "key": "e",
+                  "radius": 130,
+                  "once": false,
+                  "conditions": [],
+                  "instructions": [],
+                  "branches": [
+                    {
+                      "conditions": [
+                        {
+                          "type": "variable",
+                          "key": "buildFinished",
+                          "value": 1,
+                          "operator": "=="
+                        }
+                      ],
+                      "instructions": [
+                        {
+                          "type": "winGame",
+                          "value": "Chantier livré après inspection."
+                        }
+                      ]
+                    }
+                  ],
+                  "elseInstructions": [
+                    {
+                      "type": "message",
+                      "value": "Le chantier n'est pas prêt."
+                    }
+                  ]
+                },
+                "interactable": {
+                  "enabled": true,
+                  "maxDistance": 3,
+                  "prompt": "Réception du chantier"
+                }
+              }
+            },
+            {
+              "type": "sequence",
+              "data": {
+                "event": "interact",
+                "key": "e",
+                "radius": 130,
+                "once": false,
+                "conditions": [],
+                "instructions": [],
+                "branches": [
+                  {
+                    "conditions": [
+                      {
+                        "type": "variable",
+                        "key": "buildFinished",
+                        "value": 1,
+                        "operator": "=="
+                      }
+                    ],
+                    "instructions": [
+                      {
+                        "type": "winGame",
+                        "value": "Chantier livré après inspection."
+                      }
+                    ]
+                  }
+                ],
+                "elseInstructions": [
+                  {
+                    "type": "message",
+                    "value": "Le chantier n'est pas prêt."
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "assets": [],
+  "settings": {
+    "startSceneId": "demo-warlike-construction-operations"
+  }
+}
