@@ -1,0 +1,31 @@
+/* WarLike olive marketplace layout hotfix. Scoped to storefront only. */
+html[data-warlike-app="warlike-asset-stores"]{max-width:100%;overflow-x:clip}
+html[data-warlike-app="warlike-asset-stores"] body{margin:0;width:100%;min-width:0;max-width:100%;overflow-x:clip}
+html[data-warlike-app="warlike-asset-stores"] main{box-sizing:border-box;width:100%;max-width:none;margin:0;padding:0 clamp(16px,2vw,36px) 56px}
+html[data-warlike-app="warlike-asset-stores"] main>.top{box-sizing:border-box;display:grid;grid-template-columns:minmax(215px,max-content) minmax(260px,1fr) minmax(145px,max-content);align-items:center;gap:clamp(12px,1.8vw,26px);width:auto;max-width:none;margin:0 calc(-1 * clamp(16px,2vw,36px));padding:14px clamp(16px,2vw,36px);min-height:78px}
+html[data-warlike-app="warlike-asset-stores"] main>.top .logo{font-size:clamp(17px,1.35vw,23px);letter-spacing:-.035em;min-width:0;white-space:nowrap;overflow:visible;line-height:1.25}
+html[data-warlike-app="warlike-asset-stores"] main>.top .market-search{width:100%;min-width:0;max-width:none}
+html[data-warlike-app="warlike-asset-stores"] main>.top .market-search input{min-width:0;flex:1 1 auto;width:100%}
+html[data-warlike-app="warlike-asset-stores"] main>.top .row{display:flex;justify-content:flex-end;align-items:center;gap:6px 15px;min-width:0;flex-wrap:wrap}
+html[data-warlike-app="warlike-asset-stores"] main>.top .row a{font-size:12px;white-space:nowrap}
+html[data-warlike-app="warlike-asset-stores"] main>.store-nav{box-sizing:border-box;display:flex;align-items:center;max-width:none;min-width:0;min-height:53px;width:auto;margin:0 calc(-1 * clamp(16px,2vw,36px)) 22px;padding:8px clamp(16px,2vw,36px);overflow-x:auto;overflow-y:hidden;overscroll-behavior-inline:contain;scrollbar-width:thin}
+html[data-warlike-app="warlike-asset-stores"] main>.store-nav a{flex:0 0 auto;white-space:nowrap;line-height:1.25;max-width:none}
+html[data-warlike-app="warlike-asset-stores"] .market-showcase,html[data-warlike-app="warlike-asset-stores"] .market-section{min-width:0;max-width:100%}
+html[data-warlike-app="warlike-asset-stores"] .market-rail{width:100%;min-width:0;max-width:100%;gap:12px}
+html[data-warlike-app="warlike-asset-stores"] .market-item{min-width:0;overflow:hidden}
+html[data-warlike-app="warlike-asset-stores"] .market-item-body{min-width:0;overflow:hidden}
+html[data-warlike-app="warlike-asset-stores"] .market-kind,html[data-warlike-app="warlike-asset-stores"] .market-author,html[data-warlike-app="warlike-asset-stores"] .market-name{max-width:100%;overflow:hidden;text-overflow:ellipsis}
+html[data-warlike-app="warlike-asset-stores"] .market-heading button{color:var(--wl-accent);background:transparent}
+@media(max-width:1020px){
+ html[data-warlike-app="warlike-asset-stores"] main>.top{grid-template-columns:minmax(180px,auto) minmax(230px,1fr);gap:8px 16px}
+ html[data-warlike-app="warlike-asset-stores"] main>.top .row{grid-column:1/-1;justify-content:flex-start}
+ html[data-warlike-app="warlike-asset-stores"] .market-rail{grid-template-columns:repeat(3,minmax(0,1fr))}
+}
+@media(max-width:650px){
+ html[data-warlike-app="warlike-asset-stores"] main>.top{display:flex;flex-wrap:wrap;gap:10px;padding-top:16px;padding-bottom:14px}
+ html[data-warlike-app="warlike-asset-stores"] main>.top .logo{flex:1 1 100%;font-size:20px}
+ html[data-warlike-app="warlike-asset-stores"] main>.top .market-search{flex:1 1 100%}
+ html[data-warlike-app="warlike-asset-stores"] main>.top .row{flex:1 1 100%;justify-content:flex-start}
+ html[data-warlike-app="warlike-asset-stores"] .market-rail{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media(max-width:390px){html[data-warlike-app="warlike-asset-stores"] .market-rail{grid-template-columns:minmax(0,1fr)}}
