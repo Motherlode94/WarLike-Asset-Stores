@@ -1,0 +1,210 @@
+{
+  "apiVersion": "1.0",
+  "id": "warlike-rpg-dungeon-relay",
+  "version": "1.0.0",
+  "name": "RPG · Donjon, pièges et reliques",
+  "author": "WarLike Corps",
+  "modes": [
+    "2d",
+    "3d"
+  ],
+  "description": "Parcours RPG avec relique, clé, mécanisme, soin abstrait et sortie conditionnelle. Les ennemis restent des entités du projet.",
+  "recipes": [
+    {
+      "id": "entry",
+      "name": "Portail du donjon",
+      "description": "Initialise les étapes du donjon.",
+      "sequence": {
+        "event": "start",
+        "key": "e",
+        "radius": 130,
+        "once": true,
+        "conditions": [],
+        "instructions": [
+          {
+            "type": "setVariable",
+            "key": "dungeonRelic",
+            "value": 0
+          },
+          {
+            "type": "setVariable",
+            "key": "dungeonKey",
+            "value": 0
+          },
+          {
+            "type": "setVariable",
+            "key": "dungeonLever",
+            "value": 0
+          },
+          {
+            "type": "setVariable",
+            "key": "dungeonPotion",
+            "value": 0
+          },
+          {
+            "type": "message",
+            "value": "Récupère la relique et débloque le portail."
+          }
+        ]
+      }
+    },
+    {
+      "id": "chest",
+      "name": "Coffre antique",
+      "description": "Récupère une clé à usage scénaristique.",
+      "sequence": {
+        "event": "interact",
+        "key": "e",
+        "radius": 130,
+        "once": true,
+        "conditions": [],
+        "instructions": [
+          {
+            "type": "setVariable",
+            "key": "dungeonKey",
+            "value": 1
+          },
+          {
+            "type": "message",
+            "value": "Clé ancienne obtenue."
+          }
+        ]
+      }
+    },
+    {
+      "id": "relic",
+      "name": "Relique sacrée",
+      "description": "Débloque la quête de relique.",
+      "sequence": {
+        "event": "interact",
+        "key": "e",
+        "radius": 130,
+        "once": true,
+        "conditions": [],
+        "instructions": [
+          {
+            "type": "setVariable",
+            "key": "dungeonRelic",
+            "value": 1
+          },
+          {
+            "type": "message",
+            "value": "Relique découverte."
+          }
+        ]
+      }
+    },
+    {
+      "id": "lever",
+      "name": "Levier de pierre",
+      "description": "N'autorise le levier qu'avec la clé.",
+      "sequence": {
+        "event": "interact",
+        "key": "e",
+        "radius": 130,
+        "once": false,
+        "conditions": [],
+        "instructions": [],
+        "branches": [
+          {
+            "conditions": [
+              {
+                "type": "variable",
+                "key": "dungeonKey",
+                "value": 1,
+                "operator": "=="
+              }
+            ],
+            "instructions": [
+              {
+                "type": "setVariable",
+                "key": "dungeonLever",
+                "value": 1
+              },
+              {
+                "type": "emitSignal",
+                "value": "dungeon:open"
+              },
+              {
+                "type": "message",
+                "value": "Passage du donjon activé."
+              }
+            ]
+          }
+        ],
+        "elseInstructions": [
+          {
+            "type": "message",
+            "value": "Clé antique nécessaire."
+          }
+        ]
+      }
+    },
+    {
+      "id": "potion",
+      "name": "Fontaine",
+      "description": "Accorde une potion de scénario, sans modifier les HP.",
+      "sequence": {
+        "event": "interact",
+        "key": "e",
+        "radius": 130,
+        "once": false,
+        "conditions": [],
+        "instructions": [
+          {
+            "type": "addVariable",
+            "key": "dungeonPotion",
+            "value": 1
+          },
+          {
+            "type": "message",
+            "value": "Potion ajoutée au compteur de quête."
+          }
+        ]
+      }
+    },
+    {
+      "id": "exit",
+      "name": "Portail de victoire",
+      "description": "Sortie conditionnelle après relique et levier.",
+      "sequence": {
+        "event": "interact",
+        "key": "e",
+        "radius": 130,
+        "once": false,
+        "conditions": [],
+        "instructions": [],
+        "branches": [
+          {
+            "conditions": [
+              {
+                "type": "variable",
+                "key": "dungeonRelic",
+                "value": 1,
+                "operator": "=="
+              },
+              {
+                "type": "variable",
+                "key": "dungeonLever",
+                "value": 1,
+                "operator": "=="
+              }
+            ],
+            "instructions": [
+              {
+                "type": "winGame",
+                "value": "Donjon exploré, relique sauvée."
+              }
+            ]
+          }
+        ],
+        "elseInstructions": [
+          {
+            "type": "message",
+            "value": "Relique ou mécanisme manquant."
+          }
+        ]
+      }
+    }
+  ]
+}

@@ -1,0 +1,208 @@
+{
+  "apiVersion": "1.0",
+  "id": "warlike-fps-operation",
+  "version": "1.0.0",
+  "name": "FPS · Opération et extraction",
+  "author": "WarLike Corps",
+  "modes": [
+    "3d"
+  ],
+  "description": "Mission FPS à variables : briefing, ravitaillement, renseignement, console et extraction. Pas de tir ou d'IA ajoutés par ce pack.",
+  "recipes": [
+    {
+      "id": "briefing",
+      "name": "Briefing militaire",
+      "description": "Initialise mission et munitions abstraites.",
+      "sequence": {
+        "event": "start",
+        "key": "e",
+        "radius": 130,
+        "once": true,
+        "conditions": [],
+        "instructions": [
+          {
+            "type": "setVariable",
+            "key": "fpsIntel",
+            "value": 0
+          },
+          {
+            "type": "setVariable",
+            "key": "fpsPower",
+            "value": 0
+          },
+          {
+            "type": "setVariable",
+            "key": "fpsSupplies",
+            "value": 0
+          },
+          {
+            "type": "message",
+            "value": "Récupère le renseignement et ouvre la zone d'extraction."
+          }
+        ]
+      }
+    },
+    {
+      "id": "ammo",
+      "name": "Caisse de ravitaillement",
+      "description": "Augmente le compteur de fournitures.",
+      "sequence": {
+        "event": "interact",
+        "key": "e",
+        "radius": 130,
+        "once": false,
+        "conditions": [],
+        "instructions": [
+          {
+            "type": "addVariable",
+            "key": "fpsSupplies",
+            "value": 1
+          },
+          {
+            "type": "message",
+            "value": "+1 lot de fournitures enregistré."
+          }
+        ]
+      }
+    },
+    {
+      "id": "intel",
+      "name": "Documents classifiés",
+      "description": "Révèle les informations d'opération.",
+      "sequence": {
+        "event": "interact",
+        "key": "e",
+        "radius": 130,
+        "once": true,
+        "conditions": [],
+        "instructions": [
+          {
+            "type": "setVariable",
+            "key": "fpsIntel",
+            "value": 1
+          },
+          {
+            "type": "message",
+            "value": "Dossier de mission obtenu."
+          }
+        ]
+      }
+    },
+    {
+      "id": "relay",
+      "name": "Relais de communication",
+      "description": "Demande renseignement et fourniture pour activer le relais.",
+      "sequence": {
+        "event": "interact",
+        "key": "e",
+        "radius": 130,
+        "once": false,
+        "conditions": [],
+        "instructions": [],
+        "branches": [
+          {
+            "conditions": [
+              {
+                "type": "variable",
+                "key": "fpsIntel",
+                "value": 1,
+                "operator": "=="
+              },
+              {
+                "type": "variable",
+                "key": "fpsSupplies",
+                "value": 1,
+                "operator": ">="
+              }
+            ],
+            "instructions": [
+              {
+                "type": "setVariable",
+                "key": "fpsPower",
+                "value": 1
+              },
+              {
+                "type": "emitSignal",
+                "value": "fps:relay"
+              },
+              {
+                "type": "message",
+                "value": "Relais établi."
+              }
+            ]
+          }
+        ],
+        "elseInstructions": [
+          {
+            "type": "message",
+            "value": "Dossier et fournitures requis."
+          }
+        ]
+      }
+    },
+    {
+      "id": "checkpoint",
+      "name": "Point de contrôle",
+      "description": "Annonce la sécurisation du secteur après activation du relais.",
+      "sequence": {
+        "event": "interact",
+        "key": "e",
+        "radius": 130,
+        "once": false,
+        "conditions": [],
+        "instructions": [],
+        "branches": [
+          {
+            "conditions": [
+              {
+                "type": "variable",
+                "key": "fpsPower",
+                "value": 1,
+                "operator": "=="
+              }
+            ],
+            "instructions": [
+              {
+                "type": "message",
+                "value": "Secteur contrôlé. Extraction autorisée."
+              }
+            ]
+          }
+        ],
+        "elseInstructions": []
+      }
+    },
+    {
+      "id": "exfil",
+      "name": "Extraction",
+      "description": "Victoire conditionnelle après activation du relais.",
+      "sequence": {
+        "event": "interact",
+        "key": "e",
+        "radius": 130,
+        "once": false,
+        "conditions": [],
+        "instructions": [],
+        "branches": [
+          {
+            "conditions": [
+              {
+                "type": "variable",
+                "key": "fpsPower",
+                "value": 1,
+                "operator": "=="
+              }
+            ],
+            "instructions": [
+              {
+                "type": "winGame",
+                "value": "Équipe extraite avec succès."
+              }
+            ]
+          }
+        ],
+        "elseInstructions": []
+      }
+    }
+  ]
+}

@@ -1,0 +1,258 @@
+{
+  "schema": "warlike.node.presets.v1",
+  "presets": [
+    {
+      "id": "horror-night",
+      "name": "Horreur · Nuit et contrastes",
+      "graph": {
+        "schema": "warlike-node-v2",
+        "nodes": [
+          {
+            "id": "n0",
+            "type": "source",
+            "x": 70,
+            "y": 160,
+            "params": {}
+          },
+          {
+            "id": "n1",
+            "type": "brightness",
+            "x": 320,
+            "y": 160,
+            "params": {
+              "amount": 82
+            }
+          },
+          {
+            "id": "n2",
+            "type": "contrast",
+            "x": 570,
+            "y": 160,
+            "params": {
+              "amount": 128
+            }
+          },
+          {
+            "id": "n3",
+            "type": "saturation",
+            "x": 820,
+            "y": 160,
+            "params": {
+              "amount": 70
+            }
+          },
+          {
+            "id": "n4",
+            "type": "output",
+            "x": 1070,
+            "y": 160,
+            "params": {}
+          }
+        ],
+        "edges": [
+          {
+            "from": "n0",
+            "to": "n1",
+            "input": "image"
+          },
+          {
+            "from": "n1",
+            "to": "n2",
+            "input": "image"
+          },
+          {
+            "from": "n2",
+            "to": "n3",
+            "input": "image"
+          },
+          {
+            "from": "n3",
+            "to": "n4",
+            "input": "image"
+          }
+        ],
+        "length": 10,
+        "fps": 25
+      }
+    },
+    {
+      "id": "afro-golden",
+      "name": "Clip musical · Teinte or",
+      "graph": {
+        "schema": "warlike-node-v2",
+        "nodes": [
+          {
+            "id": "n0",
+            "type": "source",
+            "x": 70,
+            "y": 160,
+            "params": {}
+          },
+          {
+            "id": "n1",
+            "type": "tint",
+            "x": 320,
+            "y": 160,
+            "params": {
+              "color": "#cc964c",
+              "strength": 16
+            }
+          },
+          {
+            "id": "n2",
+            "type": "contrast",
+            "x": 570,
+            "y": 160,
+            "params": {
+              "amount": 112
+            }
+          },
+          {
+            "id": "n3",
+            "type": "output",
+            "x": 820,
+            "y": 160,
+            "params": {}
+          }
+        ],
+        "edges": [
+          {
+            "from": "n0",
+            "to": "n1",
+            "input": "image"
+          },
+          {
+            "from": "n1",
+            "to": "n2",
+            "input": "image"
+          },
+          {
+            "from": "n2",
+            "to": "n3",
+            "input": "image"
+          }
+        ],
+        "length": 10,
+        "fps": 25
+      }
+    },
+    {
+      "id": "noir-detective",
+      "name": "Polar · Noir intense",
+      "graph": {
+        "schema": "warlike-node-v2",
+        "nodes": [
+          {
+            "id": "n0",
+            "type": "source",
+            "x": 70,
+            "y": 160,
+            "params": {}
+          },
+          {
+            "id": "n1",
+            "type": "grayscale",
+            "x": 320,
+            "y": 160,
+            "params": {}
+          },
+          {
+            "id": "n2",
+            "type": "contrast",
+            "x": 570,
+            "y": 160,
+            "params": {
+              "amount": 136
+            }
+          },
+          {
+            "id": "n3",
+            "type": "output",
+            "x": 820,
+            "y": 160,
+            "params": {}
+          }
+        ],
+        "edges": [
+          {
+            "from": "n0",
+            "to": "n1",
+            "input": "image"
+          },
+          {
+            "from": "n1",
+            "to": "n2",
+            "input": "image"
+          },
+          {
+            "from": "n2",
+            "to": "n3",
+            "input": "image"
+          }
+        ],
+        "length": 10,
+        "fps": 25
+      }
+    },
+    {
+      "id": "dreamsoft",
+      "name": "Onirique · Diffusion douce",
+      "graph": {
+        "schema": "warlike-node-v2",
+        "nodes": [
+          {
+            "id": "n0",
+            "type": "source",
+            "x": 70,
+            "y": 160,
+            "params": {}
+          },
+          {
+            "id": "n1",
+            "type": "blur",
+            "x": 320,
+            "y": 160,
+            "params": {
+              "radius": 2
+            }
+          },
+          {
+            "id": "n2",
+            "type": "brightness",
+            "x": 570,
+            "y": 160,
+            "params": {
+              "amount": 110
+            }
+          },
+          {
+            "id": "n3",
+            "type": "output",
+            "x": 820,
+            "y": 160,
+            "params": {}
+          }
+        ],
+        "edges": [
+          {
+            "from": "n0",
+            "to": "n1",
+            "input": "image"
+          },
+          {
+            "from": "n1",
+            "to": "n2",
+            "input": "image"
+          },
+          {
+            "from": "n2",
+            "to": "n3",
+            "input": "image"
+          }
+        ],
+        "length": 10,
+        "fps": 25
+      }
+    }
+  ]
+}

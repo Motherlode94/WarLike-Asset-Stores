@@ -1,0 +1,274 @@
+{
+  "apiVersion": "1.0",
+  "id": "warlike-farming-greenhouse",
+  "version": "1.0.0",
+  "name": "Farm Life · Serre et circuit de vente",
+  "author": "WarLike Corps",
+  "modes": [
+    "2d",
+    "3d"
+  ],
+  "description": "Cycle abstrait semis, eau, récolte et commerce. Les cultures 3D, le temps de pousse et la météo ne sont pas créés par le pack.",
+  "recipes": [
+    {
+      "id": "season",
+      "name": "Début de saison",
+      "description": "Initialise eau, graines et pièces.",
+      "sequence": {
+        "event": "start",
+        "key": "e",
+        "radius": 130,
+        "once": true,
+        "conditions": [],
+        "instructions": [
+          {
+            "type": "setVariable",
+            "key": "farmCash",
+            "value": 30
+          },
+          {
+            "type": "setVariable",
+            "key": "farmSeeds",
+            "value": 0
+          },
+          {
+            "type": "setVariable",
+            "key": "farmWater",
+            "value": 0
+          },
+          {
+            "type": "setVariable",
+            "key": "farmCrops",
+            "value": 0
+          },
+          {
+            "type": "setVariable",
+            "key": "farmSold",
+            "value": 0
+          },
+          {
+            "type": "message",
+            "value": "Achète des graines, arrose et récolte."
+          }
+        ]
+      }
+    },
+    {
+      "id": "seed-shop",
+      "name": "Magasin de semences",
+      "description": "Achète trois graines.",
+      "sequence": {
+        "event": "interact",
+        "key": "e",
+        "radius": 130,
+        "once": false,
+        "conditions": [],
+        "instructions": [],
+        "branches": [
+          {
+            "conditions": [
+              {
+                "type": "variable",
+                "key": "farmCash",
+                "value": 6,
+                "operator": ">="
+              }
+            ],
+            "instructions": [
+              {
+                "type": "addVariable",
+                "key": "farmCash",
+                "value": -6
+              },
+              {
+                "type": "addVariable",
+                "key": "farmSeeds",
+                "value": 3
+              },
+              {
+                "type": "message",
+                "value": "Trois graines achetées."
+              }
+            ]
+          }
+        ],
+        "elseInstructions": [
+          {
+            "type": "message",
+            "value": "Il manque 6 pièces."
+          }
+        ]
+      }
+    },
+    {
+      "id": "well",
+      "name": "Puits",
+      "description": "Accorde des charges d'eau.",
+      "sequence": {
+        "event": "interact",
+        "key": "e",
+        "radius": 130,
+        "once": false,
+        "conditions": [],
+        "instructions": [
+          {
+            "type": "addVariable",
+            "key": "farmWater",
+            "value": 2
+          },
+          {
+            "type": "message",
+            "value": "Deux charges d'eau récupérées."
+          }
+        ]
+      }
+    },
+    {
+      "id": "plant",
+      "name": "Parcelle",
+      "description": "Sème et arrose lorsque les deux ressources sont présentes.",
+      "sequence": {
+        "event": "interact",
+        "key": "e",
+        "radius": 130,
+        "once": false,
+        "conditions": [],
+        "instructions": [],
+        "branches": [
+          {
+            "conditions": [
+              {
+                "type": "variable",
+                "key": "farmSeeds",
+                "value": 1,
+                "operator": ">="
+              },
+              {
+                "type": "variable",
+                "key": "farmWater",
+                "value": 1,
+                "operator": ">="
+              }
+            ],
+            "instructions": [
+              {
+                "type": "addVariable",
+                "key": "farmSeeds",
+                "value": -1
+              },
+              {
+                "type": "addVariable",
+                "key": "farmWater",
+                "value": -1
+              },
+              {
+                "type": "addVariable",
+                "key": "farmCrops",
+                "value": 1
+              },
+              {
+                "type": "message",
+                "value": "Culture comptabilisée : ajouter l'animation de pousse."
+              }
+            ]
+          }
+        ],
+        "elseInstructions": [
+          {
+            "type": "message",
+            "value": "Graines et eau nécessaires."
+          }
+        ]
+      }
+    },
+    {
+      "id": "market",
+      "name": "Marché fermier",
+      "description": "Convertit les récoltes en revenus.",
+      "sequence": {
+        "event": "interact",
+        "key": "e",
+        "radius": 130,
+        "once": false,
+        "conditions": [],
+        "instructions": [],
+        "branches": [
+          {
+            "conditions": [
+              {
+                "type": "variable",
+                "key": "farmCrops",
+                "value": 1,
+                "operator": ">="
+              }
+            ],
+            "instructions": [
+              {
+                "type": "addVariable",
+                "key": "farmCrops",
+                "value": -1
+              },
+              {
+                "type": "addVariable",
+                "key": "farmSold",
+                "value": 1
+              },
+              {
+                "type": "addVariable",
+                "key": "farmCash",
+                "value": 10
+              },
+              {
+                "type": "message",
+                "value": "Récolte vendue : +10 pièces."
+              }
+            ]
+          }
+        ],
+        "elseInstructions": [
+          {
+            "type": "message",
+            "value": "Aucune récolte à vendre."
+          }
+        ]
+      }
+    },
+    {
+      "id": "goal",
+      "name": "Clôturer la saison",
+      "description": "Valide trois ventes.",
+      "sequence": {
+        "event": "interact",
+        "key": "e",
+        "radius": 130,
+        "once": false,
+        "conditions": [],
+        "instructions": [],
+        "branches": [
+          {
+            "conditions": [
+              {
+                "type": "variable",
+                "key": "farmSold",
+                "value": 3,
+                "operator": ">="
+              }
+            ],
+            "instructions": [
+              {
+                "type": "winGame",
+                "value": "Saison rentable : trois récoltes vendues."
+              }
+            ]
+          }
+        ],
+        "elseInstructions": [
+          {
+            "type": "message",
+            "value": "Trois ventes sont nécessaires."
+          }
+        ]
+      }
+    }
+  ]
+}

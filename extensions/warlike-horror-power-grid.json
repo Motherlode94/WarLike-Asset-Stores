@@ -1,0 +1,202 @@
+{
+  "apiVersion": "1.0",
+  "id": "warlike-horror-power-grid",
+  "version": "1.0.0",
+  "name": "Survival Horror · Réseau et secours",
+  "author": "WarLike Corps",
+  "modes": [
+    "3d"
+  ],
+  "description": "Mécanique de fusibles, lampes et issue conditionnelle. Les effets visuels, monstres et Animator nécessitent un prefab ou une scène.",
+  "recipes": [
+    {
+      "id": "entry",
+      "name": "Bâtiment plongé dans le noir",
+      "description": "Remet le générateur à zéro.",
+      "sequence": {
+        "event": "start",
+        "key": "e",
+        "radius": 130,
+        "once": true,
+        "conditions": [],
+        "instructions": [
+          {
+            "type": "setVariable",
+            "key": "horrorFuses",
+            "value": 0
+          },
+          {
+            "type": "setVariable",
+            "key": "horrorPower",
+            "value": 0
+          },
+          {
+            "type": "setVariable",
+            "key": "horrorRescue",
+            "value": 0
+          },
+          {
+            "type": "message",
+            "value": "Récupère deux fusibles. N'ouvre pas la sortie sans courant."
+          }
+        ]
+      }
+    },
+    {
+      "id": "fuse-one",
+      "name": "Premier fusible",
+      "description": "Récupère le premier composant.",
+      "sequence": {
+        "event": "interact",
+        "key": "e",
+        "radius": 130,
+        "once": true,
+        "conditions": [],
+        "instructions": [
+          {
+            "type": "addVariable",
+            "key": "horrorFuses",
+            "value": 1
+          },
+          {
+            "type": "message",
+            "value": "Fusible A récupéré."
+          }
+        ]
+      }
+    },
+    {
+      "id": "fuse-two",
+      "name": "Second fusible",
+      "description": "Récupère le second composant.",
+      "sequence": {
+        "event": "interact",
+        "key": "e",
+        "radius": 130,
+        "once": true,
+        "conditions": [],
+        "instructions": [
+          {
+            "type": "addVariable",
+            "key": "horrorFuses",
+            "value": 1
+          },
+          {
+            "type": "message",
+            "value": "Fusible B récupéré."
+          }
+        ]
+      }
+    },
+    {
+      "id": "generator",
+      "name": "Générateur de secours",
+      "description": "Autorise le courant uniquement avec deux fusibles.",
+      "sequence": {
+        "event": "interact",
+        "key": "e",
+        "radius": 130,
+        "once": false,
+        "conditions": [],
+        "instructions": [],
+        "branches": [
+          {
+            "conditions": [
+              {
+                "type": "variable",
+                "key": "horrorFuses",
+                "value": 2,
+                "operator": ">="
+              }
+            ],
+            "instructions": [
+              {
+                "type": "setVariable",
+                "key": "horrorPower",
+                "value": 1
+              },
+              {
+                "type": "emitSignal",
+                "value": "horror:power"
+              },
+              {
+                "type": "message",
+                "value": "Courant rétabli."
+              }
+            ]
+          }
+        ],
+        "elseInstructions": []
+      }
+    },
+    {
+      "id": "safe-room",
+      "name": "Salle sûre",
+      "description": "Déclenche le signal de secours lorsque la puissance est disponible.",
+      "sequence": {
+        "event": "interact",
+        "key": "e",
+        "radius": 130,
+        "once": false,
+        "conditions": [],
+        "instructions": [],
+        "branches": [
+          {
+            "conditions": [
+              {
+                "type": "variable",
+                "key": "horrorPower",
+                "value": 1,
+                "operator": "=="
+              }
+            ],
+            "instructions": [
+              {
+                "type": "setVariable",
+                "key": "horrorRescue",
+                "value": 1
+              },
+              {
+                "type": "message",
+                "value": "Signal de secours émis."
+              }
+            ]
+          }
+        ],
+        "elseInstructions": []
+      }
+    },
+    {
+      "id": "escape",
+      "name": "Porte de sortie",
+      "description": "Termine l'expérience si le secours a été appelé.",
+      "sequence": {
+        "event": "interact",
+        "key": "e",
+        "radius": 130,
+        "once": false,
+        "conditions": [],
+        "instructions": [],
+        "branches": [
+          {
+            "conditions": [
+              {
+                "type": "variable",
+                "key": "horrorRescue",
+                "value": 1,
+                "operator": "=="
+              }
+            ],
+            "instructions": [
+              {
+                "type": "winGame",
+                "value": "Survie : extraction accomplie."
+              }
+            ]
+          }
+        ],
+        "elseInstructions": []
+      }
+    }
+  ]
+}

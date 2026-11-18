@@ -1,0 +1,277 @@
+{
+  "apiVersion": "1.0",
+  "id": "warlike-supermarket-business",
+  "version": "1.0.0",
+  "name": "Supermarket · Gestion de magasin",
+  "author": "WarLike Corps",
+  "modes": [
+    "2d",
+    "3d"
+  ],
+  "description": "Gestion simple du stock, des commandes et de la caisse. Les rayons, clients et animations restent à ajouter dans la scène.",
+  "recipes": [
+    {
+      "id": "open",
+      "name": "Ouverture du magasin",
+      "description": "Initialise la caisse et l'inventaire.",
+      "sequence": {
+        "event": "start",
+        "key": "e",
+        "radius": 130,
+        "once": true,
+        "conditions": [],
+        "instructions": [
+          {
+            "type": "setVariable",
+            "key": "shopMoney",
+            "value": 70
+          },
+          {
+            "type": "setVariable",
+            "key": "shopStock",
+            "value": 0
+          },
+          {
+            "type": "setVariable",
+            "key": "shopSales",
+            "value": 0
+          },
+          {
+            "type": "setVariable",
+            "key": "shopPermit",
+            "value": 0
+          },
+          {
+            "type": "message",
+            "value": "Commande des articles puis effectue trois ventes."
+          }
+        ]
+      }
+    },
+    {
+      "id": "delivery",
+      "name": "Livraison des cartons",
+      "description": "Consomme 20 fonds pour six stocks.",
+      "sequence": {
+        "event": "interact",
+        "key": "e",
+        "radius": 130,
+        "once": false,
+        "conditions": [],
+        "instructions": [],
+        "branches": [
+          {
+            "conditions": [
+              {
+                "type": "variable",
+                "key": "shopMoney",
+                "value": 20,
+                "operator": ">="
+              }
+            ],
+            "instructions": [
+              {
+                "type": "addVariable",
+                "key": "shopMoney",
+                "value": -20
+              },
+              {
+                "type": "addVariable",
+                "key": "shopStock",
+                "value": 6
+              },
+              {
+                "type": "message",
+                "value": "Six articles reçus."
+              }
+            ]
+          }
+        ],
+        "elseInstructions": [
+          {
+            "type": "message",
+            "value": "Fonds insuffisants pour la livraison."
+          }
+        ]
+      }
+    },
+    {
+      "id": "register",
+      "name": "Passage en caisse",
+      "description": "Vend un article en stock et crédite la caisse.",
+      "sequence": {
+        "event": "interact",
+        "key": "e",
+        "radius": 130,
+        "once": false,
+        "conditions": [],
+        "instructions": [],
+        "branches": [
+          {
+            "conditions": [
+              {
+                "type": "variable",
+                "key": "shopStock",
+                "value": 1,
+                "operator": ">="
+              }
+            ],
+            "instructions": [
+              {
+                "type": "addVariable",
+                "key": "shopStock",
+                "value": -1
+              },
+              {
+                "type": "addVariable",
+                "key": "shopSales",
+                "value": 1
+              },
+              {
+                "type": "addVariable",
+                "key": "shopMoney",
+                "value": 12
+              },
+              {
+                "type": "message",
+                "value": "Vente enregistrée : +12 crédits."
+              }
+            ]
+          }
+        ],
+        "elseInstructions": [
+          {
+            "type": "message",
+            "value": "Stock épuisé."
+          }
+        ]
+      }
+    },
+    {
+      "id": "audit",
+      "name": "Contrôle des ventes",
+      "description": "Certifie le magasin après trois ventes.",
+      "sequence": {
+        "event": "interact",
+        "key": "e",
+        "radius": 130,
+        "once": false,
+        "conditions": [],
+        "instructions": [],
+        "branches": [
+          {
+            "conditions": [
+              {
+                "type": "variable",
+                "key": "shopSales",
+                "value": 3,
+                "operator": ">="
+              }
+            ],
+            "instructions": [
+              {
+                "type": "setVariable",
+                "key": "shopPermit",
+                "value": 1
+              },
+              {
+                "type": "message",
+                "value": "Audit du magasin réussi."
+              }
+            ]
+          }
+        ],
+        "elseInstructions": [
+          {
+            "type": "message",
+            "value": "Trois ventes minimum."
+          }
+        ]
+      }
+    },
+    {
+      "id": "upgrade",
+      "name": "Modernisation de boutique",
+      "description": "Consomme le budget pour un palier d'amélioration abstrait.",
+      "sequence": {
+        "event": "interact",
+        "key": "e",
+        "radius": 130,
+        "once": false,
+        "conditions": [],
+        "instructions": [],
+        "branches": [
+          {
+            "conditions": [
+              {
+                "type": "variable",
+                "key": "shopMoney",
+                "value": 30,
+                "operator": ">="
+              }
+            ],
+            "instructions": [
+              {
+                "type": "addVariable",
+                "key": "shopMoney",
+                "value": -30
+              },
+              {
+                "type": "addVariable",
+                "key": "shopUpgrade",
+                "value": 1
+              },
+              {
+                "type": "message",
+                "value": "Amélioration achetée : appliquer les modèles dans la scène."
+              }
+            ]
+          }
+        ],
+        "elseInstructions": [
+          {
+            "type": "message",
+            "value": "Il faut 30 crédits."
+          }
+        ]
+      }
+    },
+    {
+      "id": "finish",
+      "name": "Bilan commercial",
+      "description": "Victoire après l'audit et des ventes.",
+      "sequence": {
+        "event": "interact",
+        "key": "e",
+        "radius": 130,
+        "once": false,
+        "conditions": [],
+        "instructions": [],
+        "branches": [
+          {
+            "conditions": [
+              {
+                "type": "variable",
+                "key": "shopPermit",
+                "value": 1,
+                "operator": "=="
+              }
+            ],
+            "instructions": [
+              {
+                "type": "winGame",
+                "value": "Magasin rentable, audit validé."
+              }
+            ]
+          }
+        ],
+        "elseInstructions": [
+          {
+            "type": "message",
+            "value": "L'audit n'est pas validé."
+          }
+        ]
+      }
+    }
+  ]
+}

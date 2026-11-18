@@ -1,0 +1,208 @@
+{
+  "apiVersion": "1.0",
+  "id": "warlike-interaction-lab",
+  "version": "1.0.0",
+  "name": "Interaction Lab · Portes et consoles",
+  "author": "WarLike Corps",
+  "modes": [
+    "2d",
+    "3d"
+  ],
+  "description": "Six recettes pour interruptions, badges, leviers, portes à signal, inspection et sortie. Les interactions de type physique nécessitent un collider/Animator séparé.",
+  "recipes": [
+    {
+      "id": "start",
+      "name": "Initialisation des accès",
+      "description": "Prépare l'état des portes et badges.",
+      "sequence": {
+        "event": "start",
+        "key": "e",
+        "radius": 130,
+        "once": true,
+        "conditions": [],
+        "instructions": [
+          {
+            "type": "setVariable",
+            "key": "labBadge",
+            "value": 0
+          },
+          {
+            "type": "setVariable",
+            "key": "labPower",
+            "value": 0
+          },
+          {
+            "type": "setVariable",
+            "key": "labDoor",
+            "value": 0
+          },
+          {
+            "type": "message",
+            "value": "Trouve le badge, active le courant puis ouvre la sortie."
+          }
+        ]
+      }
+    },
+    {
+      "id": "badge",
+      "name": "Badge de sécurité",
+      "description": "Ajoute une autorisation aux variables du scénario.",
+      "sequence": {
+        "event": "interact",
+        "key": "e",
+        "radius": 130,
+        "once": true,
+        "conditions": [],
+        "instructions": [
+          {
+            "type": "setVariable",
+            "key": "labBadge",
+            "value": 1
+          },
+          {
+            "type": "message",
+            "value": "Badge de service récupéré."
+          }
+        ]
+      }
+    },
+    {
+      "id": "lever",
+      "name": "Levier de courant",
+      "description": "Rétablit l'alimentation électrique.",
+      "sequence": {
+        "event": "interact",
+        "key": "e",
+        "radius": 130,
+        "once": true,
+        "conditions": [],
+        "instructions": [
+          {
+            "type": "setVariable",
+            "key": "labPower",
+            "value": 1
+          },
+          {
+            "type": "emitSignal",
+            "value": "lab:power"
+          },
+          {
+            "type": "message",
+            "value": "Énergie activée."
+          }
+        ]
+      }
+    },
+    {
+      "id": "console",
+      "name": "Console sous contrôle",
+      "description": "Émet un signal uniquement après badge et énergie.",
+      "sequence": {
+        "event": "interact",
+        "key": "e",
+        "radius": 130,
+        "once": false,
+        "conditions": [],
+        "instructions": [],
+        "branches": [
+          {
+            "conditions": [
+              {
+                "type": "variable",
+                "key": "labBadge",
+                "value": 1,
+                "operator": "=="
+              },
+              {
+                "type": "variable",
+                "key": "labPower",
+                "value": 1,
+                "operator": "=="
+              }
+            ],
+            "instructions": [
+              {
+                "type": "emitSignal",
+                "value": "lab:open"
+              },
+              {
+                "type": "setVariable",
+                "key": "labDoor",
+                "value": 1
+              },
+              {
+                "type": "message",
+                "value": "Porte déverrouillée."
+              }
+            ]
+          }
+        ],
+        "elseInstructions": [
+          {
+            "type": "message",
+            "value": "Badge et alimentation nécessaires."
+          }
+        ]
+      }
+    },
+    {
+      "id": "door",
+      "name": "Porte commandée",
+      "description": "Masque l'objet et désactive sa collision après le signal de la console.",
+      "sequence": {
+        "event": "signal",
+        "key": "e",
+        "radius": 130,
+        "once": true,
+        "conditions": [],
+        "instructions": [
+          {
+            "type": "setCollision",
+            "value": false
+          },
+          {
+            "type": "setVisibility",
+            "value": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "exit",
+      "name": "Fin du circuit",
+      "description": "Vérifie que la porte a été déverrouillée.",
+      "sequence": {
+        "event": "interact",
+        "key": "e",
+        "radius": 130,
+        "once": false,
+        "conditions": [],
+        "instructions": [],
+        "branches": [
+          {
+            "conditions": [
+              {
+                "type": "variable",
+                "key": "labDoor",
+                "value": 1,
+                "operator": "=="
+              }
+            ],
+            "instructions": [
+              {
+                "type": "winGame",
+                "value": "Circuit d'interaction terminé."
+              }
+            ]
+          }
+        ],
+        "elseInstructions": [
+          {
+            "type": "message",
+            "value": "La porte est encore verrouillée."
+          }
+        ]
+      }
+    }
+  ]
+}

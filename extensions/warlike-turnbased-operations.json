@@ -1,0 +1,264 @@
+{
+  "apiVersion": "1.0",
+  "id": "warlike-turnbased-operations",
+  "version": "1.0.0",
+  "name": "Stratégie · Campagne au tour par tour",
+  "author": "WarLike Corps",
+  "modes": [
+    "2d",
+    "3d"
+  ],
+  "description": "Un noyau d'actions par tour, points tactiques et contrôle d'objectif. Le déplacement sur grille et l'IA adversaire restent à développer.",
+  "recipes": [
+    {
+      "id": "turn-start",
+      "name": "Démarrer la campagne",
+      "description": "Prépare points, objectifs et numéro de tour.",
+      "sequence": {
+        "event": "start",
+        "key": "e",
+        "radius": 130,
+        "once": true,
+        "conditions": [],
+        "instructions": [
+          {
+            "type": "setVariable",
+            "key": "turnNumber",
+            "value": 1
+          },
+          {
+            "type": "setVariable",
+            "key": "turnAP",
+            "value": 3
+          },
+          {
+            "type": "setVariable",
+            "key": "turnControl",
+            "value": 0
+          },
+          {
+            "type": "setVariable",
+            "key": "turnIntel",
+            "value": 0
+          },
+          {
+            "type": "message",
+            "value": "Chaque tour dispose de 3 points tactiques."
+          }
+        ]
+      }
+    },
+    {
+      "id": "recon",
+      "name": "Reconnaissance",
+      "description": "Consomme un point pour révéler le secteur.",
+      "sequence": {
+        "event": "interact",
+        "key": "e",
+        "radius": 130,
+        "once": false,
+        "conditions": [],
+        "instructions": [],
+        "branches": [
+          {
+            "conditions": [
+              {
+                "type": "variable",
+                "key": "turnAP",
+                "value": 1,
+                "operator": ">="
+              }
+            ],
+            "instructions": [
+              {
+                "type": "addVariable",
+                "key": "turnAP",
+                "value": -1
+              },
+              {
+                "type": "setVariable",
+                "key": "turnIntel",
+                "value": 1
+              },
+              {
+                "type": "message",
+                "value": "Secteur reconnu."
+              }
+            ]
+          }
+        ],
+        "elseInstructions": [
+          {
+            "type": "message",
+            "value": "Plus de points tactiques."
+          }
+        ]
+      }
+    },
+    {
+      "id": "advance",
+      "name": "Mouvement ordonné",
+      "description": "Consomme un point d'action abstrait.",
+      "sequence": {
+        "event": "interact",
+        "key": "e",
+        "radius": 130,
+        "once": false,
+        "conditions": [],
+        "instructions": [],
+        "branches": [
+          {
+            "conditions": [
+              {
+                "type": "variable",
+                "key": "turnAP",
+                "value": 1,
+                "operator": ">="
+              }
+            ],
+            "instructions": [
+              {
+                "type": "addVariable",
+                "key": "turnAP",
+                "value": -1
+              },
+              {
+                "type": "addVariable",
+                "key": "turnControl",
+                "value": 1
+              },
+              {
+                "type": "message",
+                "value": "Mouvement validé : relier à la navigation de l'unité."
+              }
+            ]
+          }
+        ],
+        "elseInstructions": [
+          {
+            "type": "message",
+            "value": "Termine ton tour."
+          }
+        ]
+      }
+    },
+    {
+      "id": "tactical-attack",
+      "name": "Attaque tactique",
+      "description": "Consomme deux points si la reconnaissance est faite.",
+      "sequence": {
+        "event": "interact",
+        "key": "e",
+        "radius": 130,
+        "once": false,
+        "conditions": [],
+        "instructions": [],
+        "branches": [
+          {
+            "conditions": [
+              {
+                "type": "variable",
+                "key": "turnAP",
+                "value": 2,
+                "operator": ">="
+              },
+              {
+                "type": "variable",
+                "key": "turnIntel",
+                "value": 1,
+                "operator": "=="
+              }
+            ],
+            "instructions": [
+              {
+                "type": "addVariable",
+                "key": "turnAP",
+                "value": -2
+              },
+              {
+                "type": "addVariable",
+                "key": "turnControl",
+                "value": 1
+              },
+              {
+                "type": "message",
+                "value": "Action tactique autorisée : connecter le système de combat."
+              }
+            ]
+          }
+        ],
+        "elseInstructions": [
+          {
+            "type": "message",
+            "value": "Reconnaissance et deux points requis."
+          }
+        ]
+      }
+    },
+    {
+      "id": "end-turn",
+      "name": "Terminer le tour",
+      "description": "Recharge les points d'action.",
+      "sequence": {
+        "event": "interact",
+        "key": "e",
+        "radius": 130,
+        "once": false,
+        "conditions": [],
+        "instructions": [
+          {
+            "type": "addVariable",
+            "key": "turnNumber",
+            "value": 1
+          },
+          {
+            "type": "setVariable",
+            "key": "turnAP",
+            "value": 3
+          },
+          {
+            "type": "message",
+            "value": "Nouveau tour engagé."
+          }
+        ]
+      }
+    },
+    {
+      "id": "campaign-win",
+      "name": "Contrôle de zone",
+      "description": "Victoire après trois actions de contrôle.",
+      "sequence": {
+        "event": "interact",
+        "key": "e",
+        "radius": 130,
+        "once": false,
+        "conditions": [],
+        "instructions": [],
+        "branches": [
+          {
+            "conditions": [
+              {
+                "type": "variable",
+                "key": "turnControl",
+                "value": 3,
+                "operator": ">="
+              }
+            ],
+            "instructions": [
+              {
+                "type": "winGame",
+                "value": "Secteur contrôlé après plusieurs tours."
+              }
+            ]
+          }
+        ],
+        "elseInstructions": [
+          {
+            "type": "message",
+            "value": "Contrôle de zone insuffisant."
+          }
+        ]
+      }
+    }
+  ]
+}

@@ -54,3 +54,25 @@ Dans `terrain-generator.html`, l'édition au pointeur (souris / tactile) permet 
 ## Gaia 0.3 — Terrain Tools avancés et grandes cartes
 
 Le module `extensions/warlike-gaia-advanced.js` ajoute un bruit multi-octaves à crêtes et déformation de domaine, deux filtres d'érosion CPU (thermique et hydraulique simplifiée), et un pavage de 1 à 16 terrains avec bords continus. Chaque tuile peut être exportée en GLB ; un JSON `warlike.gaia.world.v1` contient les descripteurs de sols `warlike.terrain.heightfield.v1` (hauteurs, dimension, offset) et leurs échantillons bilinéaires. La PR Engine dédiée ajoute l'import des colliders et leur prise en compte par le solveur de physique 3D léger ; **elle ne crée pas de MeshCollider Rapier ni de streaming automatique**. Pour la scène visuelle, importer séparément les fichiers GLB et vérifier leurs positions.
+
+## Extension Shelf — enrichissement gameplay (novembre 2026)
+
+Le Store propose désormais **12 nouveaux packs JSON WarNode** de six recettes chacun (72 recettes) : Interaction Lab, FPS Opération, Commandement RTS, Tower Defense, Detective Stories, Survival Horror, Supermarket, Construction, RPG Donjon, stratégie au tour par tour, Farm Life et Garage. Leur contenu est réellement présent dans `extensions/` et référencé dans `extensions/catalog.json`.
+
+**Installation Engine :** télécharger un fichier depuis `extensions.html`, puis `Engine → Assets → Communauté · Plugins → Importer un pack .json`. Sélectionner ensuite un GameObject et appliquer une recette dans les outils communautaires. Chaque pack reste déclaratif, utilise uniquement les événements/actions autorisés par l'API `1.0` et n'exécute jamais de code distant.
+
+Les **4 autres collections JSON** servent Studio (chaînes vocales Trap/Drill/Afro/R&B), Node (looks cinéma), Monteur (mouvements/keyframes) et MISC (planning pédagogique). Leurs schémas correspondent aux familles préexistantes. **Elles ne créent pas de nouveaux instruments, effets DSP, shaders, modèles, animations ou moteurs de rendu** : leur résultat dépend des fonctionnalités déjà présentes dans l'application réceptrice. Le planning MISC est une ressource de référence, et non une simulation interactive.
+
+Les recettes RTS, tour par tour, Tower Defense et Construction pilotent des **variables et des signaux réels**, mais ne génèrent pas de troupes, constructions, ennemis ou colliders automatiquement. Pour une expérience complète, les créateurs doivent raccorder les composants et prefabs réels de leur projet dans Engine.
+
+Tests supplémentaires : `tests/extension-catalog-growth.test.mjs` (fichiers réels, unicité, formats et 72 recettes). Les essais Play 2D/3D, import inter-application et export Web nécessitent une validation distincte après publication.
+
+## Scènes compagnes des extensions WarNode
+
+Les 12 nouveaux packs Engine disposent chacun d'un fichier `*.project-v2.json` qui contient une scène V2 sérialisée, un GameObject joueur, une plateforme, et six GameObjects portant exactement les séquences Blueprint du pack. Les 8 packs compatibles 2D et 3D disposent en complément d'un fichier `*.project-v2-2d.json`.
+
+- Les fichiers sont référencés par `sceneFile` et `scene2dFile` dans `extensions/catalog.json`. La page `extensions.html` propose leurs téléchargements.
+- Les GameObjects contiennent des composants `Transform`, `LegacyEntity` et, lorsqu'applicable, `sequence`. Leur propriété `interactable` est préparée pour l'Interaction System de WarLike Engine.
+- Ces fichiers ne remplacent pas les packs communautaires API 1.0 : importer d'abord le pack Blueprint pour l'utiliser dans l'Inspector ; les scènes V2 constituent des **projets compagnons distincts**. Elles ne sont pas installées automatiquement.
+- **Validation à poursuivre :** l'ouverture des projets V2 via le parcours de l'éditeur, le gameplay FPS/TPS, la stabilité de la physique sur la plateforme, ainsi que la parité Play / export Web. Le format structurel ne prouve pas, à lui seul, la jouabilité finale.
+- Tests structurels : `tests/extension-scene-companions.test.mjs`.

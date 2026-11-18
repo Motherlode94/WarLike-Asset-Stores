@@ -1,0 +1,275 @@
+{
+  "apiVersion": "1.0",
+  "id": "warlike-construction-operations",
+  "version": "1.0.0",
+  "name": "Construction · Chantier et réception",
+  "author": "WarLike Corps",
+  "modes": [
+    "3d"
+  ],
+  "description": "Progression de chantier avec budget, livraison, fondations, sécurité et inspection. Aucun bâtiment 3D n'est généré automatiquement.",
+  "recipes": [
+    {
+      "id": "permit",
+      "name": "Permis de construire",
+      "description": "Initialise le projet et le budget.",
+      "sequence": {
+        "event": "start",
+        "key": "e",
+        "radius": 130,
+        "once": true,
+        "conditions": [],
+        "instructions": [
+          {
+            "type": "setVariable",
+            "key": "buildBudget",
+            "value": 100
+          },
+          {
+            "type": "setVariable",
+            "key": "buildMaterials",
+            "value": 0
+          },
+          {
+            "type": "setVariable",
+            "key": "buildFoundation",
+            "value": 0
+          },
+          {
+            "type": "setVariable",
+            "key": "buildSafety",
+            "value": 0
+          },
+          {
+            "type": "setVariable",
+            "key": "buildFinished",
+            "value": 0
+          },
+          {
+            "type": "message",
+            "value": "Approvisionne puis prépare les fondations."
+          }
+        ]
+      }
+    },
+    {
+      "id": "supply",
+      "name": "Livraison de matériaux",
+      "description": "Achète des fournitures au dépôt.",
+      "sequence": {
+        "event": "interact",
+        "key": "e",
+        "radius": 130,
+        "once": false,
+        "conditions": [],
+        "instructions": [],
+        "branches": [
+          {
+            "conditions": [
+              {
+                "type": "variable",
+                "key": "buildBudget",
+                "value": 20,
+                "operator": ">="
+              }
+            ],
+            "instructions": [
+              {
+                "type": "addVariable",
+                "key": "buildBudget",
+                "value": -20
+              },
+              {
+                "type": "addVariable",
+                "key": "buildMaterials",
+                "value": 5
+              },
+              {
+                "type": "message",
+                "value": "Livraison reçue : 5 matériaux."
+              }
+            ]
+          }
+        ],
+        "elseInstructions": [
+          {
+            "type": "message",
+            "value": "Budget insuffisant."
+          }
+        ]
+      }
+    },
+    {
+      "id": "foundation",
+      "name": "Fondations",
+      "description": "Consomme 3 matériaux pour préparer la base.",
+      "sequence": {
+        "event": "interact",
+        "key": "e",
+        "radius": 130,
+        "once": false,
+        "conditions": [],
+        "instructions": [],
+        "branches": [
+          {
+            "conditions": [
+              {
+                "type": "variable",
+                "key": "buildMaterials",
+                "value": 3,
+                "operator": ">="
+              }
+            ],
+            "instructions": [
+              {
+                "type": "addVariable",
+                "key": "buildMaterials",
+                "value": -3
+              },
+              {
+                "type": "setVariable",
+                "key": "buildFoundation",
+                "value": 1
+              },
+              {
+                "type": "message",
+                "value": "Fondations validées : mettre à jour les objets du chantier."
+              }
+            ]
+          }
+        ],
+        "elseInstructions": [
+          {
+            "type": "message",
+            "value": "Trois matériaux sont nécessaires."
+          }
+        ]
+      }
+    },
+    {
+      "id": "inspection",
+      "name": "Contrôle sécurité",
+      "description": "Vérifie que les fondations sont prêtes.",
+      "sequence": {
+        "event": "interact",
+        "key": "e",
+        "radius": 130,
+        "once": false,
+        "conditions": [],
+        "instructions": [],
+        "branches": [
+          {
+            "conditions": [
+              {
+                "type": "variable",
+                "key": "buildFoundation",
+                "value": 1,
+                "operator": "=="
+              }
+            ],
+            "instructions": [
+              {
+                "type": "setVariable",
+                "key": "buildSafety",
+                "value": 1
+              },
+              {
+                "type": "message",
+                "value": "Inspection de sécurité réussie."
+              }
+            ]
+          }
+        ],
+        "elseInstructions": [
+          {
+            "type": "message",
+            "value": "Fondations non terminées."
+          }
+        ]
+      }
+    },
+    {
+      "id": "crane",
+      "name": "Commande de grue",
+      "description": "Autorise le levage après inspection, sans animer la grue.",
+      "sequence": {
+        "event": "interact",
+        "key": "e",
+        "radius": 130,
+        "once": false,
+        "conditions": [],
+        "instructions": [],
+        "branches": [
+          {
+            "conditions": [
+              {
+                "type": "variable",
+                "key": "buildSafety",
+                "value": 1,
+                "operator": "=="
+              }
+            ],
+            "instructions": [
+              {
+                "type": "setVariable",
+                "key": "buildFinished",
+                "value": 1
+              },
+              {
+                "type": "emitSignal",
+                "value": "construction:lift"
+              },
+              {
+                "type": "message",
+                "value": "Levage autorisé : connecter Animator à ce signal."
+              }
+            ]
+          }
+        ],
+        "elseInstructions": [
+          {
+            "type": "message",
+            "value": "Autorisation de sécurité absente."
+          }
+        ]
+      }
+    },
+    {
+      "id": "handover",
+      "name": "Réception du chantier",
+      "description": "Victoire lorsque le levage est autorisé.",
+      "sequence": {
+        "event": "interact",
+        "key": "e",
+        "radius": 130,
+        "once": false,
+        "conditions": [],
+        "instructions": [],
+        "branches": [
+          {
+            "conditions": [
+              {
+                "type": "variable",
+                "key": "buildFinished",
+                "value": 1,
+                "operator": "=="
+              }
+            ],
+            "instructions": [
+              {
+                "type": "winGame",
+                "value": "Chantier livré après inspection."
+              }
+            ]
+          }
+        ],
+        "elseInstructions": [
+          {
+            "type": "message",
+            "value": "Le chantier n'est pas prêt."
+          }
+        ]
+      }
+    }
+  ]
+}

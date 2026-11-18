@@ -1,0 +1,95 @@
+{
+  "schema": "warlike.monteur.motion-pack.v1",
+  "presets": [
+    {
+      "id": "cinema-push",
+      "name": "Cinéma · Lent travelling avant",
+      "start": {
+        "scale": 100,
+        "x": 0,
+        "y": 0,
+        "rotation": 0,
+        "opacity": 100
+      },
+      "end": {
+        "scale": 115,
+        "x": 0,
+        "y": 0,
+        "rotation": 0,
+        "opacity": 100
+      }
+    },
+    {
+      "id": "horror-creep",
+      "name": "Horreur · Approche oblique",
+      "start": {
+        "scale": 104,
+        "x": -4,
+        "y": 2,
+        "rotation": -1,
+        "opacity": 100
+      },
+      "end": {
+        "scale": 121,
+        "x": 4,
+        "y": -2,
+        "rotation": 1,
+        "opacity": 100
+      }
+    },
+    {
+      "id": "music-parallax",
+      "name": "Clip musical · Panoramique",
+      "start": {
+        "scale": 115,
+        "x": -8,
+        "y": 0,
+        "rotation": 0,
+        "opacity": 100
+      },
+      "end": {
+        "scale": 115,
+        "x": 8,
+        "y": 0,
+        "rotation": 0,
+        "opacity": 100
+      }
+    },
+    {
+      "id": "rts-map",
+      "name": "RTS · Survol du terrain",
+      "start": {
+        "scale": 120,
+        "x": -8,
+        "y": 5,
+        "rotation": 0,
+        "opacity": 100
+      },
+      "end": {
+        "scale": 110,
+        "x": 7,
+        "y": -4,
+        "rotation": 0,
+        "opacity": 100
+      }
+    },
+    {
+      "id": "soft-intro",
+      "name": "Interview · Apparition douce",
+      "start": {
+        "scale": 106,
+        "x": 0,
+        "y": 3,
+        "rotation": 0,
+        "opacity": 0
+      },
+      "end": {
+        "scale": 100,
+        "x": 0,
+        "y": 0,
+        "rotation": 0,
+        "opacity": 100
+      }
+    }
+  ]
+}

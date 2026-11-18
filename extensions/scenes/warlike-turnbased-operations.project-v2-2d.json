@@ -1,0 +1,887 @@
+{
+  "schema": "warlike.project.v2",
+  "name": "Stratégie · Campagne au tour par tour — Exemple natif · 2D",
+  "mode": "2d",
+  "scenes": [
+    {
+      "schema": "warlike.scene.v2",
+      "id": "demo-warlike-turnbased-operations-2d",
+      "name": "Stratégie · Campagne au tour par tour · Démonstration · 2D",
+      "objects": [
+        {
+          "id": "entity-1",
+          "sourceEntityId": 1,
+          "name": "Joueur de démonstration",
+          "parentId": null,
+          "active": true,
+          "components": [
+            {
+              "type": "Transform",
+              "position": [
+                0,
+                0.2,
+                0
+              ],
+              "rotation": [
+                0,
+                0,
+                0
+              ],
+              "scale": [
+                1,
+                1,
+                1
+              ]
+            },
+            {
+              "type": "LegacyEntity",
+              "data": {
+                "id": 1,
+                "name": "Joueur de démonstration",
+                "type": "player",
+                "x": 0,
+                "y": 0,
+                "w": 50,
+                "h": 90,
+                "depth3d": 50,
+                "elevation3d": 0.2,
+                "color": "#41c6b7",
+                "visible": true,
+                "enabled": true,
+                "playable3d": false,
+                "collision3d": false,
+                "solid3d": false,
+                "controller2d": {
+                  "enabled": true,
+                  "mode": "topdown",
+                  "walkSpeed": 180
+                }
+              }
+            }
+          ]
+        },
+        {
+          "id": "entity-2",
+          "sourceEntityId": 2,
+          "name": "Plateforme de démonstration",
+          "parentId": null,
+          "active": true,
+          "components": [
+            {
+              "type": "Transform",
+              "position": [
+                -7.8125,
+                -0.25,
+                -7.8125
+              ],
+              "rotation": [
+                0,
+                0,
+                0
+              ],
+              "scale": [
+                1,
+                1,
+                1
+              ]
+            },
+            {
+              "type": "LegacyEntity",
+              "data": {
+                "id": 2,
+                "name": "Plateforme de démonstration",
+                "type": "object",
+                "x": -500,
+                "y": -500,
+                "w": 1400,
+                "h": 1400,
+                "depth3d": 1400,
+                "elevation3d": -0.25,
+                "color": "#39495a",
+                "visible": true,
+                "enabled": true,
+                "collision3d": false,
+                "solid3d": false,
+                "hierarchyGroup": "Environnement"
+              }
+            }
+          ]
+        },
+        {
+          "id": "entity-3",
+          "sourceEntityId": 3,
+          "name": "Démarrer la campagne",
+          "parentId": null,
+          "active": true,
+          "components": [
+            {
+              "type": "Transform",
+              "position": [
+                1.875,
+                0.1,
+                1.25
+              ],
+              "rotation": [
+                0,
+                0,
+                0
+              ],
+              "scale": [
+                1,
+                1,
+                1
+              ]
+            },
+            {
+              "type": "LegacyEntity",
+              "data": {
+                "id": 3,
+                "name": "Démarrer la campagne",
+                "type": "object",
+                "x": 120,
+                "y": 80,
+                "w": 54,
+                "h": 72,
+                "depth3d": 54,
+                "elevation3d": 0.1,
+                "color": "#7399dd",
+                "visible": true,
+                "enabled": true,
+                "collision3d": false,
+                "solid3d": false,
+                "hierarchyGroup": "Extension · WarNode",
+                "sequence": {
+                  "event": "start",
+                  "key": "e",
+                  "radius": 130,
+                  "once": true,
+                  "conditions": [],
+                  "instructions": [
+                    {
+                      "type": "setVariable",
+                      "key": "turnNumber",
+                      "value": 1
+                    },
+                    {
+                      "type": "setVariable",
+                      "key": "turnAP",
+                      "value": 3
+                    },
+                    {
+                      "type": "setVariable",
+                      "key": "turnControl",
+                      "value": 0
+                    },
+                    {
+                      "type": "setVariable",
+                      "key": "turnIntel",
+                      "value": 0
+                    },
+                    {
+                      "type": "message",
+                      "value": "Chaque tour dispose de 3 points tactiques."
+                    }
+                  ]
+                },
+                "interactable": {
+                  "enabled": true,
+                  "maxDistance": 3,
+                  "prompt": "Démarrer la campagne"
+                }
+              }
+            },
+            {
+              "type": "sequence",
+              "data": {
+                "event": "start",
+                "key": "e",
+                "radius": 130,
+                "once": true,
+                "conditions": [],
+                "instructions": [
+                  {
+                    "type": "setVariable",
+                    "key": "turnNumber",
+                    "value": 1
+                  },
+                  {
+                    "type": "setVariable",
+                    "key": "turnAP",
+                    "value": 3
+                  },
+                  {
+                    "type": "setVariable",
+                    "key": "turnControl",
+                    "value": 0
+                  },
+                  {
+                    "type": "setVariable",
+                    "key": "turnIntel",
+                    "value": 0
+                  },
+                  {
+                    "type": "message",
+                    "value": "Chaque tour dispose de 3 points tactiques."
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "id": "entity-4",
+          "sourceEntityId": 4,
+          "name": "Reconnaissance",
+          "parentId": null,
+          "active": true,
+          "components": [
+            {
+              "type": "Transform",
+              "position": [
+                4.453125,
+                0.1,
+                1.25
+              ],
+              "rotation": [
+                0,
+                0,
+                0
+              ],
+              "scale": [
+                1,
+                1,
+                1
+              ]
+            },
+            {
+              "type": "LegacyEntity",
+              "data": {
+                "id": 4,
+                "name": "Reconnaissance",
+                "type": "object",
+                "x": 285,
+                "y": 80,
+                "w": 54,
+                "h": 72,
+                "depth3d": 54,
+                "elevation3d": 0.1,
+                "color": "#b38eda",
+                "visible": true,
+                "enabled": true,
+                "collision3d": false,
+                "solid3d": false,
+                "hierarchyGroup": "Extension · WarNode",
+                "sequence": {
+                  "event": "interact",
+                  "key": "e",
+                  "radius": 130,
+                  "once": false,
+                  "conditions": [],
+                  "instructions": [],
+                  "branches": [
+                    {
+                      "conditions": [
+                        {
+                          "type": "variable",
+                          "key": "turnAP",
+                          "value": 1,
+                          "operator": ">="
+                        }
+                      ],
+                      "instructions": [
+                        {
+                          "type": "addVariable",
+                          "key": "turnAP",
+                          "value": -1
+                        },
+                        {
+                          "type": "setVariable",
+                          "key": "turnIntel",
+                          "value": 1
+                        },
+                        {
+                          "type": "message",
+                          "value": "Secteur reconnu."
+                        }
+                      ]
+                    }
+                  ],
+                  "elseInstructions": [
+                    {
+                      "type": "message",
+                      "value": "Plus de points tactiques."
+                    }
+                  ]
+                },
+                "interactable": {
+                  "enabled": true,
+                  "maxDistance": 3,
+                  "prompt": "Reconnaissance"
+                }
+              }
+            },
+            {
+              "type": "sequence",
+              "data": {
+                "event": "interact",
+                "key": "e",
+                "radius": 130,
+                "once": false,
+                "conditions": [],
+                "instructions": [],
+                "branches": [
+                  {
+                    "conditions": [
+                      {
+                        "type": "variable",
+                        "key": "turnAP",
+                        "value": 1,
+                        "operator": ">="
+                      }
+                    ],
+                    "instructions": [
+                      {
+                        "type": "addVariable",
+                        "key": "turnAP",
+                        "value": -1
+                      },
+                      {
+                        "type": "setVariable",
+                        "key": "turnIntel",
+                        "value": 1
+                      },
+                      {
+                        "type": "message",
+                        "value": "Secteur reconnu."
+                      }
+                    ]
+                  }
+                ],
+                "elseInstructions": [
+                  {
+                    "type": "message",
+                    "value": "Plus de points tactiques."
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "id": "entity-5",
+          "sourceEntityId": 5,
+          "name": "Mouvement ordonné",
+          "parentId": null,
+          "active": true,
+          "components": [
+            {
+              "type": "Transform",
+              "position": [
+                7.03125,
+                0.1,
+                1.25
+              ],
+              "rotation": [
+                0,
+                0,
+                0
+              ],
+              "scale": [
+                1,
+                1,
+                1
+              ]
+            },
+            {
+              "type": "LegacyEntity",
+              "data": {
+                "id": 5,
+                "name": "Mouvement ordonné",
+                "type": "object",
+                "x": 450,
+                "y": 80,
+                "w": 54,
+                "h": 72,
+                "depth3d": 54,
+                "elevation3d": 0.1,
+                "color": "#d6a96f",
+                "visible": true,
+                "enabled": true,
+                "collision3d": false,
+                "solid3d": false,
+                "hierarchyGroup": "Extension · WarNode",
+                "sequence": {
+                  "event": "interact",
+                  "key": "e",
+                  "radius": 130,
+                  "once": false,
+                  "conditions": [],
+                  "instructions": [],
+                  "branches": [
+                    {
+                      "conditions": [
+                        {
+                          "type": "variable",
+                          "key": "turnAP",
+                          "value": 1,
+                          "operator": ">="
+                        }
+                      ],
+                      "instructions": [
+                        {
+                          "type": "addVariable",
+                          "key": "turnAP",
+                          "value": -1
+                        },
+                        {
+                          "type": "addVariable",
+                          "key": "turnControl",
+                          "value": 1
+                        },
+                        {
+                          "type": "message",
+                          "value": "Mouvement validé : relier à la navigation de l'unité."
+                        }
+                      ]
+                    }
+                  ],
+                  "elseInstructions": [
+                    {
+                      "type": "message",
+                      "value": "Termine ton tour."
+                    }
+                  ]
+                },
+                "interactable": {
+                  "enabled": true,
+                  "maxDistance": 3,
+                  "prompt": "Mouvement ordonné"
+                }
+              }
+            },
+            {
+              "type": "sequence",
+              "data": {
+                "event": "interact",
+                "key": "e",
+                "radius": 130,
+                "once": false,
+                "conditions": [],
+                "instructions": [],
+                "branches": [
+                  {
+                    "conditions": [
+                      {
+                        "type": "variable",
+                        "key": "turnAP",
+                        "value": 1,
+                        "operator": ">="
+                      }
+                    ],
+                    "instructions": [
+                      {
+                        "type": "addVariable",
+                        "key": "turnAP",
+                        "value": -1
+                      },
+                      {
+                        "type": "addVariable",
+                        "key": "turnControl",
+                        "value": 1
+                      },
+                      {
+                        "type": "message",
+                        "value": "Mouvement validé : relier à la navigation de l'unité."
+                      }
+                    ]
+                  }
+                ],
+                "elseInstructions": [
+                  {
+                    "type": "message",
+                    "value": "Termine ton tour."
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "id": "entity-6",
+          "sourceEntityId": 6,
+          "name": "Attaque tactique",
+          "parentId": null,
+          "active": true,
+          "components": [
+            {
+              "type": "Transform",
+              "position": [
+                1.875,
+                0.1,
+                3.984375
+              ],
+              "rotation": [
+                0,
+                0,
+                0
+              ],
+              "scale": [
+                1,
+                1,
+                1
+              ]
+            },
+            {
+              "type": "LegacyEntity",
+              "data": {
+                "id": 6,
+                "name": "Attaque tactique",
+                "type": "object",
+                "x": 120,
+                "y": 255,
+                "w": 54,
+                "h": 72,
+                "depth3d": 54,
+                "elevation3d": 0.1,
+                "color": "#76b7a2",
+                "visible": true,
+                "enabled": true,
+                "collision3d": false,
+                "solid3d": false,
+                "hierarchyGroup": "Extension · WarNode",
+                "sequence": {
+                  "event": "interact",
+                  "key": "e",
+                  "radius": 130,
+                  "once": false,
+                  "conditions": [],
+                  "instructions": [],
+                  "branches": [
+                    {
+                      "conditions": [
+                        {
+                          "type": "variable",
+                          "key": "turnAP",
+                          "value": 2,
+                          "operator": ">="
+                        },
+                        {
+                          "type": "variable",
+                          "key": "turnIntel",
+                          "value": 1,
+                          "operator": "=="
+                        }
+                      ],
+                      "instructions": [
+                        {
+                          "type": "addVariable",
+                          "key": "turnAP",
+                          "value": -2
+                        },
+                        {
+                          "type": "addVariable",
+                          "key": "turnControl",
+                          "value": 1
+                        },
+                        {
+                          "type": "message",
+                          "value": "Action tactique autorisée : connecter le système de combat."
+                        }
+                      ]
+                    }
+                  ],
+                  "elseInstructions": [
+                    {
+                      "type": "message",
+                      "value": "Reconnaissance et deux points requis."
+                    }
+                  ]
+                },
+                "interactable": {
+                  "enabled": true,
+                  "maxDistance": 3,
+                  "prompt": "Attaque tactique"
+                }
+              }
+            },
+            {
+              "type": "sequence",
+              "data": {
+                "event": "interact",
+                "key": "e",
+                "radius": 130,
+                "once": false,
+                "conditions": [],
+                "instructions": [],
+                "branches": [
+                  {
+                    "conditions": [
+                      {
+                        "type": "variable",
+                        "key": "turnAP",
+                        "value": 2,
+                        "operator": ">="
+                      },
+                      {
+                        "type": "variable",
+                        "key": "turnIntel",
+                        "value": 1,
+                        "operator": "=="
+                      }
+                    ],
+                    "instructions": [
+                      {
+                        "type": "addVariable",
+                        "key": "turnAP",
+                        "value": -2
+                      },
+                      {
+                        "type": "addVariable",
+                        "key": "turnControl",
+                        "value": 1
+                      },
+                      {
+                        "type": "message",
+                        "value": "Action tactique autorisée : connecter le système de combat."
+                      }
+                    ]
+                  }
+                ],
+                "elseInstructions": [
+                  {
+                    "type": "message",
+                    "value": "Reconnaissance et deux points requis."
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "id": "entity-7",
+          "sourceEntityId": 7,
+          "name": "Terminer le tour",
+          "parentId": null,
+          "active": true,
+          "components": [
+            {
+              "type": "Transform",
+              "position": [
+                4.453125,
+                0.1,
+                3.984375
+              ],
+              "rotation": [
+                0,
+                0,
+                0
+              ],
+              "scale": [
+                1,
+                1,
+                1
+              ]
+            },
+            {
+              "type": "LegacyEntity",
+              "data": {
+                "id": 7,
+                "name": "Terminer le tour",
+                "type": "object",
+                "x": 285,
+                "y": 255,
+                "w": 54,
+                "h": 72,
+                "depth3d": 54,
+                "elevation3d": 0.1,
+                "color": "#7399dd",
+                "visible": true,
+                "enabled": true,
+                "collision3d": false,
+                "solid3d": false,
+                "hierarchyGroup": "Extension · WarNode",
+                "sequence": {
+                  "event": "interact",
+                  "key": "e",
+                  "radius": 130,
+                  "once": false,
+                  "conditions": [],
+                  "instructions": [
+                    {
+                      "type": "addVariable",
+                      "key": "turnNumber",
+                      "value": 1
+                    },
+                    {
+                      "type": "setVariable",
+                      "key": "turnAP",
+                      "value": 3
+                    },
+                    {
+                      "type": "message",
+                      "value": "Nouveau tour engagé."
+                    }
+                  ]
+                },
+                "interactable": {
+                  "enabled": true,
+                  "maxDistance": 3,
+                  "prompt": "Terminer le tour"
+                }
+              }
+            },
+            {
+              "type": "sequence",
+              "data": {
+                "event": "interact",
+                "key": "e",
+                "radius": 130,
+                "once": false,
+                "conditions": [],
+                "instructions": [
+                  {
+                    "type": "addVariable",
+                    "key": "turnNumber",
+                    "value": 1
+                  },
+                  {
+                    "type": "setVariable",
+                    "key": "turnAP",
+                    "value": 3
+                  },
+                  {
+                    "type": "message",
+                    "value": "Nouveau tour engagé."
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "id": "entity-8",
+          "sourceEntityId": 8,
+          "name": "Contrôle de zone",
+          "parentId": null,
+          "active": true,
+          "components": [
+            {
+              "type": "Transform",
+              "position": [
+                7.03125,
+                0.1,
+                3.984375
+              ],
+              "rotation": [
+                0,
+                0,
+                0
+              ],
+              "scale": [
+                1,
+                1,
+                1
+              ]
+            },
+            {
+              "type": "LegacyEntity",
+              "data": {
+                "id": 8,
+                "name": "Contrôle de zone",
+                "type": "object",
+                "x": 450,
+                "y": 255,
+                "w": 54,
+                "h": 72,
+                "depth3d": 54,
+                "elevation3d": 0.1,
+                "color": "#b38eda",
+                "visible": true,
+                "enabled": true,
+                "collision3d": false,
+                "solid3d": false,
+                "hierarchyGroup": "Extension · WarNode",
+                "sequence": {
+                  "event": "interact",
+                  "key": "e",
+                  "radius": 130,
+                  "once": false,
+                  "conditions": [],
+                  "instructions": [],
+                  "branches": [
+                    {
+                      "conditions": [
+                        {
+                          "type": "variable",
+                          "key": "turnControl",
+                          "value": 3,
+                          "operator": ">="
+                        }
+                      ],
+                      "instructions": [
+                        {
+                          "type": "winGame",
+                          "value": "Secteur contrôlé après plusieurs tours."
+                        }
+                      ]
+                    }
+                  ],
+                  "elseInstructions": [
+                    {
+                      "type": "message",
+                      "value": "Contrôle de zone insuffisant."
+                    }
+                  ]
+                },
+                "interactable": {
+                  "enabled": true,
+                  "maxDistance": 3,
+                  "prompt": "Contrôle de zone"
+                }
+              }
+            },
+            {
+              "type": "sequence",
+              "data": {
+                "event": "interact",
+                "key": "e",
+                "radius": 130,
+                "once": false,
+                "conditions": [],
+                "instructions": [],
+                "branches": [
+                  {
+                    "conditions": [
+                      {
+                        "type": "variable",
+                        "key": "turnControl",
+                        "value": 3,
+                        "operator": ">="
+                      }
+                    ],
+                    "instructions": [
+                      {
+                        "type": "winGame",
+                        "value": "Secteur contrôlé après plusieurs tours."
+                      }
+                    ]
+                  }
+                ],
+                "elseInstructions": [
+                  {
+                    "type": "message",
+                    "value": "Contrôle de zone insuffisant."
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "assets": [],
+  "settings": {
+    "startSceneId": "demo-warlike-turnbased-operations-2d"
+  }
+}

@@ -1,6 +1,6 @@
 {
   "schema": "warlike.extensions.catalog.v1",
-  "version": 2,
+  "version": 3,
   "items": [
     {
       "id": "warlike-gaia-terrain",
@@ -303,6 +303,246 @@
         "2d",
         "3d"
       ]
+    },
+    {
+      "id": "warlike-interaction-lab",
+      "name": "Interaction Lab · Portes et consoles",
+      "app": "Engine",
+      "category": "Interactions",
+      "description": "Six recettes WarNode : badge, levier, console, porte à signal et extraction. Colliders et animations à configurer.",
+      "status": "blueprint",
+      "file": "./extensions/warlike-interaction-lab.json",
+      "format": "Blueprint JSON",
+      "version": "1.0.0",
+      "modes": [
+        "2d",
+        "3d"
+      ],
+      "sceneFile": "./extensions/scenes/warlike-interaction-lab.project-v2.json",
+      "scene2dFile": "./extensions/scenes/warlike-interaction-lab.project-v2-2d.json"
+    },
+    {
+      "id": "warlike-fps-operation",
+      "name": "FPS · Opération et extraction",
+      "app": "Engine",
+      "category": "FPS / TPS",
+      "description": "Six recettes de mission FPS : briefing, ravitaillement, documents, relais, contrôle et extraction. IA et tir séparés.",
+      "status": "blueprint",
+      "file": "./extensions/warlike-fps-operation.json",
+      "format": "Blueprint JSON",
+      "version": "1.0.0",
+      "modes": [
+        "3d"
+      ],
+      "sceneFile": "./extensions/scenes/warlike-fps-operation.project-v2.json"
+    },
+    {
+      "id": "warlike-tactical-command",
+      "name": "Tactique RTS · Commandement de terrain",
+      "app": "Engine",
+      "category": "RTS / Stratégie",
+      "description": "Six recettes pour secteurs, ravitaillement et ordres abstraits ; création et conduite des unités à intégrer.",
+      "status": "blueprint",
+      "file": "./extensions/warlike-tactical-command.json",
+      "format": "Blueprint JSON",
+      "version": "1.0.0",
+      "modes": [
+        "2d",
+        "3d"
+      ],
+      "sceneFile": "./extensions/scenes/warlike-tactical-command.project-v2.json",
+      "scene2dFile": "./extensions/scenes/warlike-tactical-command.project-v2-2d.json"
+    },
+    {
+      "id": "warlike-tower-defense-planner",
+      "name": "Tower Defense · Économie et vagues",
+      "app": "Engine",
+      "category": "Tower Defense",
+      "description": "Six recettes pour crédits, tours budgétées, améliorations et vagues. Spawn et projectiles non inclus.",
+      "status": "blueprint",
+      "file": "./extensions/warlike-tower-defense-planner.json",
+      "format": "Blueprint JSON",
+      "version": "1.0.0",
+      "modes": [
+        "2d",
+        "3d"
+      ],
+      "sceneFile": "./extensions/scenes/warlike-tower-defense-planner.project-v2.json",
+      "scene2dFile": "./extensions/scenes/warlike-tower-defense-planner.project-v2-2d.json"
+    },
+    {
+      "id": "warlike-detective-case",
+      "name": "Detective Stories · Enquête à indices",
+      "app": "Engine",
+      "category": "Mystère",
+      "description": "Six recettes pour indices, témoin, déduction et résolution d'une enquête.",
+      "status": "blueprint",
+      "file": "./extensions/warlike-detective-case.json",
+      "format": "Blueprint JSON",
+      "version": "1.0.0",
+      "modes": [
+        "2d",
+        "3d"
+      ],
+      "sceneFile": "./extensions/scenes/warlike-detective-case.project-v2.json",
+      "scene2dFile": "./extensions/scenes/warlike-detective-case.project-v2-2d.json"
+    },
+    {
+      "id": "warlike-horror-power-grid",
+      "name": "Survival Horror · Réseau et secours",
+      "app": "Engine",
+      "category": "Horreur",
+      "description": "Six recettes de fusibles, générateur et extraction, sans prétendre fournir une IA de monstre.",
+      "status": "blueprint",
+      "file": "./extensions/warlike-horror-power-grid.json",
+      "format": "Blueprint JSON",
+      "version": "1.0.0",
+      "modes": [
+        "3d"
+      ],
+      "sceneFile": "./extensions/scenes/warlike-horror-power-grid.project-v2.json"
+    },
+    {
+      "id": "warlike-supermarket-business",
+      "name": "Supermarket · Gestion de magasin",
+      "app": "Engine",
+      "category": "Commerce",
+      "description": "Six recettes pour achats, stocks, ventes, audit et amélioration commerciale.",
+      "status": "blueprint",
+      "file": "./extensions/warlike-supermarket-business.json",
+      "format": "Blueprint JSON",
+      "version": "1.0.0",
+      "modes": [
+        "2d",
+        "3d"
+      ],
+      "sceneFile": "./extensions/scenes/warlike-supermarket-business.project-v2.json",
+      "scene2dFile": "./extensions/scenes/warlike-supermarket-business.project-v2-2d.json"
+    },
+    {
+      "id": "warlike-construction-operations",
+      "name": "Construction · Chantier et réception",
+      "app": "Engine",
+      "category": "Construction",
+      "description": "Six recettes pour budget, matériaux, fondations, inspection et levage. Prefabs et engins à ajouter.",
+      "status": "blueprint",
+      "file": "./extensions/warlike-construction-operations.json",
+      "format": "Blueprint JSON",
+      "version": "1.0.0",
+      "modes": [
+        "3d"
+      ],
+      "sceneFile": "./extensions/scenes/warlike-construction-operations.project-v2.json"
+    },
+    {
+      "id": "warlike-rpg-dungeon-relay",
+      "name": "RPG · Donjon, pièges et reliques",
+      "app": "Engine",
+      "category": "RPG",
+      "description": "Six recettes pour clés, reliques, leviers, fontaine et sortie conditionnelle.",
+      "status": "blueprint",
+      "file": "./extensions/warlike-rpg-dungeon-relay.json",
+      "format": "Blueprint JSON",
+      "version": "1.0.0",
+      "modes": [
+        "2d",
+        "3d"
+      ],
+      "sceneFile": "./extensions/scenes/warlike-rpg-dungeon-relay.project-v2.json",
+      "scene2dFile": "./extensions/scenes/warlike-rpg-dungeon-relay.project-v2-2d.json"
+    },
+    {
+      "id": "warlike-turnbased-operations",
+      "name": "Stratégie · Campagne au tour par tour",
+      "app": "Engine",
+      "category": "Tour par tour",
+      "description": "Six recettes pour points d'action, reconnaissance, progression et changements de tour ; grille et IA à compléter.",
+      "status": "blueprint",
+      "file": "./extensions/warlike-turnbased-operations.json",
+      "format": "Blueprint JSON",
+      "version": "1.0.0",
+      "modes": [
+        "2d",
+        "3d"
+      ],
+      "sceneFile": "./extensions/scenes/warlike-turnbased-operations.project-v2.json",
+      "scene2dFile": "./extensions/scenes/warlike-turnbased-operations.project-v2-2d.json"
+    },
+    {
+      "id": "warlike-farming-greenhouse",
+      "name": "Farm Life · Serre et circuit de vente",
+      "app": "Engine",
+      "category": "Agriculture",
+      "description": "Six recettes pour achat de semences, eau, récolte et vente. Croissance visuelle non incluse.",
+      "status": "blueprint",
+      "file": "./extensions/warlike-farming-greenhouse.json",
+      "format": "Blueprint JSON",
+      "version": "1.0.0",
+      "modes": [
+        "2d",
+        "3d"
+      ],
+      "sceneFile": "./extensions/scenes/warlike-farming-greenhouse.project-v2.json",
+      "scene2dFile": "./extensions/scenes/warlike-farming-greenhouse.project-v2-2d.json"
+    },
+    {
+      "id": "warlike-garage-pitstop",
+      "name": "Garage · Entretien et course",
+      "app": "Engine",
+      "category": "Véhicules",
+      "description": "Six recettes pour l'entretien, le carburant, le départ et les checkpoints. Physique véhicule non modifiée.",
+      "status": "blueprint",
+      "file": "./extensions/warlike-garage-pitstop.json",
+      "format": "Blueprint JSON",
+      "version": "1.0.0",
+      "modes": [
+        "3d"
+      ],
+      "sceneFile": "./extensions/scenes/warlike-garage-pitstop.project-v2.json"
+    },
+    {
+      "id": "studio-genre-vocal-chains",
+      "name": "Studio · Chaînes vocales Trap, Drill, Afro et R&B",
+      "app": "Studio",
+      "category": "Audio",
+      "description": "Quatre chaînes vocales de piste fondées sur les effets déjà déclarés : sculpt, glue, sibil, aura.",
+      "status": "preset",
+      "file": "./extensions/studio-genre-vocal-chains.json",
+      "format": "JSON",
+      "version": "1.0.0"
+    },
+    {
+      "id": "node-cinematic-looks",
+      "name": "Node · Quatre ambiances cinématiques",
+      "app": "Node",
+      "category": "Compositing",
+      "description": "Graphes natifs pour horreur, clip doré, polar noir et blanc et ambiance douce.",
+      "status": "preset",
+      "file": "./extensions/node-cinematic-looks.json",
+      "format": "JSON",
+      "version": "1.0.0"
+    },
+    {
+      "id": "monteur-cinematic-motions",
+      "name": "Monteur · Mouvements cinématiques",
+      "app": "Monteur",
+      "category": "Montage",
+      "description": "Cinq trajectoires de keyframes : travelling, horreur, panoramique musical, survol RTS et apparition.",
+      "status": "preset",
+      "file": "./extensions/monteur-cinematic-motions.json",
+      "format": "JSON",
+      "version": "1.0.0"
+    },
+    {
+      "id": "misc-modern-music-course",
+      "name": "MISC · Parcours musique moderne",
+      "app": "MISC",
+      "category": "Éducation",
+      "description": "Programmes de référence guitare électrique, composition Trap/Drill et rythmes Afro ; non interactifs.",
+      "status": "preset",
+      "file": "./extensions/misc-modern-music-course.json",
+      "format": "JSON",
+      "version": "1.0.0"
     }
   ]
 }

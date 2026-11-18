@@ -1,0 +1,81 @@
+{
+  "schema": "warlike.misc.practice-plan.v1",
+  "compatibility": "reference-only",
+  "instruments": [
+    {
+      "name": "Guitare électrique",
+      "sessions": [
+        {
+          "week": 1,
+          "focus": "Power chords, palm mute et jeu régulier au métronome",
+          "minutes": 25
+        },
+        {
+          "week": 2,
+          "focus": "Riffs rock en doubles croches, main droite et dynamique",
+          "minutes": 30
+        },
+        {
+          "week": 3,
+          "focus": "Progression mineure et arpèges atmosphériques",
+          "minutes": 35
+        },
+        {
+          "week": 4,
+          "focus": "Enregistrer deux prises et travailler la précision rythmique",
+          "minutes": 40
+        }
+      ]
+    },
+    {
+      "name": "Claviers Trap / Drill",
+      "sessions": [
+        {
+          "week": 1,
+          "focus": "Accords mineurs et renversements sur 4 mesures",
+          "minutes": 25
+        },
+        {
+          "week": 2,
+          "focus": "Mélodies de piano à motifs et silences",
+          "minutes": 30
+        },
+        {
+          "week": 3,
+          "focus": "Contre-mélodie et basse harmonique indépendante",
+          "minutes": 35
+        },
+        {
+          "week": 4,
+          "focus": "Arrangement intro, couplet et refrain avec contrastes",
+          "minutes": 40
+        }
+      ]
+    },
+    {
+      "name": "Batterie / Rythme",
+      "sessions": [
+        {
+          "week": 1,
+          "focus": "Subdivision croches, doubles et triolet",
+          "minutes": 20
+        },
+        {
+          "week": 2,
+          "focus": "Grooves syncopés Afro et contretemps",
+          "minutes": 25
+        },
+        {
+          "week": 3,
+          "focus": "Placement kick, snare et charleston en trap",
+          "minutes": 30
+        },
+        {
+          "week": 4,
+          "focus": "Improviser fills et transitions naturelles",
+          "minutes": 35
+        }
+      ]
+    }
+  ]
+}
