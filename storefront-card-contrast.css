@@ -1,0 +1,48 @@
+/* Fix legibility of seven-column catalog under all four WarLike themes.
+   Do not modify GLB thumbnail pixels or alter layout dimensions. */
+html[data-warlike-app="warlike-asset-stores"] #cards .card{
+ background:var(--wl-surface)!important;
+ color:var(--wl-fg)!important;
+ border-color:var(--wl-border)!important;
+}
+html[data-warlike-app="warlike-asset-stores"] #cards .card .content{
+ background:var(--wl-surface)!important;
+ color:var(--wl-fg)!important;
+}
+html[data-warlike-app="warlike-asset-stores"] #cards .card .content :is(h3,strong,.card-name){
+ color:var(--wl-fg)!important;
+}
+html[data-warlike-app="warlike-asset-stores"] #cards .card .content :is(.small,p,.stat,.detail){
+ color:var(--wl-fg-muted)!important;
+}
+html[data-warlike-app="warlike-asset-stores"] #cards .card .buttons .btn{
+ background:var(--wl-input)!important;
+ color:var(--wl-fg)!important;
+ border:1px solid var(--wl-border)!important;
+}
+html[data-warlike-app="warlike-asset-stores"] #cards .card .buttons .btn:hover{
+ background:var(--wl-surface-hover)!important;
+}
+html[data-warlike-app="warlike-asset-stores"] #cards .card .buttons .btn.primary{
+ background:var(--wl-accent)!important;
+ color:var(--wl-accent-contrast)!important;
+ border-color:var(--wl-accent)!important;
+ font-weight:750;
+}
+html[data-warlike-app="warlike-asset-stores"] #cards .card .buttons .btn.primary:hover{
+ filter:brightness(.94);
+}
+html[data-warlike-app="warlike-asset-stores"] #cards .card .content a{
+ color:var(--wl-accent)!important;
+}
+html[data-warlike-app="warlike-asset-stores"] #cards .card .visual{
+ background:var(--wl-surface-raised)!important;
+}
+html[data-warlike-app="warlike-asset-stores"] #cards .card .visual :is(.chip,.preview-tag){
+ background:var(--wl-surface)!important;color:var(--wl-fg)!important;border-color:var(--wl-border)!important;
+}
+/* Keep badges and thumbnail readability for the light palette. */
+html[data-warlike-app="warlike-asset-stores"][data-wl-theme="sand-light"] #cards .card .content{
+ background:var(--wl-surface)!important;
+ color:var(--wl-fg)!important;
+}
