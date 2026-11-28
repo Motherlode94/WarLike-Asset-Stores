@@ -8,6 +8,8 @@
  --wl-success:#A5C48F;--wl-warning:#E1BE74;--wl-danger:#E5A097;--wl-info:#B6CDB8;
  --wl-primary:var(--wl-accent);--wl-primary-text:var(--wl-accent-contrast);
  --wl-text:var(--wl-fg);--wl-text-muted:var(--wl-fg-muted);--wl-surface-alt:var(--wl-surface-raised);
+ /* warlike-clean.css colours headings with --wl-ink (a light-theme value): follow the active palette. */
+ --wl-ink:var(--wl-fg);
  color-scheme:dark;
 }
 :root[data-wl-theme="sand-light"]{
@@ -64,3 +66,21 @@ html[data-warlike-app="warlike-asset-stores"] :is(.store-nav a[aria-current=page
 #warlike-theme-switcher label{white-space:nowrap;color:var(--wl-fg)}
 #warlike-theme-switcher select{min-width:0;max-width:155px;min-height:34px;border:1px solid var(--wl-border);background:var(--wl-input);color:var(--wl-fg);border-radius:7px;padding:6px;font:inherit}
 @media(max-width:600px){#warlike-theme-switcher{bottom:8px;right:8px;padding:5px 7px}#warlike-theme-switcher label{font-size:11px}}
+
+/* Inline (slotted) theme selector: part of the page header, never over the content. */
+#warlike-theme-switcher.wl-theme-inline{position:static;inset:auto;z-index:auto;box-shadow:none;background:transparent;border:0;padding:0;max-width:none;gap:6px}
+#warlike-theme-switcher.wl-theme-inline label{font-size:12px;color:var(--wl-muted,var(--wl-fg));opacity:.85}
+#warlike-theme-switcher.wl-theme-inline select{min-height:30px;font-size:12px}
+
+/* warlike-clean.css starts hero gradients from --wl-ivory (near-white), which made hero text unreadable on
+   dark palettes. Keep the hero within the active palette's surfaces. */
+html[data-warlike-app][data-wl-theme] :is(.hero,.welcome,.feature-strip){background-image:linear-gradient(115deg,var(--wl-surface-raised),var(--wl-surface))}
+
+/* Store · one header across every page (2026-11-28): wordmark in the palette accent, quiet links,
+   theme selector inline. Pages keep their own layout. */
+html[data-warlike-app="warlike-asset-stores"] body header :is(.logo,.brand):not(a):not(.mark){background:none;color:var(--wl-fg);letter-spacing:.06em}
+html[data-warlike-app="warlike-asset-stores"] body header :is(.logo,.brand) :is(span,strong){color:var(--wl-accent)}
+html[data-warlike-app="warlike-asset-stores"] body header :is(.row,nav)>a{color:var(--wl-fg-muted);text-decoration:none;font-size:13px}
+html[data-warlike-app="warlike-asset-stores"] body header :is(.row,nav)>a:hover{color:var(--wl-fg);text-decoration:underline}
+html[data-warlike-app="warlike-asset-stores"] body header :is(.row,nav):has(>.wl-theme-slot){display:flex;flex-wrap:wrap;align-items:center;justify-content:flex-end;gap:6px 14px}
+html[data-warlike-app="warlike-asset-stores"] body header .wl-theme-slot{display:inline-flex;align-items:center}

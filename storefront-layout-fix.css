@@ -60,3 +60,24 @@ html[data-warlike-app="warlike-asset-stores"] #cards .buttons .btn{min-height:32
 @media(min-width:721px) and (max-width:1049px){html[data-warlike-app="warlike-asset-stores"] #cards{grid-template-columns:repeat(3,minmax(0,1fr))}}
 @media(max-width:720px){html[data-warlike-app="warlike-asset-stores"] .layout{display:block}html[data-warlike-app="warlike-asset-stores"] #cards{grid-template-columns:repeat(2,minmax(0,1fr))}html[data-warlike-app="warlike-asset-stores"] .sidebar .filters{display:flex;overflow-x:auto}html[data-warlike-app="warlike-asset-stores"] main>.hero{padding:14px}}
 @media(max-width:360px){html[data-warlike-app="warlike-asset-stores"] #cards{grid-template-columns:minmax(0,1fr)}}
+
+/* 2026-11-28 · Store polish */
+/* Category rail scrolls horizontally: fade the right edge so it reads as scrollable. */
+html[data-warlike-app="warlike-asset-stores"] main > .store-nav{scrollbar-width:thin;scroll-snap-type:x proximity;-webkit-mask-image:linear-gradient(90deg,#000 calc(100% - 48px),transparent);mask-image:linear-gradient(90deg,#000 calc(100% - 48px),transparent);padding-right:48px}
+html[data-warlike-app="warlike-asset-stores"] main > .store-nav a{scroll-snap-align:start}
+/* Filters: the search keeps a usable width; menus wrap to the next line instead of crushing it. */
+html[data-warlike-app="warlike-asset-stores"] .toolbar{flex-wrap:wrap}
+html[data-warlike-app="warlike-asset-stores"] .toolbar input[type=search]{flex:1 1 260px;min-width:220px}
+/* Sidebar link styled like the rest of the Store, not as a default blue link. */
+html[data-warlike-app="warlike-asset-stores"] .sidebar a.file{display:block;margin-top:10px;color:var(--wl-accent);text-decoration:none;font-weight:600;font-size:13px}
+html[data-warlike-app="warlike-asset-stores"] .sidebar a.file:hover{text-decoration:underline}
+/* Header: theme selector sits with the header links. */
+html[data-warlike-app="warlike-asset-stores"] header.top .wl-theme-slot{display:flex;align-items:center;margin-left:auto}
+/* The shell paints .logo as a square brand mark; the Store logo is a wordmark. */
+html[data-warlike-app="warlike-asset-stores"] header.top .logo{background:none;color:var(--wl-fg)}
+/* "Explorer la collection": a quiet text link, as on marketplace rails, not a filled block. */
+html[data-warlike-app="warlike-asset-stores"] main .market-section>.market-heading>button.see-all-link:not(.primary){background:none;border:0;padding:4px 2px;color:var(--wl-accent);font-weight:600;font-size:14px;cursor:pointer}
+html[data-warlike-app="warlike-asset-stores"] .market-heading>button.see-all-link::after{content:" →"}
+html[data-warlike-app="warlike-asset-stores"] main .market-section>.market-heading>button.see-all-link:not(.primary):hover{text-decoration:underline}
+/* Hero figures follow the palette (they were hard-coded white: invisible on Sand Light). */
+html[data-warlike-app="warlike-asset-stores"] .hero .stats strong{color:var(--wl-fg)}

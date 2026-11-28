@@ -24,7 +24,12 @@ export function mountWarLikeThemeSelector(){
  select.value=initializeWarLikeTheme();
  select.addEventListener('change',()=>{select.value=applyWarLikeTheme(select.value)});
  addEventListener('storage',event=>{if(event.key===WARLIKE_THEME_KEY){select.value=applyWarLikeTheme(event.newValue,{persist:false})}});
- wrapper.append(label,select);document.body.append(wrapper);return wrapper;
+ wrapper.append(label,select);
+ // A page can reserve a place for the selector (header, settings…) with data-wl-theme-slot: it is then
+ // shown inline instead of floating over the content. Without a slot the floating widget is unchanged.
+ const slot=document.querySelector('[data-wl-theme-slot]');
+ if(slot){wrapper.classList.add('wl-theme-inline');label.textContent='Thème';slot.append(wrapper)}else document.body.append(wrapper);
+ return wrapper;
 }
 if(typeof document!=='undefined'){
  // Apply the saved palette immediately; mount controls only when DOM is ready.
